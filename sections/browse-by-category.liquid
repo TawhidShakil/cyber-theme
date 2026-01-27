@@ -1,0 +1,335 @@
+<script src="https://cdn.tailwindcss.com"></script>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+
+<style>
+
+  body {
+    font-family: 'Inter'
+    , sans-serif;
+  }
+
+  /* Hide scrollbar for clean look */
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+</style>
+
+
+<section class=" wmax-w-[1440px] mx-auto pt-20 pb-12 px-40 overflow-hidden">
+
+  <div class="flex items-end justify-between mb-10 ml-[30px] mr-[30px]">
+
+    <div class="flex flex-col gap-">
+
+
+      <h2 class="text-[24px] font-medium tracking-tight text-black">Browse By Category</h2>
+
+    </div>
+
+
+    <div class="flex gap-6 ">
+
+      <button id="prevBtn" class="w-11 h-11 flex items-center justify-center rounded-full bg-[#F5F5F5] hover:bg-gray-200 transition-colors">
+
+        <img src="assets/arrow-icon/Arrow-2.png" alt="Previous">
+
+      </button>
+
+      <button id="nextBtn" class="w-11 h-11 flex items-center justify-center rounded-full bg-[#F5F5F5] hover:bg-gray-200 transition-colors">
+
+        <img src="assets/arrow-icon/Arrow.png" alt="Next">
+
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <div id="categorySlider" class=" ml-[30px] mr-[30px] flex gap-8 overflow-x-auto scrollbar-hide scroll-smooth snap-x snap-mandatory">
+
+
+    <a href="#" class="group flex-none w-[calc(50%-12px)] sm:w-[calc(33.33%-16px)] md:w-[calc(25%-18px)] lg:w-[calc(16.666%-20px)] flex flex-col items-center justify-center rounded-[10px] bg-gray-300 hover:bg-[#ed1212] hover:border-[#DB4444] transition-all duration-300 snap-start">
+
+      <div class="mb-4 transition-all duration-300 group-hover:brightness-0 group-hover:invert">
+
+        <img
+          src="assets/categori-icon/Phones.png"
+          alt="Phones"
+          class="w-14 h-14 object-contain">
+
+      </div>
+
+      <span class="text-[16px] font-medium text-black group-hover:text-white transition-colors">Phones</span>
+
+    </a>
+
+
+    <a href="#" class="group flex-none w-[calc(50%-12px)] sm:w-[calc(33.33%-16px)] md:w-[calc(25%-18px)] lg:w-[calc(16.666%-20px)] flex flex-col items-center justify-center rounded-[10px] bg-gray-300 hover:bg-[#DB4444] hover:border-[#DB4444] transition-all duration-300 snap-start">
+
+      <div class="mb-4 transition-all duration-300 group-hover:brightness-0 group-hover:invert">
+
+        <img
+          src="assets/categori-icon/Smart-Watches.png"
+          alt="Watches"
+          class="w-14 h-14 object-contain">
+
+      </div>
+
+      <span class="text-[16px] font-medium text-black group-hover:text-white transition-colors">Smart Watches</span>
+
+    </a>
+
+
+    <a href="#" class="group flex-none w-[calc(50%-12px)] sm:w-[calc(33.33%-16px)] md:w-[calc(25%-18px)] lg:w-[calc(16.666%-20px)] flex flex-col items-center justify-center rounded-[10px] bg-gray-300 hover:bg-[#DB4444] hover:border-[#DB4444] transition-all duration-300 snap-start">
+
+      <div class="mb-4 transition-all duration-300 group-hover:brightness-0 group-hover:invert">
+
+        <img
+          src="assets/categori-icon/Cameras.png"
+          alt="Cameras"
+          class="w-14 h-14 object-contain">
+
+      </div>
+
+      <span class="text-base font-medium text-black group-hover:text-white transition-colors">Cameras</span>
+
+    </a>
+
+
+    <a href="#" class="group flex-none w-[calc(50%-12px)] sm:w-[calc(33.33%-16px)] md:w-[calc(25%-18px)] lg:w-[calc(16.666%-20px)] flex flex-col items-center justify-center rounded-[10px] bg-gray-300 hover:bg-[#DB4444] hover:border-[#DB4444] transition-all duration-300 snap-start">
+
+      <div class="mb-4 transition-all duration-300 group-hover:brightness-0 group-hover:invert">
+
+        <img
+          src="assets/categori-icon/Headphones.png"
+          alt="Headphones"
+          class="w-14 h-14 object-contain">
+
+      </div>
+
+      <span class="text-base font-medium text-black group-hover:text-white transition-colors">Headphones</span>
+
+    </a>
+
+
+    <a href="#" class="group flex-none w-[calc(50%-12px)] sm:w-[calc(33.33%-16px)] md:w-[calc(25%-18px)] lg:w-[calc(16.666%-20px)] flex flex-col items-center justify-center rounded-[10px] bg-gray-300 hover:bg-[#DB4444] hover:border-[#DB4444] transition-all duration-300 snap-start">
+
+      <div class="mb-4 transition-all duration-300 group-hover:brightness-0 group-hover:invert">
+
+        <img
+          src="assets/categori-icon/Computers.png"
+          alt="Computer"
+          class="w-14 h-14 object-contain">
+
+      </div>
+
+      <span class="text-base font-medium text-black group-hover:text-white transition-colors">Computer</span>
+
+    </a>
+
+
+    <a href="#" class="group flex-none w-[calc(50%-12px)] sm:w-[calc(33.33%-16px)] md:w-[calc(25%-18px)] lg:w-[calc(16.666%-20px)] flex flex-col items-center justify-center rounded-[10px] bg-gray-300 hover:bg-[#DB4444] hover:border-[#DB4444] transition-all duration-300 snap-start">
+
+      <div class="mb-4 transition-all duration-300 group-hover:brightness-0 group-hover:invert">
+
+        <img
+          src="assets/categori-icon/Gaming.png"
+          alt="Gaming"
+          class="w-14 h-14 object-contain">
+
+      </div>
+
+      <span class="text-base font-medium text-black group-hover:text-white transition-colors">Gaming</span>
+
+    </a>
+
+
+    <a href="#" class="group flex-none w-[calc(50%-12px)] sm:w-[calc(33.33%-16px)] md:w-[calc(25%-18px)] lg:w-[calc(16.666%-20px)] flex flex-col items-center justify-center rounded-[10px] bg-gray-300 hover:bg-[#DB4444] hover:border-[#DB4444] transition-all duration-300 snap-start">
+
+      <div class="mb-4 transition-all duration-300 group-hover:brightness-0 group-hover:invert">
+
+        <img
+          src="assets/categori-icon/Headphones.png"
+          alt="Headphones"
+          class="w-14 h-14 object-contain">
+
+      </div>
+
+      <span class="text-base font-medium text-black group-hover:text-white transition-colors">New Arrival</span>
+
+    </a>
+
+
+    <a href="#" class="group flex-none w-[calc(50%-12px)] sm:w-[calc(33.33%-16px)] md:w-[calc(25%-18px)] lg:w-[calc(16.666%-20px)] flex flex-col items-center justify-center aspect-square border border-gray-200 rounded-[10px] bg-gray-300 hover:bg-[#DB4444] hover:border-[#DB4444] transition-all duration-300 snap-start">
+
+      <div class="mb-4 transition-all duration-300 group-hover:brightness-0 group-hover:invert">
+
+        <img
+          src="assets/categori-icon/Computers.png"
+          alt="Computer"
+          class="w-14 h-14 object-contain">
+
+      </div>
+
+      <span class="text-base font-medium text-black group-hover:text-white transition-colors">Computer</span>
+
+    </a>
+
+
+    <a href="#" class="group flex-none w-[calc(50%-12px)] sm:w-[calc(33.33%-16px)] md:w-[calc(25%-18px)] lg:w-[calc(16.666%-20px)] flex flex-col items-center justify-center rounded-[10px] bg-gray-300 hover:bg-[#DB4444] hover:border-[#DB4444] transition-all duration-300 snap-start">
+
+      <div class="mb-4 transition-all duration-300 group-hover:brightness-0 group-hover:invert">
+
+        <img
+          src="assets/categori-icon/Computers.png"
+          alt="Computer"
+          class="w-14 h-14 object-contain">
+
+      </div>
+
+      <span class="text-base font-medium text-black group-hover:text-white transition-colors">Computer</span>
+
+    </a>
+
+
+  </div>
+
+</section>
+
+
+<script>
+
+  // Script to handle clicking the arrows
+
+  const slider = document.getElementById('categorySlider');
+
+  const nextBtn = document.getElementById('nextBtn');
+
+  const prevBtn = document.getElementById('prevBtn');
+
+
+
+  nextBtn.addEventListener('click', () => {
+
+  // Scrolls exactly the width of the visible container (one "page")
+
+  slider.scrollBy({ left: slider.offsetWidth, behavior: 'smooth' });
+
+  });
+
+
+
+  prevBtn.addEventListener('click', () => {
+
+  slider.scrollBy({ left: -slider.offsetWidth, behavior: 'smooth' });
+
+  });
+
+</script>
+
+
+{% schema %}
+
+  {
+
+    "name": "Browse by Category",
+
+    "settings": [
+
+      {
+
+        "type": "text",
+
+        "id": "title",
+
+        "label": "Section Title",
+
+        "default": "Browse By Category"
+
+      }
+
+    ],
+
+    "blocks": [
+
+      {
+
+        "type": "category",
+
+        "name": "Category",
+
+        "settings": [
+
+          {
+
+            "type": "collection",
+
+            "id": "collection",
+
+            "label": "Select Collection"
+
+          }, {
+
+            "type": "text",
+
+            "id": "title",
+
+            "label": "Display Name (Override)"
+
+          }, {
+
+            "type": "html",
+
+            "id": "icon_svg",
+
+            "label": "SVG Icon Code",
+
+            "info": "Paste SVG code here"
+
+          }
+
+        ]
+
+      }
+
+    ],
+
+    "presets": [
+
+      {
+
+        "name": "Browse by Category",
+
+        "category": "Collections",
+
+        "blocks": [
+
+          {
+            "type": "category"
+          }, {
+            "type": "category"
+          }, {
+            "type": "category"
+          }, {
+            "type": "category"
+          }
+
+        ]
+
+      }
+
+    ]
+
+  }
+
+{% endschema %}
