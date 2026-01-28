@@ -35,12 +35,16 @@
       "type": "small-banner",
       "name": "Smaller Banners Grid",
       "settings": {
+        "ps5_image": "shopify://shop_images/PlayStation.png",
         "ps5_title": "Playstation 5",
         "ps5_text": "Incredibly powerful CPUs, GPUs, and an SSD with integrated I/O.",
+        "airpods_image": "shopify://shop_images/hero__gnfk5g59t0qe_xlarge_2x_1.png",
         "airpods_title": "Apple AirPods Max",
         "airpods_text": "Computational audio. Listen, it's powerful",
+        "vision_image": "shopify://shop_images/image_36.png",
         "vision_title": "Apple Vision Pro",
         "vision_text": "An immersive way to experience entertainment",
+        "mac_image": "shopify://shop_images/MacBook_Pro_14.png",
         "mac_title": "Macbook Air",
         "mac_text": "The new 15‑inch MacBook Air makes room for more of what you love.",
         "mac_link": ""
