@@ -11,32 +11,9 @@
   "name": "t:sections.header.name",
   "type": "header",
   "sections": {
-    "announcement-bar": {
-      "type": "announcement-bar",
-      "blocks": {
-        "announcement-bar-0": {
-          "type": "announcement",
-          "settings": {
-            "text": "Welcome to our store",
-            "link": ""
-          }
-        }
-      },
-      "block_order": [
-        "announcement-bar-0"
-      ],
-      "settings": {
-        "auto_rotate": false,
-        "change_slides_speed": 5,
-        "color_scheme": "scheme-1",
-        "show_line_separator": true,
-        "show_social": false,
-        "enable_country_selector": false,
-        "enable_language_selector": false
-      }
-    },
     "header": {
       "type": "header",
+      "disabled": true,
       "settings": {
         "logo_position": "middle-left",
         "mobile_logo_position": "center",
@@ -52,6 +29,21 @@
         "margin_bottom": 0,
         "padding_top": 20,
         "padding_bottom": 20
+      }
+    },
+    "small_banner_pmjixk": {
+      "type": "small-banner",
+      "name": "Smaller Banners Grid",
+      "settings": {
+        "ps5_title": "Playstation 5",
+        "ps5_text": "Incredibly powerful CPUs, GPUs, and an SSD with integrated I/O.",
+        "airpods_title": "Apple AirPods Max",
+        "airpods_text": "Computational audio. Listen, it's powerful",
+        "vision_title": "Apple Vision Pro",
+        "vision_text": "An immersive way to experience entertainment",
+        "mac_title": "Macbook Air",
+        "mac_text": "The new 15‑inch MacBook Air makes room for more of what you love.",
+        "mac_link": ""
       }
     },
     "browse_by_category_84YHDk": {
@@ -100,11 +92,33 @@
       "settings": {
         "title": "Browse By Category"
       }
+    },
+    "product_by_na_bs_fp_8RJwCT": {
+      "type": "product-by-na-bs-fp",
+      "name": "Product Tabs",
+      "settings": {
+        "tab_1_title": "New Arrival",
+        "collection_1": "new-arrival",
+        "tab_2_title": "Bestseller",
+        "collection_2": "bestseller",
+        "tab_3_title": "Featured Products",
+        "collection_3": "featured-products"
+      }
+    },
+    "discount_up_to_rykxzy": {
+      "type": "discount-up-to",
+      "name": "Discount Section",
+      "settings": {
+        "title": "Discounts up to -50%",
+        "discount_collection": "galaxy-series"
+      }
     }
   },
   "order": [
-    "announcement-bar",
     "header",
-    "browse_by_category_84YHDk"
+    "small_banner_pmjixk",
+    "browse_by_category_84YHDk",
+    "product_by_na_bs_fp_8RJwCT",
+    "discount_up_to_rykxzy"
   ]
 }
