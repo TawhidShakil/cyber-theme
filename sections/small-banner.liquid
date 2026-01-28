@@ -1,0 +1,127 @@
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  .font-inter { font-family: 'Inter', sans-serif; }
+</style>
+
+
+<section class="w-full max-w-[1440px] mx-auto overflow-hidden">
+  <div class="flex flex-col md:flex-row h-auto md:h-[600px]">
+    
+    <div class="flex flex-col flex-1">
+      
+      <div class="relative flex items-center justify-end px-12 h-[328px] bg-white group">
+        {% if section.settings.ps5_image %}
+          <img src="{{ section.settings.ps5_image | image_url: width: 800 }}" 
+               alt="PlayStation 5" 
+               class="absolute left-0 top-0 h-full w-auto object-contain transition-transform duration-500 group-hover:scale-105">
+        {% endif %}
+        <div class="relative z-10 flex flex-col items-start text-left max-w-[340px] gap-4">
+          <h2 class="text-[49px] font-medium  leading-[1.1] text-black font-inter italic md:not-italic">
+            {{ section.settings.ps5_title }}
+          </h2>
+          <p class="text-[14px] font-medium leading-10 text-[#909090]">
+            {{ section.settings.ps5_text }}
+          </p>
+        </div>
+      </div>
+
+      <div class="flex flex-row h-[272px]">
+        <div class="relative flex-1 flex items-center justify-end px-8 bg-[#EDEDED] overflow-hidden group">
+          {% if section.settings.airpods_image %}
+            <img src="{{ section.settings.airpods_image | image_url: width: 400 }}" 
+                 alt="AirPods Max" 
+                 class="absolute left-0 top-0 h-full object-contain transition-transform duration-500 group-hover:scale-110">
+          {% endif %}
+          <div class="relative z-10 flex flex-col gap-2 max-w-[160px]items-start text-left">
+            <h3 class="text-[29px] font-light leading-10 text-black ">Apple</h3>
+            <h3 class="text-[29px] text-[#000000] font-light">AirPods</h3>
+            <h3 class="text-[29px] text-[#000000] font-bold">Max</h3>
+            <p class="text-sm font-medium leading-6 text-[#919191]">{{ section.settings.airpods_text }}</p>
+          </div>
+        </div>
+      <div class="relative flex-1 flex items-center justify-end px-8 md:px-12 bg-[#353535] overflow-hidden group h-[272px]">
+  
+  {% if section.settings.vision_image %}
+    <img src="{{ section.settings.vision_image | image_url: width: 600 }}" 
+         alt="{{ section.settings.vision_title }}" 
+         class="absolute -left-10 top-1/2 -translate-y-1/2 h-[80%] w-auto object-contain transition-transform duration-700 group-hover:scale-105"
+         style="transform-origin: center left;">
+  {% endif %}
+
+  <div class="relative z-10 flex flex-col gap-4 max-w-[190px] font-inter">
+    <h3 class="text-[34px] leading-[1.1] text-white">
+      <span class="font-light block">Apple</span>
+      <span class="font-light">Vision</span> <span class="font-semibold">Pro</span>
+    </h3>
+    <p class="text-[14px] font-medium leading-[1.4] text-[#919191]">
+      {{ section.settings.vision_text }}
+    </p>
+  </div>
+</div>
+        
+      </div>
+    </div>
+
+    <div class="flex-1 relative flex items-center bg-[#EDEDED] px-8 md:px-16 min-h-[500px] md:min-h-[600px] overflow-hidden group">
+  
+  <div class="relative z-10 flex flex-col items-start gap-6 max-w-[350px] font-inter">
+    <h2 class="text-[64px] leading-[1.2] font-inter text-black">
+      <span class="font-light block">Macbook</span>
+      <span class="font-bold">Air</span>
+    </h2>
+    <p class="text-[14px] font-medium leading-relaxed text-[#919191]">
+      {{ section.settings.mac_text | default: "The new 15-inch MacBook Air makes room for more of what you love with a spacious Liquid Retina display." }}
+    </p>
+    <a href="{{ section.settings.mac_link }}" class="mt-2 px-14 py-4 border border-black rounded-md text-[16px] font-medium transition-all duration-300 hover:bg-black hover:text-white">
+      Shop Now
+    </a>
+  </div>
+  
+  {% if section.settings.mac_image %}
+    <img src="{{ section.settings.mac_image | image_url: width: 1000 }}" 
+         alt="MacBook Air" 
+         class=" object-contain transition-transform duration-1000 group-hover:scale-105">
+  {% endif %}
+</div>
+
+  </div>
+</section>
+
+
+
+{% schema %}
+{
+  "name": "Smaller Banners",
+  "settings": [
+    { "type": "header", "content": "PlayStation Banner" },
+    { "type": "image_picker", "id": "ps5_image", "label": "PS5 Image" },
+    { "type": "text", "id": "ps5_title", "label": "Title", "default": "Playstation 5" },
+    { "type": "textarea", "id": "ps5_text", "label": "Description", "default": "Incredibly powerful CPUs, GPUs, and an SSD with integrated I/O." },
+    
+    { "type": "header", "content": "AirPods Banner" },
+    { "type": "image_picker", "id": "airpods_image", "label": "AirPods Image" },
+    { "type": "text", "id": "airpods_title", "label": "Title", "default": "Apple AirPods Max" },
+    { "type": "textarea", "id": "airpods_text", "label": "Description", "default": "Computational audio. Listen, it's powerful" },
+    
+    { "type": "header", "content": "Vision Pro Banner" },
+    { "type": "image_picker", "id": "vision_image", "label": "Vision Pro Image" },
+    { "type": "text", "id": "vision_title", "label": "Title", "default": "Apple Vision Pro" },
+    { "type": "textarea", "id": "vision_text", "label": "Description", "default": "An immersive way to experience entertainment" },
+    
+    { "type": "header", "content": "MacBook Banner" },
+    { "type": "image_picker", "id": "mac_image", "label": "MacBook Image" },
+    { "type": "text", "id": "mac_title", "label": "Title", "default": "Macbook Air" },
+    { "type": "textarea", "id": "mac_text", "label": "Description", "default": "The new 15‑inch MacBook Air makes room for more of what you love." },
+    { "type": "url", "id": "mac_link", "label": "Button Link" }
+  ],
+  "presets": [
+    {
+      "name": "Smaller Banners Grid"
+    }
+  ]
+}
+{% endschema %}
