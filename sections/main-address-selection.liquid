@@ -1,0 +1,84 @@
+{%- style -%}
+  .checkout-steps { display: flex; justify-content: space-between; margin-bottom: 40px; }
+  .step { opacity: 0.3; display: flex; align-items: center; gap: 10px; }
+  .step.active { opacity: 1; }
+  
+  .address-card {
+    border: 1px solid #f0f0f0;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: flex-start;
+    position: relative;
+    background: #fafafa;
+  }
+  .address-card.selected { border: 2px solid #000; background: #fff; }
+  
+  .address-badge {
+    background: #000;
+    color: #fff;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 10px;
+    text-transform: uppercase;
+    margin-left: 10px;
+  }
+  
+  .add-new-address {
+    text-align: center;
+    border-top: 1px dashed #ccc;
+    margin: 40px 0;
+    position: relative;
+  }
+  .add-btn {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #000;
+    color: #fff;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+  }
+{%- endstyle -%}
+
+<div class="page-width">
+  <div class="checkout-steps">
+    <div class="step active"><strong>Step 1</strong> Address</div>
+    <div class="step">Step 2 Shipping</div>
+    <div class="step">Step 3 Payment</div>
+  </div>
+
+  <h2>Select Address</h2>
+
+  <div class="address-list">
+    {% for address in customer.addresses %}
+      <div class="address-card {% if forloop.first %}selected{% endif %}">
+        <input type="radio" name="checkout_address" value="{{ address.id }}" {% if forloop.first %}checked{% endif %}>
+        <div class="address-info">
+          <p><strong>{{ address.street }}</strong> <span class="address-badge">Home</span></p>
+          <p>{{ address.city }}, {{ address.province }}, {{ address.zip }}</p>
+          <p>{{ address.phone }}</p>
+        </div>
+        <div class="address-actions">
+           </div>
+      </div>
+    {% endfor %}
+  </div>
+
+  <div class="add-new-address">
+    <a href="/account/addresses" class="add-btn">+</a>
+    <p style="margin-top: 20px;">Add New Address</p>
+  </div>
+
+  <div class="footer-buttons" style="display: flex; justify-content: flex-end; gap: 20px;">
+    <a href="/cart" class="button button--secondary">Back</a>
+    <button type="submit" class="button">Next</button>
+  </div>
+</div>
