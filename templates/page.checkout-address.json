@@ -1,0 +1,12 @@
+{
+  "name": "Checkout Address",
+  "sections": {
+    "main": {
+      "type": "main-address-selection",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main"
+  ]
+}
