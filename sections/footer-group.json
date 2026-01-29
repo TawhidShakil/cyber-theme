@@ -11,8 +11,41 @@
   "name": "t:sections.footer.name",
   "type": "footer",
   "sections": {
+    "footer_2_EcgQJn": {
+      "type": "footer-2",
+      "blocks": {
+        "menu_WtXzVi": {
+          "type": "menu",
+          "settings": {
+            "title": "Quick Links",
+            "navigation": "footer"
+          }
+        },
+        "menu_zpMYV6": {
+          "type": "menu",
+          "settings": {
+            "title": "Quick Links",
+            "navigation": "footer"
+          }
+        }
+      },
+      "block_order": [
+        "menu_WtXzVi",
+        "menu_zpMYV6"
+      ],
+      "name": "Footer 2",
+      "settings": {
+        "logo": "shopify://shop_images/Color_White.png",
+        "logo_width": 100,
+        "description": "We are residential interior design firm located in Portland. Our boutique-studio offers more then",
+        "color_background": "#000000",
+        "color_text": "#ffffff",
+        "show_social": true
+      }
+    },
     "footer": {
       "type": "footer",
+      "disabled": true,
       "settings": {
         "color_scheme": "scheme-1",
         "newsletter_enable": true,
@@ -30,6 +63,7 @@
     }
   },
   "order": [
+    "footer_2_EcgQJn",
     "footer"
   ]
 }
