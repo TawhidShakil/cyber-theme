@@ -1,0 +1,119 @@
+<script src="https://cdn.tailwindcss.com"></script>
+
+<div class="bg-white min-h-screen">
+  <div class="max-w-7xl mx-auto px-6 py-10">
+    
+    <nav class="flex items-center space-x-2 text-sm text-gray-400 mb-8">
+      <a href="/" class="hover:text-black">Home</a>
+      <span>&gt;</span>
+      <a href="/catalog" class="hover:text-black">Catalog</a>
+      <span>&gt;</span>
+      <span class="text-black font-semibold">Smartphones</span>
+    </nav>
+
+    <div class="flex flex-col lg:flex-row gap-10">
+      
+      <aside class="w-full lg:w-64 flex-shrink-0">
+        <div class="space-y-8">
+          
+          <div>
+            <h3 class="text-lg font-bold mb-4 flex justify-between items-center cursor-pointer">
+              Brand <span class="text-xs">▲</span>
+            </h3>
+            <div class="relative mb-4">
+              <input type="text" placeholder="Search" class="w-full bg-gray-100 border-none rounded-lg py-2 px-4 text-sm focus:ring-1 focus:ring-gray-300">
+            </div>
+            <div class="space-y-3 h-48 overflow-y-auto pr-2 custom-scrollbar">
+              {% assign brands = "Apple,Samsung,Xiaomi,Poco,OPPO,Honor,Motorola,Nokia,Realme" | split: ',' %}
+              {% for brand in brands %}
+              <label class="flex items-center group cursor-pointer">
+                <input type="checkbox" {% if brand == 'Apple' %}checked{% endif %} class="w-4 h-4 rounded border-gray-300 text-black focus:ring-black">
+                <span class="ml-3 text-sm {% if brand == 'Apple' %}font-semibold{% else %}text-gray-600{% endif %}">
+                  {{ brand }} <span class="text-gray-400 ml-1 text-xs">110</span>
+                </span>
+              </label>
+              {% endfor %}
+            </div>
+          </div>
+
+          {% assign other_filters = "Battery capacity,Screen type,Screen diagonal,Protection class,Built-in memory" | split: ',' %}
+          {% for filter in other_filters %}
+          <div class="border-t pt-4">
+            <h3 class="text-sm font-bold flex justify-between items-center text-gray-900 cursor-pointer">
+              {{ filter }} <span class="text-gray-400 text-xs">▼</span>
+            </h3>
+          </div>
+          {% endfor %}
+        </div>
+      </aside>
+
+      <main class="flex-1">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
+          <div class="text-sm">
+            <span class="text-gray-500">Selected Products:</span>
+            <span class="font-bold ml-1 text-lg">85</span>
+          </div>
+          <div class="relative">
+            <select class="appearance-none bg-white border border-gray-200 rounded-lg py-2 pl-4 pr-10 text-sm focus:outline-none focus:ring-1 focus:ring-black cursor-pointer">
+              <option>By rating</option>
+              <option>Price: Low to High</option>
+              <option>Newest</option>
+            </select>
+            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-500">
+              <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/></svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {% paginate collections.all.products by 9 %}
+            {% for product in collections.all.products %}
+            <div class="bg-[#F6F6F6] rounded-2xl p-6 flex flex-col items-center relative group transition-all hover:shadow-lg">
+              <button class="absolute top-4 right-4 transition-colors hover:text-red-500 text-gray-300">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                </svg>
+              </button>
+
+              <div class="w-full aspect-square flex items-center justify-center mb-4">
+                <img src="{{ product.featured_image | img_url: '400x400' }}" alt="{{ product.title }}" class="max-h-full object-contain mix-blend-multiply">
+              </div>
+
+              <div class="text-center flex flex-col flex-1 w-full">
+                <h2 class="text-sm font-medium text-gray-900 mb-4 line-clamp-2 px-2 leading-snug">
+                  {{ product.title }}
+                </h2>
+                <div class="mt-auto">
+                  <p class="text-2xl font-bold text-gray-900 mb-4">
+                    {{ product.price | money_without_trailing_zeros }}
+                  </p>
+                  <a href="{{ product.url }}" class="block w-full bg-black text-white py-3 px-6 rounded-xl font-medium hover:bg-gray-800 transition-colors">
+                    Buy Now
+                  </a>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          {% endpaginate %}
+        </div>
+
+        <div class="flex justify-center items-center mt-12 space-x-4">
+          <button class="text-gray-400 hover:text-black font-bold">&lt;</button>
+          <button class="bg-black text-white w-8 h-8 rounded-lg text-sm">1</button>
+          <button class="text-gray-600 hover:text-black text-sm">2</button>
+          <button class="text-gray-600 hover:text-black text-sm">3</button>
+          <span class="text-gray-400">....</span>
+          <button class="text-gray-600 hover:text-black text-sm">12</button>
+          <button class="text-gray-400 hover:text-black font-bold">&gt;</button>
+        </div>
+      </main>
+
+    </div>
+  </div>
+</div>
+
+<style>
+  .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+  .custom-scrollbar::-webkit-scrollbar-track { background: #f1f1f1; }
+  .custom-scrollbar::-webkit-scrollbar-thumb { background: #ccc; border-radius: 10px; }
+</style>
