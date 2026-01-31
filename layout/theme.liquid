@@ -297,6 +297,7 @@
       }
     </script>
     {{ 'tailwind.output.css' | asset_url | stylesheet_tag }}
+    {{ 'styles.css' | asset_url | stylesheet_tag }}
   </head>
 
   <body class="gradient{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}">
@@ -311,11 +312,12 @@
     {% comment %} {% sections 'header-group' %} {% endcomment %}
 
     {% section 'header-2' %}
-
+    {%  section 'hero' %} 
+    
     <main id="MainContent" class="content-for-layout focus-none" role="main" tabindex="-1">
       {{ content_for_layout }}
     </main>
-
+    {%  section 'promo-hero' %}
     {% sections 'footer-group' %}  
     
     {% sections 'footer2' %}
