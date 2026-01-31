@@ -145,9 +145,9 @@
           "category_LiaAri": {
             "type": "category",
             "settings": {
-              "title": "Phones",
+              "title": "Apple",
               "icon": "shopify://shop_images/download_27.jpg",
-              "link": "#"
+              "link": "shopify://collections/apple"
             }
           },
           "category_LHCB9N": {
