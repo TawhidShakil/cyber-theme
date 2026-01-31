@@ -141,28 +141,6 @@
       },
       "header-2": {
         "type": "header-2",
-        "blocks": {
-          "category_LiaAri": {
-            "type": "category",
-            "settings": {
-              "title": "Apple",
-              "icon": "shopify://shop_images/download_27.jpg",
-              "link": "shopify://collections/apple"
-            }
-          },
-          "category_LHCB9N": {
-            "type": "category",
-            "settings": {
-              "title": "Phones",
-              "icon": "shopify://shop_images/download_4_2cd818e9-591d-43cc-afc9-382b657c8ce5.jpg",
-              "link": ""
-            }
-          }
-        },
-        "block_order": [
-          "category_LiaAri",
-          "category_LHCB9N"
-        ],
         "settings": {
           "navigation": "header",
           "logo": "shopify://shop_images/Color_Black.png",
