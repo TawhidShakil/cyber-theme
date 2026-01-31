@@ -310,12 +310,18 @@
 
     {% comment %} {% sections 'header-group' %} {% endcomment %}
 
-    {% section 'header-2' %}
+    {% comment %} {% section 'header-2' %} {% endcomment %}
+
+    {% section 'new-header' %}
 
     <main id="MainContent" class="content-for-layout focus-none" role="main" tabindex="-1">
-      {{ content_for_layout }}
+ 
+    {{ content_for_layout }}
+      
+      
     </main>
 
+    
     {% sections 'footer-group' %}  
     
     {% sections 'footer2' %}
