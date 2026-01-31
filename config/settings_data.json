@@ -164,7 +164,7 @@
           "category_LHCB9N"
         ],
         "settings": {
-          "navigation": "",
+          "navigation": "header",
           "logo": "shopify://shop_images/Color_Black.png",
           "logo_width": 120
         }
