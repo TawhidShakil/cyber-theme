@@ -141,6 +141,19 @@
       },
       "header-2": {
         "type": "header-2",
+        "blocks": {
+          "category_iiDt76": {
+            "type": "category",
+            "settings": {
+              "title": "Phones",
+              "icon": "shopify://shop_images/Iphone_Image.png",
+              "link": ""
+            }
+          }
+        },
+        "block_order": [
+          "category_iiDt76"
+        ],
         "settings": {
           "navigation": "header",
           "logo": "shopify://shop_images/Color_Black.png",
