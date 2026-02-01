@@ -159,6 +159,13 @@
           "logo": "shopify://shop_images/Color_Black.png",
           "logo_width": 120
         }
+      },
+      "new-header": {
+        "type": "new-header",
+        "settings": {
+          "navigation": "header",
+          "logo_width": 120
+        }
       }
     },
     "content_for_index": [],
