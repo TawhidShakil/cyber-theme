@@ -1,0 +1,14 @@
+{
+  "name": "Shipping",
+  "sections": {
+    "main": {
+      "type": "custom-shipping-picker",
+      "settings": {
+        "title": "Shipment Method"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}
