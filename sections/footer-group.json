@@ -18,14 +18,14 @@
           "type": "menu",
           "settings": {
             "title": "Quick Links",
-            "navigation": "footer"
+            "navigation": "services"
           }
         },
         "menu_zpMYV6": {
           "type": "menu",
           "settings": {
             "title": "Quick Links",
-            "navigation": "footer"
+            "navigation": "services"
           }
         }
       },
