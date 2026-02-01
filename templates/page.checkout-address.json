@@ -1,12 +1,62 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
-  "name": "Checkout Address",
   "sections": {
     "main": {
       "type": "main-address-selection",
       "settings": {}
+    },
+    "custom_shipping_picker_r3fgb9": {
+      "type": "custom-shipping-picker",
+      "blocks": {
+        "shipping_option_n3mKy4": {
+          "type": "shipping_option",
+          "settings": {
+            "method_name": "Regular",
+            "price_label": "Free",
+            "description": "Regular shipment",
+            "delivery_date": "17 Oct, 2023"
+          }
+        },
+        "shipping_option_CeBNn9": {
+          "type": "shipping_option",
+          "settings": {
+            "method_name": "Regular",
+            "price_label": "$8.50",
+            "description": "Express",
+            "delivery_date": "17 Oct, 2023"
+          }
+        },
+        "scheduled_option_LkaLmU": {
+          "type": "scheduled_option",
+          "settings": {
+            "method_name": "Scheduled",
+            "price_label": "Schedule",
+            "description": "Pick a date for delivery"
+          }
+        }
+      },
+      "block_order": [
+        "shipping_option_n3mKy4",
+        "shipping_option_CeBNn9",
+        "scheduled_option_LkaLmU"
+      ],
+      "name": "Custom Shipping Picker",
+      "settings": {
+        "title": "Shipment Method",
+        "container_width": 800
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "custom_shipping_picker_r3fgb9"
   ]
 }
