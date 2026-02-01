@@ -9,37 +9,39 @@
 
 
 <section class="w-full max-w-[1440px] mx-auto overflow-hidden">
-  <div class="flex flex-col md:flex-row h-auto md:h-[600px]">
+  <div class="order-3 md:order-1 flex flex-col md:flex-row h-auto md:h-[600px]">
     
     <div class="flex flex-col flex-1">
       
       <div class="relative flex items-center justify-end px-12 h-[328px] bg-white group">
+        
         {% if section.settings.ps5_image %}
           <img src="{{ section.settings.ps5_image | image_url: width: 800 }}" 
                alt="PlayStation 5" 
                class="absolute left-0 top-0 h-full w-auto object-contain transition-transform duration-500 group-hover:scale-105">
         {% endif %}
+
         <div class="relative z-10 flex flex-col items-start text-left max-w-[340px] gap-4">
-          <h2 class="text-[49px] font-medium  leading-[1.1] text-black font-inter italic md:not-italic">
-            {{ section.settings.ps5_title }}
-          </h2>
-          <p class="text-[14px] font-medium leading-10 text-[#909090]">
-            {{ section.settings.ps5_text }}
-          </p>
+            <h2 class="text-5xl font-medium  leading-[1.1] text-black font-inter italic md:not-italic">
+              {{ section.settings.ps5_title }}
+            </h2>
+            <p class="text-sm font-extralight leading-10 text-[#909090]">
+              {{ section.settings.ps5_text }}
+            </p>
         </div>
       </div>
 
-      <div class="flex flex-row h-[272px]">
+      <div class=" order-1 md:order-2 flex flex-row h-[272px]">
         <div class="relative flex-1 flex items-center justify-end px-8 bg-[#EDEDED] overflow-hidden group">
           {% if section.settings.airpods_image %}
             <img src="{{ section.settings.airpods_image | image_url: width: 400 }}" 
                  alt="AirPods Max" 
                  class="absolute left-0 top-0 h-full object-contain transition-transform duration-500 group-hover:scale-110">
           {% endif %}
-          <div class="relative z-10 flex flex-col gap-2 max-w-[160px]items-start text-left">
-            <h3 class="text-[29px] font-light leading-10 text-black ">Apple</h3>
-            <h3 class="text-[29px] text-[#000000] font-light">AirPods</h3>
-            <h3 class="text-[29px] text-[#000000] font-bold">Max</h3>
+          <div class="relative z-10 flex flex-col  gap-2 max-w-[160px] items-start text-start font-inter">
+            <h3 class="text-3xl font-light leading-10 text-black ">Apple</h3>
+            <h3 class="text-3xl text-[#000000] font-light">AirPods</h3>
+            <h3 class="text-3xl text-[#000000] font-bold">Max</h3>
             <p class="text-sm font-medium leading-6 text-[#919191]">{{ section.settings.airpods_text }}</p>
           </div>
         </div>
@@ -48,16 +50,15 @@
   {% if section.settings.vision_image %}
     <img src="{{ section.settings.vision_image | image_url: width: 600 }}" 
          alt="{{ section.settings.vision_title }}" 
-         class="absolute -left-10 top-1/2 -translate-y-1/2 h-[80%] w-auto object-contain transition-transform duration-700 group-hover:scale-105"
-         style="transform-origin: center left;">
+         class="absolute -left-10 h-[80%] w-auto object-contain transition-transform duration-700 group-hover:scale-105">
   {% endif %}
 
-  <div class="relative z-10 flex flex-col gap-4 max-w-[190px] font-inter">
-    <h3 class="text-[34px] leading-[1.1] text-white">
+  <div class="relative z-10 flex flex-col gap-4 max-w-[190px] font-inter px-16">
+    <h3 class="text-3xl leading-[1.1] text-white">
       <span class="font-light block">Apple</span>
       <span class="font-light">Vision</span> <span class="font-semibold">Pro</span>
     </h3>
-    <p class="text-[14px] font-medium leading-[1.4] text-[#919191]">
+    <p class="text-sm font-medium leading-[1.4] text-[#919191]">
       {{ section.settings.vision_text }}
     </p>
   </div>
@@ -66,26 +67,34 @@
       </div>
     </div>
 
-    <div class="flex-1 relative flex items-center bg-[#EDEDED] px-8 md:px-16 min-h-[500px] md:min-h-[600px] overflow-hidden group">
+  <div class="flex-1 relative flex justify-between items-center bg-[#EDEDED] min-h-[500px] md:min-h-[600px] overflow-hidden group">
   
-  <div class="relative z-10 flex flex-col items-start gap-6 max-w-[350px] font-inter">
-    <h2 class="text-[64px] leading-[1.2] font-inter text-black">
+  <div class="relative z-10 flex flex-col items-start gap-6 max-w-[350px] font-inter px-8 md:px-16">
+    <h2 class="text-6xl leading-[1.2] font-inter text-black">
       <span class="font-light block">Macbook</span>
       <span class="font-bold">Air</span>
     </h2>
-    <p class="text-[14px] font-medium leading-relaxed text-[#919191]">
+    <p class="text-sm font-medium leading-relaxed text-[#919191]">
       {{ section.settings.mac_text | default: "The new 15-inch MacBook Air makes room for more of what you love with a spacious Liquid Retina display." }}
     </p>
-    <a href="{{ section.settings.mac_link }}" class="mt-2 px-14 py-4 border border-black rounded-md text-[16px] font-medium transition-all duration-300 hover:bg-black hover:text-white">
+    <a href="{{ section.settings.mac_link }}" class="mt-2 px-14 py-4 border border-black rounded-md text-sm font-medium transition-all duration-300 hover:bg-black hover:text-white">
       Shop Now
     </a>
   </div>
   
-  {% if section.settings.mac_image %}
+ 
+  <div>
+    {% if section.settings.mac_image %}
     <img src="{{ section.settings.mac_image | image_url: width: 1000 }}" 
          alt="MacBook Air" 
-         class=" object-contain transition-transform duration-1000 group-hover:scale-105">
+         class="object-contain transition-transform duration-1000 group-hover:scale-105">
   {% endif %}
+ 
+  </div>
+    
+
+   
+ 
 </div>
 
   </div>
