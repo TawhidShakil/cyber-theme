@@ -66,6 +66,15 @@
     --radius-xl: 0.75rem;
     --radius-2xl: 1rem;
     --animate-pulse: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    --color-gray-200: oklch(92.8% 0.006 264.531);
+    --color-gray-300: oklch(87.2% 0.01 258.338);
+    --color-black: #000;
+    --color-white: #fff;
+    --spacing: 0.25rem;
+    --text-base: 1rem;
+    --text-base--line-height: calc(1.5 / 1);
+    --font-weight-medium: 500;
+    --tracking-tight: -0.025em;
     --default-transition-duration: 150ms;
     --default-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     --default-font-family: var(--font-sans);
@@ -331,6 +340,8 @@
   }
   .mt-auto {
     margin-top: auto;
+  .mr-\[30px\] {
+    margin-right: 30px;
   }
   .mb-4 {
     margin-bottom: calc(var(--spacing) * 4);
@@ -349,6 +360,11 @@
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
+  .mb-10 {
+    margin-bottom: calc(var(--spacing) * 10);
+  }
+  .ml-\[30px\] {
+    margin-left: 30px;
   }
   .block {
     display: block;
@@ -464,6 +480,12 @@
   .w-8 {
     width: calc(var(--spacing) * 8);
   }
+  .h-11 {
+    height: calc(var(--spacing) * 11);
+  }
+  .h-14 {
+    height: calc(var(--spacing) * 14);
+  }
   .w-11 {
     width: calc(var(--spacing) * 11);
   }
@@ -548,6 +570,18 @@
     --tw-translate-y: calc(var(--spacing) * 4);
     translate: var(--tw-translate-x) var(--tw-translate-y);
   }
+  .w-\[calc\(50\%-12px\)\] {
+    width: calc(50% - 12px);
+  }
+  .max-w-\[1440px\] {
+    max-width: 1440px;
+  }
+  .flex-none {
+    flex: none;
+  }
+  .border-collapse {
+    border-collapse: collapse;
+  }
   .transform {
     transform: var(--tw-rotate-x,) var(--tw-rotate-y,) var(--tw-rotate-z,) var(--tw-skew-x,) var(--tw-skew-y,);
   }
@@ -580,6 +614,9 @@
   }
   .flex-nowrap {
     flex-wrap: nowrap;
+  }
+  .flex-col {
+    flex-direction: column;
   }
   .flex-wrap {
     flex-wrap: wrap;
@@ -662,6 +699,9 @@
   }
   .rounded-\[8px\] {
     border-radius: 8px;
+  }
+  .scroll-smooth {
+    scroll-behavior: smooth;
   }
   .rounded-\[10px\] {
     border-radius: 10px;
@@ -758,6 +798,32 @@
   }
   .stroke-gray-400 {
     stroke: var(--color-gray-400);
+  .border-gray-200 {
+    border-color: var(--color-gray-200);
+  }
+  .bg-\[\#F5F5F5\] {
+    background-color: #F5F5F5;
+  }
+  .bg-\[var\(\)\] {
+    background-color: var();
+  }
+  .bg-\[var\(--\)\] {
+    background-color: var(--);
+  }
+  .bg-\[var\(----gray-100\)\] {
+    background-color: var(----gray-100);
+  }
+  .bg-\[var\(--gray-100\)\] {
+    background-color: var(--gray-100);
+  }
+  .bg-\[var\(--gray-300\)\] {
+    background-color: var(--gray-300);
+  }
+  .bg-\[var\] {
+    background-color: var;
+  }
+  .bg-gray-300 {
+    background-color: var(--color-gray-300);
   }
   .object-contain {
     object-fit: contain;
@@ -812,6 +878,29 @@
   }
   .py-4 {
     padding-block: calc(var(--spacing) * 4);
+  .px-20 {
+    padding-inline: calc(var(--spacing) * 20);
+  }
+  .px-30 {
+    padding-inline: calc(var(--spacing) * 30);
+  }
+  .px-40 {
+    padding-inline: calc(var(--spacing) * 40);
+  }
+  .px-\[--var\(\)\] {
+    padding-inline: --var();
+  }
+  .px-\[va\] {
+    padding-inline: va;
+  }
+  .px-\[var\(\)\] {
+    padding-inline: var();
+  }
+  .px-\[var\(--container-padding-desktop\)\] {
+    padding-inline: var(--container-padding-desktop);
+  }
+  .py-20 {
+    padding-block: calc(var(--spacing) * 20);
   }
   .pt-20 {
     padding-top: calc(var(--spacing) * 20);
@@ -858,6 +947,9 @@
   .text-8xl {
     font-size: var(--text-8xl);
     line-height: var(--tw-leading, var(--text-8xl--line-height));
+  }
+  .pb-12 {
+    padding-bottom: calc(var(--spacing) * 12);
   }
   .text-base {
     font-size: var(--text-base);
@@ -1006,6 +1098,9 @@
     @supports (color: color-mix(in lab, red, red)) {
       color: color-mix(in oklab, var(--color-white) 70%, transparent);
     }
+  }
+  .text-black {
+    color: var(--color-black);
   }
   .capitalize {
     text-transform: capitalize;
@@ -1267,6 +1362,10 @@
         @supports (color: color-mix(in lab, red, red)) {
           background-color: color-mix(in oklab, var(--color-black) 10%, transparent);
         }
+  .hover\:bg-\[var\(--gray-300\)\] {
+    &:hover {
+      @media (hover: hover) {
+        background-color: var(--gray-300);
       }
     }
   }
@@ -1681,6 +1780,7 @@
       --tw-space-y-reverse: 0;
       --tw-border-style: solid;
       --tw-leading: initial;
+      --tw-border-style: solid;
       --tw-font-weight: initial;
       --tw-tracking: initial;
       --tw-shadow: 0 0 #0000;
