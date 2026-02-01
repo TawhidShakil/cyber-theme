@@ -29,7 +29,7 @@
         <div class="flex-1 min-w-[150px] space-y-4">
 
           {% if block.settings.navigation.title != blank %}
-            <h2 class="font-semibold text-sm uppercase tracking-wide" style="color: {{ section.settings.color_text }};">
+            <h2 class="font-semibold text-2xl uppercase tracking-wide" style="color: {{ section.settings.color_text }};">
               {{ block.settings.navigation.title }}
             </h2>
           {% endif %}
@@ -39,7 +39,7 @@
               {% for link in block.settings.navigation.links %}
                 <li>
                   <a href="{{ link.url }}"
-                     class="text-xl text-white/70 hover:text-white transition">
+                     class="text-sm text-white/70 hover:text-white transition">
                     {{ link.title }}
                   </a>
                 </li>
