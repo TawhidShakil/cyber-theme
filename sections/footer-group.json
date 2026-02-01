@@ -11,6 +11,16 @@
   "name": "t:sections.footer.name",
   "type": "footer",
   "sections": {
+    "banner_collections_y4wJcW": {
+      "type": "banner-collections",
+      "name": "Collections Banner",
+      "settings": {
+        "background_color": "#ffffff",
+        "collections": [
+          "apple"
+        ]
+      }
+    },
     "footer_2_EcgQJn": {
       "type": "footer-2",
       "blocks": {
@@ -63,6 +73,7 @@
     }
   },
   "order": [
+    "banner_collections_y4wJcW",
     "footer_2_EcgQJn",
     "footer"
   ]

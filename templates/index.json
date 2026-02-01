@@ -49,6 +49,20 @@
         "show_text_below": false
       }
     },
+    "banner_frgizt": {
+      "type": "banner",
+      "name": "Hero Content",
+      "settings": {
+        "banner_image": "shopify://shop_images/Iphone_Image.png",
+        "banner_background_color": "#211C24",
+        "banner_text": "Pro.Beyond",
+        "banner_title": "IPhone 14",
+        "banner_title2": "Pro",
+        "banner_description": "Created to change everything for the better. For everyone",
+        "banner_button_text": "Shop now",
+        "banner_button_link": ""
+      }
+    },
     "small_banner_pmjixk": {
       "type": "small-banner",
       "name": "Smaller Banners Grid",
@@ -138,6 +152,7 @@
   },
   "order": [
     "image_banner",
+    "banner_frgizt",
     "small_banner_pmjixk",
     "browse_by_category_84YHDk",
     "product_by_na_bs_fp_8RJwCT",
