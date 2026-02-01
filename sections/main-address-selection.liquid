@@ -1,99 +1,157 @@
-<script src="https://cdn.tailwindcss.com"></script>
-
 {%- style -%}
+  /* Layout & Container */
   .checkout-container { 
     max-width: 900px; 
-    margin: 40px auto; 
+    margin: 60px auto; 
     padding: 0 20px;
-    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   }
 
   /* Progress Steps */
   .checkout-steps { 
     display: flex; 
     justify-content: space-between; 
-    margin-bottom: 60px; 
-    max-width: 600px;
+    margin-bottom: 80px; 
+    max-width: 800px;
     margin-left: auto;
     margin-right: auto;
   }
-  .step { opacity: 0.3; display: flex; align-items: center; gap: 12px; color: #000; }
-  .step.active { opacity: 1; border-bottom: 2px solid #000; padding-bottom: 5px; }
+  .step { 
+    opacity: 0.3; 
+    display: flex; 
+    align-items: center; 
+    gap: 15px; 
+    color: #000; 
+  }
+  .step.active { opacity: 1; }
   .step-info { display: flex; flex-direction: column; }
-  .step-label { font-size: 11px; font-weight: 400; color: #666; text-transform: uppercase; }
-  .step-name { font-size: 16px; font-weight: 700; }
+  .step-label { font-size: 12px; font-weight: 400; color: #666; }
+  .step-name { font-size: 18px; font-weight: 600; }
 
-  /* Address Cards */
+  /* Address List Styles */
   .address-card {
-    border: 1px solid #e5e7eb;
+    border: 1px solid transparent;
     border-radius: 12px;
-    padding: 20px;
-    margin-bottom: 16px;
+    padding: 25px;
+    margin-bottom: 20px;
     display: flex;
     align-items: flex-start;
-    background: #f9fafb;
-    transition: all 0.2s ease;
+    background: #f8f9fa;
+    transition: all 0.2s ease-in-out;
+    position: relative;
     cursor: pointer;
   }
-  /* Style for pre-selected or clicked state */
   .address-card.selected { 
     background: #fff; 
     border-color: #000; 
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08); 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
   }
   
+  .radio-container { margin-right: 20px; padding-top: 5px; }
   .radio-container input[type="radio"] { 
-    width: 20px; height: 20px; accent-color: #000; cursor: pointer; 
+    width: 22px; 
+    height: 22px; 
+    accent-color: #000; 
+    cursor: pointer; 
   }
 
+  .address-info { flex-grow: 1; }
+  .address-header { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+  .address-title { font-size: 18px; font-weight: 600; color: #1a1a1a; margin: 0; }
   .address-badge { 
-    background: #000; color: #fff; padding: 2px 8px; border-radius: 4px; 
-    font-size: 10px; font-weight: 700; text-transform: uppercase;
+    background: #000; 
+    color: #fff; 
+    padding: 3px 10px; 
+    border-radius: 4px; 
+    font-size: 10px; 
+    font-weight: 700;
+    text-transform: uppercase; 
+    letter-spacing: 0.5px;
   }
+  .address-details { color: #4b5563; font-size: 15px; line-height: 1.6; margin: 0; }
+  
+  .address-actions { display: flex; gap: 20px; align-items: center; margin-left: 20px; }
+  .action-icon { cursor: pointer; opacity: 0.4; transition: 0.2s; font-size: 18px; text-decoration: none; color: #000; }
+  .action-icon:hover { opacity: 1; }
 
-  /* Add Address UI */
+  /* Add New Address Divider */
   .add-new-address-wrapper {
     text-align: center;
-    border-top: 1px dashed #d1d5db;
-    margin: 40px 0;
+    border-top: 1.5px dotted #d1d5db;
+    margin: 60px 0 15px 0;
     position: relative;
+    height: 1px;
   }
   .add-btn-circle {
     position: absolute;
-    top: -18px; left: 50%; transform: translateX(-50%);
-    background: #000; color: #fff; width: 36px; height: 36px;
-    border-radius: 50%; border: none; cursor: pointer;
-    font-size: 24px; display: flex; align-items: center; justify-content: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #000;
+    color: #fff;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: 300;
+    padding-bottom: 3px;
+  }
+  .add-text { font-size: 14px; font-weight: 500; color: #1a1a1a; margin-top: 25px; text-align: center; }
+
+  /* Form Styling */
+  .form-container {
+    display: none;
+    margin-top: 30px;
+    padding: 30px;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    background: #fff;
+  }
+  .address-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+  .full-width { grid-column: span 2; }
+  .form-container input {
+    padding: 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 14px;
   }
 
-  .form-container { display: none; margin-top: 20px; padding: 25px; border: 1px solid #e5e7eb; border-radius: 12px; background: #fff; }
-  .address-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-  .full-width { grid-column: span 2; }
-  .form-container input { padding: 10px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 14px; width: 100%; }
-
-  .btn-back { padding: 12px 40px; border: 1px solid #e5e7eb; border-radius: 8px; font-weight: 600; }
-  .btn-next { padding: 12px 60px; background: #000; color: #fff; border-radius: 8px; font-weight: 600; transition: 0.3s; }
+  /* Footer Buttons */
+  .checkout-footer { display: flex; justify-content: flex-end; gap: 15px; margin-top: 50px; }
+  .btn-back { 
+    padding: 14px 60px; border: 1px solid #e5e7eb; background: #fff; color: #000; 
+    border-radius: 8px; text-decoration: none; font-weight: 500; transition: 0.2s;
+  }
+  .btn-next { 
+    padding: 14px 60px; border: none; background: #000; color: #fff; 
+    border-radius: 8px; cursor: pointer; font-weight: 500; transition: 0.2s;
+  }
   .btn-next:hover { background: #333; }
 {%- endstyle -%}
 
 <div class="checkout-container">
   <div class="checkout-steps">
     <div class="step active">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/></svg>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
       <div class="step-info">
         <span class="step-label">Step 1</span>
         <span class="step-name">Address</span>
       </div>
     </div>
     <div class="step">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
       <div class="step-info">
         <span class="step-label">Step 2</span>
         <span class="step-name">Shipping</span>
       </div>
     </div>
     <div class="step">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
       <div class="step-info">
         <span class="step-label">Step 3</span>
         <span class="step-name">Payment</span>
@@ -101,72 +159,74 @@
     </div>
   </div>
 
-  <h2 class="text-2xl font-bold mb-8">Select Address</h2>
+  <h2 style="font-size: 22px; font-weight: 700; margin-bottom: 30px;">Select Address</h2>
 
   <div class="address-list">
     {% if customer.addresses.size > 0 %}
       {% for address in customer.addresses %}
-        {%- comment -%} Determine if this is the default selection (Default address or the first one in loop) {%- endcomment -%}
-        {%- assign is_selected = false -%}
-        {%- if address == customer.default_address -%}
-          {%- assign is_selected = true -%}
-        {%- elsif customer.default_address == nil and forloop.first -%}
-          {%- assign is_selected = true -%}
-        {%- endif -%}
-
-        <div class="address-card {% if is_selected %}selected{% endif %}" onclick="selectAddress(this)">
-          <div class="radio-container mr-4">
-            <input type="radio" name="checkout_address" value="{{ address.id }}" {% if is_selected %}checked{% endif %}>
+        <div class="address-card {% if forloop.first %}selected{% endif %}" onclick="selectAddress(this)">
+          <div class="radio-container">
+            <input type="radio" name="checkout_address" value="{{ address.id }}" {% if forloop.first %}checked{% endif %}>
           </div>
-          <div class="flex-grow">
-            <div class="flex items-center gap-3 mb-1">
-              <p class="font-bold text-lg">{{ address.address1 }}</p>
-              {% if address == customer.default_address %}<span class="address-badge">Default</span>{% endif %}
+          <div class="address-info">
+            <div class="address-header">
+              <p class="address-title">{{ address.address1 }}</p>
+              {% if address == customer.default_address %}
+                <span class="address-badge">Home</span>
+              {% endif %}
             </div>
-            <p class="text-gray-600 text-sm">
+            <p class="address-details">
               {{ address.address1 }}{% if address.address2 %}, {{ address.address2 }}{% endif %}, {{ address.city }}, {{ address.province_code }} {{ address.zip }}<br>
               {{ address.phone }}
             </p>
           </div>
+          <div class="address-actions">
+             <a href="/account/addresses" class="action-icon">✎</a>
+             <form action="/account/addresses/{{ address.id }}" method="post" style="display:inline;">
+               <input type="hidden" name="_method" value="delete">
+               <button type="submit" class="action-icon" style="border:none; background:none;" onclick="return confirm('Delete address?')">✕</button>
+             </form>
+          </div>
         </div>
       {% endfor %}
     {% else %}
-      <p class="text-center py-10 border-2 border-dashed rounded-xl text-gray-400">No addresses saved yet.</p>
+      <div class="address-card" style="justify-content: center; border: 1px dashed #ccc; background: #fff;">
+        <p class="address-details">No addresses found. Click below to add one.</p>
+      </div>
     {% endif %}
   </div>
 
   <div class="add-new-address-wrapper">
-    <button type="button" id="toggleAddressForm" class="add-btn-circle">+</button>
-  </div>
-  <p class="text-center font-bold text-sm mb-4">Add New Address</p>
+    <a href="/account/addresses" class="add-btn-circle">+</a>
 
-  <div id="newAddressForm" class="form-container">
-    {%- if customer -%}
-      {%- form 'customer_address', customer.new_address -%}
-        <div class="address-form-grid">
-          <input type="text" name="address[first_name]" placeholder="First Name" required>
-          <input type="text" name="address[last_name]" placeholder="Last Name" required>
-          <input type="text" name="address[address1]" placeholder="Address Line 1" class="full-width" required>
-          <input type="text" name="address[city]" placeholder="City" required>
-          <select name="address[country]" class="full-width p-2 border rounded-md mb-2">
-            {{ all_country_option_tags }}
-          </select>
-          <input type="text" name="address[zip]" placeholder="Postal Code" required>
-          <input type="tel" name="address[phone]" placeholder="Phone Number" class="full-width">
-        </div>
-        <div class="mt-6 flex gap-4">
-          <button type="submit" class="bg-black text-white px-6 py-2 rounded-lg text-sm font-bold">Save & Use</button>
-          <button type="button" id="closeForm" class="border px-6 py-2 rounded-lg text-sm font-bold">Cancel</button>
-        </div>
-      {%- endform -%}
-    {%- else -%}
-      <div class="text-center p-6"><p>Please <a href="/account/login" class="underline">login</a> to add an address.</p></div>
-    {%- endif -%}
   </div>
+  <p class="add-text">Add New Address</p>
 
-  <div class="flex justify-end gap-4 mt-12 border-t pt-8">
-    <a href="/cart" class="btn-back text-center">Back to Cart</a>
-    <button type="button" id="nextStepBtn" class="btn-next" onclick="handleCheckoutNext()">Next</button>
+ <div id="newAddressForm" class="form-container">
+  {% form 'customer_address', customer.new_address %}
+    <input type="hidden" name="return_to" value="{{ canonical_url }}">
+
+    <div class="address-form-grid">
+      <input type="text" name="address[first_name]" placeholder="First Name" required>
+      <input type="text" name="address[last_name]" placeholder="Last Name" required>
+
+      <input type="text" name="address[address1]" placeholder="Address Line 1" class="full-width" required>
+      <input type="text" name="address[city]" placeholder="City" required>
+      <input type="text" name="address[zip]" placeholder="Postal Code" required>
+      <input type="tel" name="address[phone]" placeholder="Phone Number" class="full-width">
+    </div>
+
+    <div style="margin-top: 25px; display: flex; gap: 15px;">
+      <button type="submit" class="btn-next" style="padding: 12px 30px;">Save & Use</button>
+      <button type="button" id="closeForm" class="btn-back" style="padding: 12px 30px;">Cancel</button>
+    </div>
+  {% endform %}
+</div>
+
+
+  <div class="checkout-footer">
+    <a href="/cart" class="btn-back">Back</a>
+    <button type="button" class="btn-next" onclick="handleCheckoutNext()">Next</button>
   </div>
 </div>
 
@@ -177,59 +237,32 @@
     card.querySelector('input[type="radio"]').checked = true;
   }
 
+  function handleCheckoutNext() {
+    const selected = document.querySelector('input[name="checkout_address"]:checked');
+    if(selected) {
+      // Redirect to actual Shopify checkout with address ID or logic
+      window.location.href = '/checkout';
+    } else {
+      alert("Please select an address");
+    }
+  }
+  
   document.addEventListener('DOMContentLoaded', function() {
     const addBtn = document.getElementById('toggleAddressForm');
     const closeBtn = document.getElementById('closeForm');
     const form = document.getElementById('newAddressForm');
 
-    if(addBtn) {
-      addBtn.addEventListener('click', () => {
+    if (addBtn) {
+      addBtn.addEventListener('click', function() {
         form.style.display = (form.style.display === 'block') ? 'none' : 'block';
         if(form.style.display === 'block') form.scrollIntoView({ behavior: 'smooth' });
       });
     }
-    if(closeBtn) closeBtn.addEventListener('click', () => form.style.display = 'none');
-  });
 
-  async function handleCheckoutNext() {
-    const selected = document.querySelector('input[name="checkout_address"]:checked');
-    const nextBtn = document.getElementById('nextStepBtn');
-    
-    if(selected) {
-      // Show loading state
-      nextBtn.innerText = "Processing...";
-      nextBtn.style.opacity = "0.5";
-      nextBtn.disabled = true;
-
-      const addressId = selected.value;
-      
-      try {
-        // Save the selection to Cart Attributes so the Shipping Page can access it
-        await fetch('/cart/update.js', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ attributes: { 'Selected Address ID': addressId } })
-        });
-
-        // Redirect to the Custom Shipping Page
-        window.location.href = '/pages/shipping';
-      } catch (error) {
-        console.error("Error updating cart:", error);
-        alert("Something went wrong. Please try again.");
-        nextBtn.innerText = "Next";
-        nextBtn.style.opacity = "1";
-        nextBtn.disabled = false;
-      }
-    } else {
-      alert("Please select or add an address first.");
+    if (closeBtn) {
+      closeBtn.addEventListener('click', function() {
+        form.style.display = 'none';
+      });
     }
-  }
+  });
 </script>
-
-{% schema %}
-{
-  "name": "Custom Address Page",
-  "settings": [],
-  "presets": [{"name": "Custom Address Page"}]
-}
-{% endschema %}
