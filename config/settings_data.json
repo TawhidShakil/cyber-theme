@@ -164,6 +164,7 @@
         "type": "new-header",
         "settings": {
           "navigation": "header",
+          "logo": "shopify://shop_images/Color_Black_7b74df87-7090-4972-95fe-8a9b9df7976a.png",
           "logo_width": 120
         }
       }
