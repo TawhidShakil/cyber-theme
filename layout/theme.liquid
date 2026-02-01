@@ -310,6 +310,16 @@
       {%- render 'cart-drawer' -%}
     {%- endif -%}
 
+    {% comment %} {% sections 'header-group' %} {% endcomment %}
+
+    {% comment %} {% section 'header-2' %} {% endcomment %}
+
+    {% section 'new-header' %}
+
+    <main id="MainContent" class="content-for-layout focus-none" role="main" tabindex="-1">
+ 
+    {{ content_for_layout }}
+      
     {% sections 'header-group' %}
     
 
@@ -318,7 +328,10 @@
       
     </main>
 
-    {% sections 'footer-group' %}
+    
+    {% sections 'footer-group' %}  
+    
+    {% sections 'footer2' %}
 
     <ul hidden>
       <li id="a11y-refresh-page-message">{{ 'accessibility.refresh_page' | t }}</li>

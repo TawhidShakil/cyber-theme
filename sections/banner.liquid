@@ -1,0 +1,98 @@
+<div class="w-full h-[465px] flex text-white" style="background-color: {{ section.settings.banner_background_color }};">
+
+    <!-- LEFT CONTENT -->
+    <div class="flex flex-col justify-center items-center w-1/2 mx-auto h-full px-6 text-left">
+        <div class="flex flex-col items-start gap-4">
+            <p class="text-2xl opacity-60">{{ section.settings.banner_text }}</p>
+
+            <h1 class="text-8xl font-normal text-white">
+                {{ section.settings.banner_title }}
+                <span class="text-white font-bold"> {{ section.settings.banner_title2 }}</span>
+            </h1>
+
+            <p class="text-xl opacity-60">{{ section.settings.banner_description }}</p>
+
+            {% if section.settings.banner_button_link != blank %}
+                <a href="{{ section.settings.banner_button_link }}" class="text-xs font-bold text-white border border-white py-4 px-12 inline-block">
+                    {{ section.settings.banner_button_text }}
+                </a>
+            {% else %}
+                <button class="text-xs font-bold text-white border border-white py-4 px-12">
+                    {{ section.settings.banner_button_text }}
+                </button>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- RIGHT IMAGE -->
+    <div class="w-1/2 h-full">
+        {% if section.settings.banner_image != blank %}
+            <img 
+              src="{{ section.settings.banner_image | image_url: width: 1500 }}" 
+              alt="Banner Image"
+              class="w-full h-full object-contain"
+            >
+        {% endif %}
+    </div>
+
+</div>
+
+{% schema %}
+{
+    "name": "Banner",
+    "settings": [
+        {
+            "type": "image_picker",
+            "id": "banner_image",
+            "label": "Banner Image"
+        },
+        {
+            "type": "color",
+            "id": "banner_background_color",
+            "label": "Banner Background Color",
+            "default": "#211C24"
+        },
+        {
+            "type": "text",
+            "id": "banner_text",
+            "label": "Banner Text",
+            "default": "Banner Text"
+        },
+        {
+            "type": "text",
+            "id": "banner_title",
+            "label": "Banner Title",
+            "default": "Banner Title"
+        },
+        {
+            "type": "text",
+            "id": "banner_title2",
+            "label": "Banner Title 2",
+            "default": "Pro"
+        },
+        {
+            "type": "text",
+            "id": "banner_description",
+            "label": "Banner Description",
+            "default": "Banner Description"
+        },
+        {
+            "type": "text",
+            "id": "banner_button_text",
+            "label": "Banner Button Text",
+            "default": "Shop now"
+        },
+        {
+            "type": "url",
+            "id": "banner_button_link",
+            "label": "Banner Button Link"
+        }
+    ],
+    "presets": [
+        {
+            "category": "Content",
+            "name": "Hero Content"
+        }
+    ]
+}
+{% endschema %}
