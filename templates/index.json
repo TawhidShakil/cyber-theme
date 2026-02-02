@@ -16,7 +16,7 @@
           "type": "heading",
           "settings": {
             "heading": "Browse our latest products",
-            "heading_size": "h0"
+            "heading_size": "h1"
           }
         },
         "button": {
@@ -38,15 +38,15 @@
       "disabled": true,
       "settings": {
         "image_overlay_opacity": 40,
-        "image_height": "large",
+        "image_height": "small",
         "image_behavior": "none",
         "desktop_content_position": "bottom-center",
         "desktop_content_alignment": "center",
         "show_text_box": false,
         "color_scheme": "scheme-3",
-        "stack_images_on_mobile": false,
+        "stack_images_on_mobile": true,
         "mobile_content_alignment": "center",
-        "show_text_below": false
+        "show_text_below": true
       }
     },
     "banner_frgizt": {
@@ -73,7 +73,7 @@
         "airpods_image": "shopify://shop_images/hero__gnfk5g59t0qe_xlarge_2x_1.png",
         "airpods_title": "Apple AirPods Max",
         "airpods_text": "Computational audio. Listen, it's powerful",
-        "vision_image": "shopify://shop_images/image_36.png",
+        "vision_image": "shopify://shop_images/image_36_2.png",
         "vision_title": "Apple Vision Pro",
         "vision_text": "An immersive way to experience entertainment",
         "mac_image": "shopify://shop_images/MacBook_Pro_14.png",
