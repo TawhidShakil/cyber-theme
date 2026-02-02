@@ -99,10 +99,21 @@
         "padding_top": 36,
         "padding_bottom": 28
       }
+    },
+    "custom_liquid_hfakE6": {
+      "type": "custom-liquid",
+      "name": "t:sections.custom-liquid.presets.name",
+      "settings": {
+        "custom_liquid": "<div class=\"specs-container my-8 border border-gray-200 rounded-lg overflow-hidden\">\n  <h3 class=\"bg-gray-50 px-4 py-3 font-bold text-lg border-b border-gray-200\">Technical Specifications</h3>\n  <table class=\"w-full text-left border-collapse\">\n    <tbody class=\"divide-y divide-gray-200\">\n      {% if product.metafields.custom.battery_capacity %}\n        <tr>\n          <td class=\"px-4 py-3 font-semibold text-gray-600 w-1/3\">Battery Capacity</td>\n          <td class=\"px-4 py-3\">{{ product.metafields.custom.battery_capacity }}</td>\n        </tr>\n      {% endif %}\n      \n      {% if product.metafields.custom.screen_type %}\n        <tr>\n          <td class=\"px-4 py-3 font-semibold text-gray-600\">Screen Type</td>\n          <td class=\"px-4 py-3\">{{ product.metafields.custom.screen_type }}</td>\n        </tr>\n      {% endif %}\n\n      {% if product.metafields.custom.protection_class.value %}\n        <tr>\n          <td class=\"px-4 py-3 font-semibold text-gray-600\">Protection Class</td>\n          <td class=\"px-4 py-3\">{{ product.metafields.custom.protection_class.value.display_name }}</td>\n        </tr>\n      {% endif %}\n    </tbody>\n  </table>\n</div>",
+        "color_scheme": "",
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
     }
   },
   "order": [
     "main",
-    "related-products"
+    "related-products",
+    "custom_liquid_hfakE6"
   ]
 }
