@@ -15,11 +15,11 @@
 
 
 <section class="w-full max-w-[1440px] mx-auto overflow-hidden">
-  <div class="flex flex-col md:flex-row h-auto md:h-[600px]">
+  <div class="flex flex-col md:flex-row h-auto md:h-[600px] ">
 
     <div class="flex flex-col flex-1">
 
-      <div class="relative flex items-center justify-end px-12 h-[328px] bg-white group">
+      <div class="relative flex items-center justify-end px-12 max-w-[720px] h-[328px] bg-white group">
         {% if section.settings.ps5_image %}
           <img
             src="{{ section.settings.ps5_image | image_url: width: 800 }}"
@@ -76,7 +76,7 @@
       </div>
     </div>
 
-    <div class="flex-1 relative flex items-center bg-[#EDEDED] px-8 md:px-16 min-h-[500px] md:min-h-[600px] overflow-hidden group">
+    <div class="flex-1 relative flex items-center bg-[#EDEDED] px-8 md:px-16 min-h-[500px] md:min-h-[600px] max-w-[720px] overflow-hidden group">
 
       <div class="relative z-10 flex flex-col items-start gap-6 max-w-[350px] font-inter">
         <h2 class="text-[64px] leading-[1.2] font-inter text-black">
