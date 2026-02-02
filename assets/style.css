@@ -1,0 +1,55 @@
+:root {
+  /* Colors */
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --color-charcoal: #2e2e2e;
+
+  --gray-100: #f5f5f5;
+  --gray-300: #e5e5e5;
+  --gray-500: #8c8c8c;
+
+  /* Typography */
+  --font-body: 'Inter', sans-serif;
+  --font-heading: 'Inter', sans-serif;
+
+  /* Layout */
+  --container-max-width: 1440px;
+  --container-padding-desktop: 160px;
+  --container-padding-tablet: 48px;
+  --container-padding-mobile: 16px;
+
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+
+
+}
+
+/* Base Container */
+.container {
+  max-width: var(--container-max-width);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--container-padding-desktop);
+  padding-right: var(--container-padding-desktop);
+}
+
+/* Responsive Container */
+
+@media (max-width: 1024px) {
+  .container {
+    padding-left: var(--container-padding-tablet);
+    padding-right: var(--container-padding-tablet);
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding-left: var(--container-padding-mobile);
+    padding-right: var(--container-padding-mobile);
+  }
+}

@@ -142,30 +142,29 @@
       "header-2": {
         "type": "header-2",
         "blocks": {
-          "category_LiaAri": {
+          "category_iiDt76": {
             "type": "category",
             "settings": {
               "title": "Phones",
-              "icon": "shopify://shop_images/download_27.jpg",
-              "link": "#"
-            }
-          },
-          "category_LHCB9N": {
-            "type": "category",
-            "settings": {
-              "title": "Phones",
-              "icon": "shopify://shop_images/download_4_2cd818e9-591d-43cc-afc9-382b657c8ce5.jpg",
+              "icon": "shopify://shop_images/Iphone_Image.png",
               "link": ""
             }
           }
         },
         "block_order": [
-          "category_LiaAri",
-          "category_LHCB9N"
+          "category_iiDt76"
         ],
         "settings": {
-          "navigation": "",
+          "navigation": "header",
           "logo": "shopify://shop_images/Color_Black.png",
+          "logo_width": 120
+        }
+      },
+      "new-header": {
+        "type": "new-header",
+        "settings": {
+          "navigation": "header",
+          "logo": "shopify://shop_images/Color_Black_7b74df87-7090-4972-95fe-8a9b9df7976a.png",
           "logo_width": 120
         }
       }

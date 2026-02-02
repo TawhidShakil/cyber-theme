@@ -1,0 +1,66 @@
+<div class="w-full h-[420px] flex text-black" style="background-color: {{ section.settings.background_color }};">
+    <div class="flex w-full h-full">
+
+        {% for collection in section.settings.collections %}
+        <div class="w-1/3 h-full flex flex-col items-start text-left px-6 gap-1.5 hover:bg-[#2C2C2C] transition group">
+
+            <!-- IMAGE -->
+            <div class="h-1/2 w-full flex items-center justify-center">
+                {% if collection.featured_image %}
+                    <img 
+                        src="{{ collection.featured_image | image_url: width: 500 }}" 
+                        alt="{{ collection.title }}"
+                        class="max-h-full object-cover"
+                    >   
+                {% endif %}
+            </div>
+
+            <!-- TITLE -->
+            <h2 class="text-4xl mt-4 group-hover:text-white transition">
+                {{ collection.title }}
+            </h2>
+
+            <!-- DESCRIPTION -->
+            {% if collection.description != blank %}
+                <p class="mt-2 text-lg opacity-60 group-hover:text-white transition">
+                    {{ collection.description | strip_html | truncate: 100 }}
+                </p>
+            {% endif %}
+
+            <!-- BUTTON -->
+            <a href="{{ collection.url }}" 
+               class="mt-4 inline-block border border-black px-12 py-2 group-hover:border-white group-hover:text-white transition">
+                Shop Now
+            </a>
+
+        </div>
+        {% endfor %}
+
+    </div>
+</div>
+
+
+{% schema %}
+{
+  "name": "Collections Banner",
+  "settings": [
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "collection_list",
+      "id": "collections",
+      "label": "Select Collections",
+      "limit": 5
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collections Banner"
+    }
+  ]
+}
+{% endschema %}
