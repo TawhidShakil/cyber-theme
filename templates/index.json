@@ -54,7 +54,7 @@
       "name": "Hero Content",
       "settings": {
         "banner_image": "shopify://shop_images/Iphone_Image.png",
-        "banner_background_color": "#211C24",
+        "banner_background_color": "#211c24",
         "banner_text": "Pro.Beyond",
         "banner_title": "IPhone 14",
         "banner_title2": "Pro",
@@ -88,8 +88,8 @@
         "category_bMRiMr": {
           "type": "category",
           "settings": {
-            "collection": "",
-            "title": "",
+            "collection": "apple",
+            "title": "Phones",
             "icon_svg": ""
           }
         },

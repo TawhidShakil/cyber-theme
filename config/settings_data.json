@@ -167,6 +167,26 @@
           "logo": "shopify://shop_images/Color_Black_7b74df87-7090-4972-95fe-8a9b9df7976a.png",
           "logo_width": 120
         }
+      },
+      "hero": {
+        "type": "hero",
+        "settings": {
+          "eyebrow_text": "Pro Beyond",
+          "heading": "iPhone 14 Pro",
+          "description": "Created to change everything for the better. For everyone",
+          "button_text": "Shop Now",
+          "button_link": ""
+        }
+      },
+      "promo-hero": {
+        "type": "promo-hero",
+        "settings": {
+          "bg_image": "shopify://shop_images/Banner_2.png",
+          "heading": "",
+          "subtext": "",
+          "button_text": "",
+          "button_link": ""
+        }
       }
     },
     "content_for_index": [],
