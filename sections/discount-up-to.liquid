@@ -19,7 +19,7 @@
     {% if discount_collection != blank %}
       {% for product in discount_collection.products %}
         <div class="flex-none w-[calc((100%-72px)/4)] snap-start">
-          {% render 'product-card-item', product: product %}
+          {% render 'product-card-item', card_product: product %}
         </div>
       {% endfor %}
     {% else %}

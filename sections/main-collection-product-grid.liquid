@@ -1,3 +1,4 @@
+<script src="https://cdn.tailwindcss.com"></script>
 {{ 'template-collection.css' | asset_url | stylesheet_tag }}
 {{ 'component-card.css' | asset_url | stylesheet_tag }}
 {{ 'component-price.css' | asset_url | stylesheet_tag }}
@@ -22,178 +23,139 @@
   <script src="{{ 'quick-order-list.js' | asset_url }}" defer="defer"></script>
 {%- endif -%}
 
-{%- style -%}
-  .section-{{ section.id }}-padding {
-    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
-    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
-  }
 
-  @media screen and (min-width: 750px) {
-    .section-{{ section.id }}-padding {
-      padding-top: {{ section.settings.padding_top }}px;
-      padding-bottom: {{ section.settings.padding_bottom }}px;
+
+<style>
+  .font-inter {
+    font-family: 'Inter'
+    , sans-serif;
+  }
+  .tab-link.active {
+    color: black !important;
+    border-bottom: 2px solid black;
+  }
+  .tab-content {
+    display: none;
+  }
+  .tab-content.active {
+    display: grid;
+  }
+</style>
+
+
+
+<div >
+  <div class="max-w-[1119px] mx-auto pb-[80px] md:px-[80px]">
+    
+    <nav class="flex items-center gap-4 py-8 text-[16px] font-medium text-[#A4A4A4]" aria-label="Breadcrumb">
+      <a href="/" class="hover:text-black transition-colors">Home</a>
+      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+      <a href="/collections" class="hover:text-black transition-colors">Catalog</a>
+      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+      <span class="text-black font-semibold">{{ collection.title }}</span>
+    </nav>
+
+    {%- paginate collection.products by section.settings.products_per_page -%}
+      <div class="flex flex-col md:flex-row gap-10">
+        
+        <aside class="w-full md:w-[280px] flex-shrink-0">
+          <form id="FacetFiltersForm" class="sticky top-10">
+            {%- for filter in collection.filters -%}
+              <div class="border-b border-gray-100 py-6 first:pt-0">
+                <div class="flex items-center justify-between w-full mb-4 group cursor-pointer" onclick="this.nextElementSibling.classList.toggle('hidden')">
+                  <span class="text-[18px] font-medium text-black">{{ filter.label }}</span>
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"></path></svg>
+                </div>
+
+                <div class="filter-content">
+                  {% if filter.label == 'Brand' %}
+                    <div class="relative mb-4 mt-2">
+  <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+    <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+    </svg>
+  </div>
+  
+  <input 
+    type="text" 
+    id="BrandSearch" 
+    onkeyup="filterBrands()" 
+    placeholder="Search" 
+    class="w-full bg-[#F5F5F5] border-none rounded-[8px] py-3 pl-10 pr-4 text-[14px] placeholder-gray-400 focus:ring-1 focus:ring-black outline-none transition-all"
+  >
+</div>
+                  {% endif %}
+
+                  <div id="BrandList" class="space-y-3 max-h-[300px] overflow-y-auto custom-scrollbar pr-2">
+                    {%- for value in filter.values -%}
+                      <label class="brand-item flex items-center justify-between cursor-pointer group">
+                        <div class="flex items-center gap-3">
+                          <input type="checkbox" name="{{ value.param_name }}" value="{{ value.value }}" {% if value.active %}checked{% endif %} onchange="this.form.submit()" class="w-4 h-4 rounded border-gray-300 text-black focus:ring-black">
+                          <span class="brand-name text-[15px] {% if value.active %}font-medium text-black{% else %}text-[#000000]{% endif %}">{{ value.label }}</span>
+                        </div>
+                        <span class="text-[12px] text-gray-400 font-medium">{{ value.count }}</span>
+                      </label>
+                    {%- endfor -%}
+                  </div>
+                </div>
+              </div>
+            {%- endfor -%}
+          </form>
+        </aside>
+
+        <div class="flex-grow">
+          <div class="flex justify-between items-center mb-8">
+            <div class="text-[16px] text-[#A4A4A4]">
+              Selected Products: <span class="font-medium text-[20px] text-black">{{ collection.products_count }}</span>
+            </div>
+            
+            <div class="flex items-center gap-4">
+  <div class="relative flex items-center">
+    <select onchange="location = this.value;" class="bg-white border border-gray-200 rounded-[8px] py-2 pl-4 pr-10 text-[15px] font-medium focus:ring-1 focus:ring-black appearance-none cursor-pointer w-full">
+      {%- for option in collection.sort_options -%}
+        <option value="{{ collection.url }}?sort_by={{ option.value }}" {% if option.value == collection.sort_by %}selected{% endif %}>
+          {{ option.name }}
+        </option>
+      {%- endfor -%}
+    </select>
+    <span class="absolute right-4 pointer-events-none text-[#000000]">
+      <svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </span>
+  </div>
+</div>
+          </div>
+
+          <ul id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {%- for product in collection.products -%}
+              <li>{% render 'product-card-item', card_product: product %}</li>
+            {%- endfor -%}
+          </ul>
+
+          {%- if paginate.pages > 1 -%}
+            <div class="mt-16">
+              {% render 'pagination', paginate: paginate %}
+            </div>
+          {%- endif -%}
+        </div>
+
+      </div>
+    {%- endpaginate -%}
+  </div>
+</div>
+
+<script>
+  function filterBrands() {
+    const input = document.getElementById('BrandSearch');
+    const filter = input.value.toLowerCase();
+    const items = document.getElementsByClassName('brand-item');
+    for (let i = 0; i < items.length; i++) {
+      const name = items[i].querySelector('.brand-name').innerText.toLowerCase();
+      items[i].style.display = name.includes(filter) ? "" : "none";
     }
   }
-{%- endstyle -%}
-
-<div class="section-{{ section.id }}-padding gradient color-{{ section.settings.color_scheme }}">
-  {%- paginate collection.products by section.settings.products_per_page -%}
-    {% comment %} Sort is the first tabbable element when filter type is vertical {% endcomment %}
-    {%- if section.settings.enable_sorting and section.settings.filter_type == 'vertical' -%}
-      <facet-filters-form class="facets facets-vertical-sort page-width small-hide">
-        <form class="facets-vertical-form" id="FacetSortForm">
-          <div class="facet-filters sorting caption">
-            <div class="facet-filters__field">
-              <h2 class="facet-filters__label caption-large text-body">
-                <label for="SortBy">{{ 'products.facets.sort_by_label' | t }}</label>
-              </h2>
-              <div class="select">
-                {%- assign sort_by = collection.sort_by | default: collection.default_sort_by -%}
-                <select
-                  name="sort_by"
-                  class="facet-filters__sort select__select caption-large"
-                  id="SortBy"
-                  aria-describedby="a11y-refresh-page-message"
-                >
-                  {%- for option in collection.sort_options -%}
-                    <option
-                      value="{{ option.value | escape }}"
-                      {% if option.value == sort_by %}
-                        selected="selected"
-                      {% endif %}
-                    >
-                      {{ option.name | escape }}
-                    </option>
-                  {%- endfor -%}
-                </select>
-                <span class="svg-wrapper">
-                  {{- 'icon-caret.svg' | inline_asset_content -}}
-                </span>
-              </div>
-            </div>
-          </div>
-
-          <div class="product-count-vertical light" role="status">
-            <h2 class="product-count__text text-body">
-              <span id="ProductCountDesktop">
-                {%- if collection.results_count -%}
-                  {{
-                    'templates.search.results_with_count'
-                    | t: terms: collection.terms, count: collection.results_count
-                  }}
-                {%- elsif collection.products_count == collection.all_products_count -%}
-                  {{ 'products.facets.product_count_simple' | t: count: collection.products_count }}
-                {%- else -%}
-                  {{
-                    'products.facets.product_count'
-                    | t: product_count: collection.products_count, count: collection.all_products_count
-                  }}
-                {%- endif -%}
-              </span>
-            </h2>
-            {%- render 'loading-spinner' -%}
-          </div>
-        </form>
-      </facet-filters-form>
-    {%- endif -%}
-
-    <div class="{% if section.settings.filter_type == 'vertical' %} facets-vertical page-width{% endif %}">
-      {{ 'component-facets.css' | asset_url | stylesheet_tag }}
-      <script src="{{ 'facets.js' | asset_url }}" defer="defer"></script>
-      {%- if section.settings.enable_filtering or section.settings.enable_sorting -%}
-        <aside
-          aria-labelledby="verticalTitle"
-          class="facets-wrapper{% unless section.settings.enable_filtering %} facets-wrapper--no-filters{% endunless %}{% if section.settings.filter_type != 'vertical' %} page-width{% endif %}"
-          id="main-collection-filters"
-          data-id="{{ section.id }}"
-        >
-          {% render 'facets',
-            results: collection,
-            enable_filtering: section.settings.enable_filtering,
-            enable_sorting: section.settings.enable_sorting,
-            filter_type: section.settings.filter_type,
-            paginate: paginate
-          %}
-        </aside>
-      {%- endif -%}
-
-      <div
-        class="product-grid-container{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
-        id="ProductGridContainer"
-        {% if settings.animations_reveal_on_scroll %}
-          data-cascade
-        {% endif %}
-      >
-        {%- if collection.products.size == 0 -%}
-          <div class="collection collection--empty page-width" id="product-grid" data-id="{{ section.id }}">
-            <div class="loading-overlay gradient"></div>
-            <div class="title-wrapper center">
-              <h2 class="title title--primary">
-                {{ 'sections.collection_template.empty' | t -}}
-                <br>
-                {{
-                  'sections.collection_template.use_fewer_filters_html'
-                  | t: link: collection.url, class: 'underlined-link link'
-                }}
-              </h2>
-            </div>
-          </div>
-        {%- else -%}
-          <div
-            class="collection{% if section.settings.filter_type != 'vertical' %} page-width{% endif %}"
-          >
-            <div class="loading-overlay gradient"></div>
-            <ul
-              id="product-grid"
-              data-id="{{ section.id }}"
-              class="
-                grid product-grid grid--{{ section.settings.columns_mobile }}-col-tablet-down
-                grid--{{ section.settings.columns_desktop }}-col-desktop
-                {% if section.settings.quick_add == 'bulk' %} collection-quick-add-bulk{% endif %}
-              "
-            >
-              {% assign skip_card_product_styles = false %}
-              {%- for product in collection.products -%}
-                {% assign lazy_load = false %}
-                {%- if forloop.index > 2 -%}
-                  {%- assign lazy_load = true -%}
-                {%- endif -%}
-                <li
-                  class="grid__item{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
-                  {% if settings.animations_reveal_on_scroll %}
-                    data-cascade
-                    style="--animation-order: {{ forloop.index }};"
-                  {% endif %}
-                >
-                  {% render 'card-product',
-                    card_product: product,
-                    media_aspect_ratio: section.settings.image_ratio,
-                    image_shape: section.settings.image_shape,
-                    show_secondary_image: section.settings.show_secondary_image,
-                    show_vendor: section.settings.show_vendor,
-                    show_rating: section.settings.show_rating,
-                    lazy_load: lazy_load,
-                    skip_styles: skip_card_product_styles,
-                    quick_add: section.settings.quick_add,
-                    section_id: section.id
-                  %}
-                </li>
-                {%- assign skip_card_product_styles = true -%}
-              {%- endfor -%}
-            </ul>
-
-            {%- if paginate.pages > 1 -%}
-              {% render 'pagination', paginate: paginate, anchor: '' %}
-            {%- endif -%}
-          </div>
-        {%- endif -%}
-      </div>
-    </div>
-  {%- endpaginate -%}
-  {% if section.settings.image_shape == 'arch' %}
-    {{ 'mask-arch.svg' | inline_asset_content }}
-  {%- endif -%}
-</div>
+</script>
 
 {% schema %}
 {
