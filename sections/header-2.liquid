@@ -1,6 +1,16 @@
+<style>
+#res-control {
+  display: none;
+}
 
+@media (min-width: 768px) {
+  #res-control {
+    display: flex;
+  }
+}
+</style>
 <header class="container max-w-[1440px] bg-white border-b border-gray-100 shadow-sm sticky top-0 z-50 group">
-  <div class="mx-auto px-4 lg:px-8 flex items-center justify-between py-4">
+  <div class="mx-auto px-4 lg:px-4 flex items-center justify-between py-4">
 
     <!--  LOGO -->
     <div class="shrink-0">
@@ -23,7 +33,7 @@
     </div>
 
     <!--  SEARCH BAR -->
-    <div class=" w-full max-w-xl">
+    <div class="w-auto md:min-w-[150px] lg:min-w-[300px]" id="res-control">
       <form action="{{ routes.search_url }}" method="get" role="search" class="w-full">
         <div class="relative group">
           <span class="absolute inset-y-0 left-4 flex items-center text-gray-400 group-focus-within:text-gray-600">
@@ -36,19 +46,20 @@
             name="q"
             placeholder="Search"
             value="{{ search.terms | escape }}"
-            class="w-full h-12 bg-gray-50 border-none rounded-lg placeholder-gray-400 pl-12 pr-4 focus:ring-1 focus:ring-gray-200 focus:bg-white"
+            class="w-full h-12 bg-gray-50 border-none rounded-lg placeholder-gray-400 pl-12 pr-4 focus:ring-1 focus:ring-gray-200 focus:bg-white text-sm"
           >
         </div>
       </form>
     </div>
 
     <!-- NAVIGATION MENU -->
-    <nav class="">
-      <ul class="flex sm:gap-8 text-[14px] font-medium text-gray-600">
+    <nav class="font-var[(--font-body)]" id="res-control">
+      <ul class="flex sm:gap-4 lg:gap-8 text-base font-medium text-gray-400">
         {% for link in section.settings.navigation.links %}
            {% unless link.title == 'Header' %}
             <li class="relative group">
-                <a href="{{ link.url }}" class="hover:text-black transition whitespace-nowrap">
+                <a href="{{ link.url }}" class="font-medium hover:font-bold hover:text-[var(--color-charcoal)] transition-all whitespace-nowrap
+">
                 {{ link.title }}
                 </a>
             </li>
@@ -58,7 +69,7 @@
     </nav>
 
     <!-- ICONS (Wishlist, Cart, Account) -->
-    <div class="flex gap-8">
+    <div class="flex sm:gap-4 lg:gap-8" id="res-control">
 
       <!-- Wishlist -->
       <a href="#" class="text-gray-700 hover:text-black transition">
