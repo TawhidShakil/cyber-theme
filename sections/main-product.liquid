@@ -74,7 +74,7 @@
 
   <section class="pt-[112px] pb-[112px] px-[160px]">
   <div class="max-w-7xl mx-auto">
-    <div class="grid grid-cols-[80px_1fr_1fr] gap-[20px] items-center">
+    <div class="grid grid-cols-[80px_1fr_1fr] gap-[20px] items-start">
 
       <!-- Thumbnails -->
       <div class="flex flex-col gap-4 justify-center">
@@ -104,7 +104,7 @@
       </div>
 
       <!-- Product Info -->
-      <div class="flex flex-col justify-center translate-y-[-120px]">
+      <div class="flex flex-col justify-start">
         <h1 class="font-inter text-[40px] leading-[40px] font-bold text-black mb-4">
           {{ product.title }}
         </h1>
@@ -134,8 +134,93 @@
       %}
   {% endcase %}
 {% endfor %}
-      </div>
+{% comment %} product-features {% endcomment %}
+     {% render 'product-features', product: product %}
+     <div class="mt-10">
 
+  <div
+    id="product-description"
+    class="text-gray-700 text-[14px] leading-relaxed overflow-hidden
+           transition-all duration-300"
+    style="
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+    "
+  >
+    {{ product.description }}
+  </div>
+
+  <button
+    id="toggle-description"
+    class="mt-2 text-[14px] font-medium text-black underline hidden cursor-pointer"
+    type="button"
+  >
+    See more
+  </button>
+
+</div>
+<div class="mt-8">
+  {% render 'product-benefits', product: product %}
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const desc = document.getElementById("product-description");
+    const btn = document.getElementById("toggle-description");
+
+    if (!desc || !btn) return;
+
+    // Check if description exceeds 2 lines
+    if (desc.scrollHeight > desc.clientHeight + 5) {
+      btn.classList.remove("hidden");
+    }
+
+    let expanded = false;
+
+    btn.addEventListener("click", function () {
+      expanded = !expanded;
+
+      if (expanded) {
+        desc.style.webkitLineClamp = "unset";
+        desc.style.overflow = "visible";
+        btn.textContent = "See less";
+      } else {
+        desc.style.webkitLineClamp = "2";
+        desc.style.overflow = "hidden";
+        btn.textContent = "See more";
+      }
+    });
+  });
+</script>
+
+
+     <div class="mt-10 flex gap-4 text-[16px]">
+
+  <!-- Add to Wishlist -->
+  <button
+    type="button"
+    class="flex-1 h-[52px] rounded-xl border border-black text-black
+           font-medium  cursor-pointer"
+  >
+    Add to Wishlist
+  </button>
+
+  <!-- Add to Cart -->
+  <button
+    type="submit"
+    form="product-form-{{ section.id }}"
+    class="flex-1 h-[52px] rounded-xl bg-black text-white
+           font-medium 
+           hover:bg-gray-900 cursor-pointer"
+  >
+    Add to Cart
+  </button>
+
+</div>
+
+      </div>
+    
     </div>
   </div>
 </section>

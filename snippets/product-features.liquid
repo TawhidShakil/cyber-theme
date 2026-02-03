@@ -1,0 +1,41 @@
+{% assign labels = product.metafields.custom.feature_labels.value %}
+{% assign values = product.metafields.custom.feature_values.value %}
+{% assign icons  = product.metafields.custom.feature_icons.value %}
+
+{% if labels and values %}
+  <div class="mt-8 grid grid-cols-3 gap-4">
+
+    {% for label in labels %}
+      {% assign i = forloop.index0 %}
+
+      {% if values[i] %}
+        <div class="flex items-center gap-4 rounded-xl bg-gray-100 px-6 py-4 text-[14px]">
+
+          {%- if icons != blank and icons.size > i -%}
+            {% assign icon = icons[i] %}
+            {% if icon != blank %}
+              {{ icon
+                | image_url: width: 48
+                | image_tag:
+                  class: "w-8 h-8 object-contain shrink-0",
+                  alt: label
+              }}
+            {% endif %}
+          {%- endif -%}
+
+          <div class="flex flex-col leading-tight">
+            <span class=" text-gray-400">
+              {{ label }}
+            </span>
+            <span class=" font-semibold text-gray-900">
+              {{ values[i] }}
+            </span>
+          </div>
+
+        </div>
+      {% endif %}
+
+    {% endfor %}
+
+  </div>
+{% endif %}

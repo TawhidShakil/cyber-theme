@@ -1,3 +1,65 @@
+/* =========================
+   PRODUCT FEATURES GRID
+   ========================= */
+
+.product-features {
+  margin-top: 28px;
+}
+
+/* 3 items per row */
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding: 16px 20px;
+  border: 1px solid #e6e6e6;
+  border-radius: 10px;
+  background: #f7f7f7;
+}
+
+.feature-icon {
+  font-size: 20px;
+  line-height: 1;
+}
+
+.feature-content {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.feature-label {
+  font-size: 13px;
+  color: #9b9b9b;
+}
+
+.feature-value {
+  font-size: 14px;
+  font-weight: 500;
+  color: #111;
+}
+
+/* Tablet */
+@media (max-width: 900px) {
+  .features-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 :root {
   --alpha-button-background: 1;
   --alpha-button-border: 1;
