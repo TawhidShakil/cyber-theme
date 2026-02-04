@@ -239,30 +239,19 @@
 
   function handleCheckoutNext() {
     const selected = document.querySelector('input[name="checkout_address"]:checked');
-    if(selected) {
-      // Redirect to actual Shopify checkout with address ID or logic
-      window.location.href = '/checkout';
-    } else {
+
+    if (!selected) {
       alert("Please select an address");
+      return;
     }
+
+    fetch('/?section_id=shipping-method-selector')
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById('checkout-step-container').innerHTML = html;
+      })
+      .catch(() => {
+        alert('Failed to load shipping methods');
+      });
   }
-  
-  document.addEventListener('DOMContentLoaded', function() {
-    const addBtn = document.getElementById('toggleAddressForm');
-    const closeBtn = document.getElementById('closeForm');
-    const form = document.getElementById('newAddressForm');
-
-    if (addBtn) {
-      addBtn.addEventListener('click', function() {
-        form.style.display = (form.style.display === 'block') ? 'none' : 'block';
-        if(form.style.display === 'block') form.scrollIntoView({ behavior: 'smooth' });
-      });
-    }
-
-    if (closeBtn) {
-      closeBtn.addEventListener('click', function() {
-        form.style.display = 'none';
-      });
-    }
-  });
 </script>

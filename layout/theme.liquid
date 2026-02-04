@@ -40,7 +40,7 @@
     {%- endif -%}
 
     {{ content_for_header }}
-
+    
     {%- liquid
       assign body_font_bold = settings.type_body_font | font_modify: 'weight', 'bold'
       assign body_font_italic = settings.type_body_font | font_modify: 'style', 'italic'
@@ -255,8 +255,7 @@
       }
     {% endstyle %}
 
-    {% comment %} {{ 'base.css' | asset_url | stylesheet_tag }} {% endcomment %}
-     {{ 'style.css' | asset_url | stylesheet_tag }}
+    {{ 'base.css' | asset_url | stylesheet_tag }}
     <link rel="stylesheet" href="{{ 'component-cart-items.css' | asset_url }}" media="print" onload="this.media='all'">
 
     {%- if settings.cart_type == 'drawer' -%}
@@ -298,6 +297,9 @@
       }
     </script>
     {{ 'tailwind.output.css' | asset_url | stylesheet_tag }}
+    {{ 'styles.css' | asset_url | stylesheet_tag }}
+    
+
   </head>
 
   <body class="gradient{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}">
@@ -311,17 +313,12 @@
 
     {% comment %} {% sections 'header-group' %} {% endcomment %}
 
-    {% comment %} {% section 'header-2' %} {% endcomment %}
-
-    {% section 'new-header' %}
-
+    {% section 'header-2' %}
+    
+    
     <main id="MainContent" class="content-for-layout focus-none" role="main" tabindex="-1">
- 
-    {{ content_for_layout }}
-      
-      
+      {{ content_for_layout }}
     </main>
-
     
     {% sections 'footer-group' %}  
     

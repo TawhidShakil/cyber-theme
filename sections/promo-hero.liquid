@@ -1,0 +1,81 @@
+{% comment %} <section class="container w-full h-[448px] bg-[var(--color-charcoal)] flex flex-col items-center justify-center">
+
+    <div class="flex flex-col items-center font-[var(--font-heading)] gap-3 ">
+        <p class="text-7xl font-thin text-white">Big Summer <span class="font-bold">Sale</span></p>
+        <p class="text-lg font-thin text-[var(--gray-500)]">Commodo fames vitae vitae leo mauris in. Eu consequat.</p>
+        <button class="btn btn-primary w-[119px] h-[36px] border border-[var(--gray-100)] rounded-[var(--radius-md)] text-white">
+            Shop Now
+        </button>
+    </div>
+
+</section> {% endcomment %}
+<section
+  class="container max-w-[1440px] h-[448px] flex flex-col items-center justify-center"
+  style="
+    background-color: var(--color-charcoal);
+    background-image: url({{ section.settings.bg_image | image_url }});
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  "
+>
+
+
+  <div class="flex flex-col items-center font-[var(--font-heading)] gap-3">
+    <p class="text-7xl font-thin text-white">
+  {{ section.settings.heading }}
+</p>
+
+<p class="text-lg font-thin text-[var(--gray-500)]">
+  {{ section.settings.subtext }}
+</p>
+
+<a href="{{ section.settings.button_link }}">
+  <button class="btn btn-primary w-[119px] h-[36px] border border-[var(--gray-100)] rounded-[var(--radius-md)] text-white">
+    {{ section.settings.button_text }}
+  </button>
+</a>
+
+  </div>
+
+</section>
+{% schema %}
+{
+  "name": "Sale Banner",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Background image"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Main heading",
+      "default": "Big Summer Sale"
+    },
+    {
+      "type": "textarea",
+      "id": "subtext",
+      "label": "Sub text",
+      "default": "Commodo fames vitae vitae leo mauris in. Eu consequat."
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "Shop Now"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Sale Banner"
+    }
+  ]
+}
+{% endschema %}
