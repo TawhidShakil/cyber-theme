@@ -12,9 +12,23 @@
     "main": {
       "type": "main-address-selection",
       "settings": {}
+    },
+    "shipping_method_selector_DnVNYC": {
+      "type": "shipping-method-selector",
+      "name": "Shipping Selection",
+      "settings": {
+        "title": "Shipment Method"
+      }
+    },
+    "checkout_payment_step_JRXHxk": {
+      "type": "checkout-payment-step",
+      "name": "Checkout Payment Step",
+      "settings": {}
     }
   },
   "order": [
-    "main"
+    "main",
+    "shipping_method_selector_DnVNYC",
+    "checkout_payment_step_JRXHxk"
   ]
 }
