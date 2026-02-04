@@ -2,12 +2,28 @@
 
 <div class="max-w-6xl mx-auto p-6 font-sans text-[#2D2A4A]" id="payment-step-{{ section.id }}">
   
-  <div class="flex justify-between items-center mb-12 text-sm text-gray-400 max-w-4xl mx-auto">
-    <div class="flex flex-col items-center"><span class="flex items-center justify-center w-8 h-8 rounded-full border border-gray-200 mb-1">1</span><p>Step 1</p></div>
-    <div class="h-[1px] bg-gray-200 flex-grow mx-4 mt-[-20px]"></div>
-    <div class="flex flex-col items-center"><span class="flex items-center justify-center w-8 h-8 rounded-full border border-gray-200 mb-1">2</span><p>Step 2</p></div>
-    <div class="h-[1px] bg-gray-200 flex-grow mx-4 mt-[-20px]"></div>
-    <div class="flex flex-col items-center text-black"><span class="flex items-center justify-center w-8 h-8 rounded-full bg-black text-white mb-1">3</span><p>Step 3</p><p class="font-bold">Payment</p></div>
+  <div class="checkout-steps">
+    <div class="step-info">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+      <div class="step-info">
+        <span class="step-label">Step 1</span>
+        <span class="step-name">Address</span>
+      </div>
+    </div>
+    <div class="step">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+      <div class="step-info">
+        <span class="step-label">Step 2</span>
+        <span class="step-name">Shipping</span>
+      </div>
+    </div>
+    <div class="step">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+      <div class="step-active">
+        <span class="step-label">Step 3</span>
+        <span class="step-name">Payment</span>
+      </div>
+    </div>
   </div>
 
   <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">

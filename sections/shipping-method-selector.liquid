@@ -71,9 +71,28 @@
     <button type="button" class="px-10 py-3 border border-gray-300 rounded-lg font-medium hover:bg-gray-50 transition-colors">
       Back
     </button>
-    <button href="{{ 'checkout-payment-step' | link_to }}" type="button" id="next-btn" class="px-10 py-3 bg-black text-white rounded-lg font-medium hover:bg-gray-800 transition-colors">
-      Next
-    </button>
+    <button
+  type="button"
+  id="next-btn"
+  onclick="goToPaymentStep()"
+  class="px-10 py-3 bg-black text-white rounded-lg font-medium hover:bg-gray-800 transition-colors">
+  Next
+</button>
+
+<script>
+  function goToPaymentStep() {
+    fetch('/?section_id=checkout-payment-step')
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById('checkout-step-container').innerHTML = html;
+      })
+      .catch(() => {
+        alert('Failed to load payment step');
+      });
+  }
+</script>
+
+
   </div>
 </div>
 
