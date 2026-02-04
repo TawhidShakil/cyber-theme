@@ -173,10 +173,10 @@
           "apple",
           "galaxy-watch"
         ],
-        "heading_font": "assistant_n4",
+        "heading_font": "inter_n4",
         "heading_font_size": 16,
-        "body_font": "assistant_n4",
-        "body_font_size": 16
+        "body_font": "inter_n4",
+        "body_font_size": 14
       }
     },
     "discount_up_to_rykxzy": {
