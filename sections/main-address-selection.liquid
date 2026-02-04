@@ -241,7 +241,7 @@
     const selected = document.querySelector('input[name="checkout_address"]:checked');
     if(selected) {
       // Redirect to actual Shopify checkout with address ID or logic
-      window.location.href = '/checkout';
+      window.location.href = "{{ 'shipping-method-selector' | link_to }}";
     } else {
       alert("Please select an address");
     }
