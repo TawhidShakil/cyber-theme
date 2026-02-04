@@ -65,7 +65,6 @@
     },
     "small_banner_pmjixk": {
       "type": "small-banner",
-      "disabled": true,
       "name": "Smaller Banners Grid",
       "settings": {
         "ps5_image": "shopify://shop_images/PlayStation.png",
