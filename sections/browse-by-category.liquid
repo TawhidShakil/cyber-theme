@@ -24,28 +24,26 @@
 </style>
 
 
-<section class="max-w-[1440px] mx-auto pt-20 pb-12  overflow-hidden px-[160px]">
+<section class="w-[375px] sm:w-full md:max-w-[1440px]  mx-auto   overflow-hidden px-2 md:px-[160px] flex flex-col items-center sm:block">
 
-  <div class="flex items-end justify-between mb-10 ">
+  <div class="w-[370px] h-[32px] sm:w-full h-auto flex items-center justify-between my-10 ">
 
-    <div class="flex flex-col gap-">
+    <div class="flex flex-col">
 
-
-      <h2 class="text-[24px] font-medium tracking-tight text-black">Browse By Category</h2>
+      <h2 class="w-full text sm:text-2xl font-medium tracking-tight text-black">Browse By Category</h2>
 
     </div>
 
 
     <div class="flex gap-6 ">
 
-      <button id="prevBtn" class="w-11 h-11 flex items-center justify-center rounded-full bg-[#F5F5F5] hover:bg-gray-200 transition-colors">
+      <button id="prevBtn" class="w-8 h-8 flex items-center justify-center rounded-full bg-[#F5F5F5] hover:bg-gray-200 transition-colors">
 
-        
         <img src="{{ 'Arrow-2.png' | asset_url }}" alt="Previous">
 
       </button>
 
-      <button id="nextBtn" class="w-11 h-11 flex items-center justify-center rounded-full bg-[#F5F5F5] hover:bg-gray-200 transition-colors">
+      <button id="nextBtn" class="w-8 h-8 flex items-center justify-center rounded-full bg-[#F5F5F5] hover:bg-gray-200 transition-colors">
 
        <img src="{{ 'Arrow.png' | asset_url }}" alt="Next">
 
@@ -56,11 +54,21 @@
   </div>
 
 
-  <div id="categorySlider" class="  flex gap-8 overflow-x-auto scrollbar-hide scroll-smooth snap-x snap-mandatory">
+  <div id="categorySlider" class="
+  pb-6
+  grid grid-cols-2 gap-6
+  sm:grid-cols-6
+">
 
 
-    <a href="#" class="group flex-none w-[calc(50%-12px)] sm:w-[calc(33.33%-16px)] md:w-[calc(25%-18px)] lg:w-[calc(16.666%-20px)] flex flex-col items-center justify-center rounded-[10px] bg-[#F6F6F6]
- hover:bg-[#ed1212] hover:border-[#DB4444] transition-all duration-300 snap-start">
+    <a href="#" class="category-item w-[150px] h-[128px]
+flex flex-col items-center justify-center
+rounded-[10px]
+bg-[#F6F6F6]
+border border-transparent
+hover:bg-[#ed1212] hover:border-[#DB4444]
+transition-all duration-300">
+
 
       <div class="mb-4 transition-all duration-300 group-hover:brightness-0 group-hover:invert">
 
@@ -69,13 +77,19 @@
 
       </div>
 
-      <span class="text-[16px] font-medium text-black group-hover:text-white transition-colors">Phones</span>
+      <span class="text-base font-medium text-black group-hover:text-white transition-colors">Phones</span>
 
     </a>
 
 
-    <a href="#" class="group flex-none w-[calc(50%-12px)] sm:w-[calc(33.33%-16px)] md:w-[calc(25%-18px)] lg:w-[calc(16.666%-20px)] flex flex-col items-center justify-center rounded-[10px] bg-[#F6F6F6]
- hover:bg-[#DB4444] hover:border-[#DB4444] transition-all duration-300 snap-start">
+    <a href="#" class="category-item w-[150px] h-[128px]
+flex flex-col items-center justify-center
+rounded-[10px]
+bg-[#F6F6F6]
+border border-transparent
+hover:bg-[#ed1212] hover:border-[#DB4444]
+transition-all duration-300">
+
 
       <div class="mb-4 transition-all duration-300 group-hover:brightness-0 group-hover:invert">
 
@@ -83,13 +97,19 @@
         <img src="{{ 'Smart-Watches.png' | asset_url }}"class="w-14 h-14 object-contain" alt="Smart Watches" >
       </div>
 
-      <span class="text-[16px] font-medium text-black group-hover:text-white transition-colors">Smart Watches</span>
+      <span class="text-base font-medium text-black group-hover:text-white transition-colors">Smart Watches</span>
 
     </a>
 
 
-    <a href="#" class="group flex-none w-[calc(50%-12px)] sm:w-[calc(33.33%-16px)] md:w-[calc(25%-18px)] lg:w-[calc(16.666%-20px)] flex flex-col items-center justify-center rounded-[10px] bg-[#F6F6F6]
- hover:bg-[#DB4444] hover:border-[#DB4444] transition-all duration-300 snap-start">
+    <a href="#" class="category-item w-[150px] h-[128px]
+flex flex-col items-center justify-center
+rounded-[10px]
+bg-[#F6F6F6]
+border border-transparent
+hover:bg-[#ed1212] hover:border-[#DB4444]
+transition-all duration-300">
+
 
       <div class="mb-4 transition-all duration-300 group-hover:brightness-0 group-hover:invert">
 
@@ -103,8 +123,14 @@
     </a>
 
 
-    <a href="#" class="group flex-none w-[calc(50%-12px)] sm:w-[calc(33.33%-16px)] md:w-[calc(25%-18px)] lg:w-[calc(16.666%-20px)] flex flex-col items-center justify-center rounded-[10px] bg-[#F6F6F6]
- hover:bg-[#DB4444] hover:border-[#DB4444] transition-all duration-300 snap-start">
+   <a href="#" class="category-item w-[150px] h-[128px]
+flex flex-col items-center justify-center
+rounded-[10px]
+bg-[#F6F6F6]
+border border-transparent
+hover:bg-[#ed1212] hover:border-[#DB4444]
+transition-all duration-300">
+
 
       <div class="mb-4 transition-all duration-300 group-hover:brightness-0 group-hover:invert">
 
@@ -119,8 +145,14 @@
     </a>
 
 
-    <a href="#" class="group flex-none w-[calc(50%-12px)] sm:w-[calc(33.33%-16px)] md:w-[calc(25%-18px)] lg:w-[calc(16.666%-20px)] flex flex-col items-center justify-center rounded-[10px] bg-[#F6F6F6]
- hover:bg-[#DB4444] hover:border-[#DB4444] transition-all duration-300 snap-start">
+    <a href="#" class="category-item w-[150px] h-[128px]
+flex flex-col items-center justify-center
+rounded-[10px]
+bg-[#F6F6F6]
+border border-transparent
+hover:bg-[#ed1212] hover:border-[#DB4444]
+transition-all duration-300">
+
 
       <div class="mb-4 transition-all duration-300 group-hover:brightness-0 group-hover:invert">
 
@@ -135,8 +167,14 @@
     </a>
 
 
-    <a href="#" class="group flex-none w-[calc(50%-12px)] sm:w-[calc(33.33%-16px)] md:w-[calc(25%-18px)] lg:w-[calc(16.666%-20px)] flex flex-col items-center justify-center rounded-[10px] bg-[#F6F6F6]
- hover:bg-[#DB4444] hover:border-[#DB4444] transition-all duration-300 snap-start">
+    <a href="#" class="category-item w-[150px] h-[128px]
+flex flex-col items-center justify-center
+rounded-[10px]
+bg-[#F6F6F6]
+border border-transparent
+hover:bg-[#ed1212] hover:border-[#DB4444]
+transition-all duration-300">
+
 
       <div class="mb-4 transition-all duration-300 group-hover:brightness-0 group-hover:invert">
 
@@ -151,8 +189,14 @@
     </a>
 
 
-    <a href="#" class="group flex-none w-[calc(50%-12px)] sm:w-[calc(33.33%-16px)] md:w-[calc(25%-18px)] lg:w-[calc(16.666%-20px)] flex flex-col items-center justify-center rounded-[10px] bg-[#F6F6F6]
- hover:bg-[#DB4444] hover:border-[#DB4444] transition-all duration-300 snap-start">
+   <a href="#" class="category-item w-[150px] h-[128px]
+flex flex-col items-center justify-center
+rounded-[10px]
+bg-[#F6F6F6]
+border border-transparent
+hover:bg-[#ed1212] hover:border-[#DB4444]
+transition-all duration-300">
+
 
       <div class="mb-4 transition-all duration-300 group-hover:brightness-0 group-hover:invert">
 
@@ -167,8 +211,14 @@
     </a>
 
 
-    <a href="#" class="group flex-none w-[calc(50%-12px)] sm:w-[calc(33.33%-16px)] md:w-[calc(25%-18px)] lg:w-[calc(16.666%-20px)] flex flex-col items-center justify-center aspect-square border border-gray-200 rounded-[10px] bg-[#F6F6F6]
- hover:bg-[#DB4444] hover:border-[#DB4444] transition-all duration-300 snap-start">
+    <a href="#" class="category-item w-[150px] h-[128px]
+flex flex-col items-center justify-center
+rounded-[10px]
+bg-[#F6F6F6]
+border border-transparent
+hover:bg-[#ed1212] hover:border-[#DB4444]
+transition-all duration-300">
+
 
       <div class="mb-4 transition-all duration-300 group-hover:brightness-0 group-hover:invert">
 
@@ -181,8 +231,14 @@
     </a>
 
 
-    <a href="#" class="group flex-none w-[calc(50%-12px)] sm:w-[calc(33.33%-16px)] md:w-[calc(25%-18px)] lg:w-[calc(16.666%-20px)] flex flex-col items-center justify-center rounded-[10px] bg-[#F6F6F6]
- hover:bg-[#DB4444] hover:border-[#DB4444] transition-all duration-300 snap-start">
+    <a href="#" class="category-item w-[150px] h-[128px]
+flex flex-col items-center justify-center
+rounded-[10px]
+bg-[#F6F6F6]
+border border-transparent
+hover:bg-[#ed1212] hover:border-[#DB4444]
+transition-all duration-300">
+
 
       <div class="mb-4 transition-all duration-300 group-hover:brightness-0 group-hover:invert">
 
@@ -200,7 +256,7 @@
 </section>
 
 
-<script>
+{% comment %} <script>
 
   // Script to handle clicking the arrows
 
@@ -228,6 +284,51 @@
 
   });
 
+</script> {% endcomment %}
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+  const itemsPerPage = 6;
+  const items = Array.from(document.querySelectorAll('.category-item'));
+  const nextBtn = document.getElementById('nextBtn');
+  const prevBtn = document.getElementById('prevBtn');
+
+  let currentPage = 0;
+  const totalPages = Math.ceil(items.length / itemsPerPage);
+
+  function render() {
+    items.forEach((item, index) => {
+      item.classList.add('hidden');
+
+      const start = currentPage * itemsPerPage;
+      const end = start + itemsPerPage;
+
+      if (index >= start && index < end) {
+        item.classList.remove('hidden');
+      }
+    });
+
+    // button state
+    prevBtn.disabled = currentPage === 0;
+    nextBtn.disabled = currentPage === totalPages - 1;
+  }
+
+  nextBtn.addEventListener('click', () => {
+    if (currentPage < totalPages - 1) {
+      currentPage++;
+      render();
+    }
+  });
+
+  prevBtn.addEventListener('click', () => {
+    if (currentPage > 0) {
+      currentPage--;
+      render();
+    }
+  });
+
+  render(); // INITIAL LOAD
+});
 </script>
 
 
