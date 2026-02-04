@@ -28,13 +28,20 @@ text-center md:text-start">
     </div>
 
     <!-- RIGHT IMAGE -->
-    <div class="w-[300px] h-[250px] md:h-[632px] md:w-[40%] flex items-center justify-center mt-30 md:mt-0">
+    <div class="w-full h-full sm:w-full h-full md:max-h-[632px] md:max-w-[40%] flex items-center justify-center ">
         {% if section.settings.banner_image != blank %}
-            <img 
-              src="{{ section.settings.banner_image | image_url: width: 1500 }}" 
-              alt="Banner Image"
-              class="w-auto object-contain"
-            >
+          <img 
+  src="{{ section.settings.banner_image | image_url: width: 800 }}" 
+  alt="Banner Image"
+  class="
+    w-full max-w-[220px]
+    sm:max-w-[300px]
+    md:max-w-[380px]
+    lg:max-w-[480px]
+    h-auto object-contain
+  "
+/>
+
         {% endif %}
     </div>
 
