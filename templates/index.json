@@ -179,6 +179,23 @@
         "button_text": "Shop Now",
         "button_link": ""
       }
+    },
+    "banner_collections_cKNkWJ": {
+      "type": "banner-collections",
+      "name": "Collections Banner",
+      "settings": {
+        "background_color": "#ffffff",
+        "collections": [
+          "bestseller",
+          "galaxy-series",
+          "apple",
+          "galaxy-watch"
+        ],
+        "heading_font": "assistant_n4",
+        "heading_font_size": 16,
+        "body_font": "assistant_n4",
+        "body_font_size": 16
+      }
     }
   },
   "order": [
@@ -189,6 +206,7 @@
     "browse_by_category_84YHDk",
     "product_by_na_bs_fp_8RJwCT",
     "discount_up_to_rykxzy",
-    "promo_hero_wdKhch"
+    "promo_hero_wdKhch",
+    "banner_collections_cKNkWJ"
   ]
 }
