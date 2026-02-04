@@ -34,7 +34,7 @@
     {% endfor %}
   </div>
 
-  <div class="tabs-container ">
+  <div class="tabs-container">
     {% for i in (1..3) %}
       {% capture collection_key %}collection_{{ i }}{% endcapture %}
       {% assign col = section.settings[collection_key] %}
