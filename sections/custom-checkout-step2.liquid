@@ -1,0 +1,70 @@
+<!-- sections/custom-checkout-step2.liquid -->
+<div class="checkout-container step-2" data-step="2" style="display: none;">
+  <div class="checkout-header">
+    <div class="logo">
+      <h1>cyber</h1>
+    </div>
+    <div class="checkout-steps">
+      <div class="step completed">
+        <span class="step-number">✓</span>
+        <span class="step-label">Bag / Address</span>
+      </div>
+      <div class="step active">
+        <span class="step-number">2</span>
+        <span class="step-label">Shipping</span>
+      </div>
+      <div class="step">
+        <span class="step-number">3</span>
+        <span class="step-label">Payment</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="checkout-content">
+    <h2 class="section-title">Shipment Method</h2>
+    
+    <div class="shipping-methods">
+      <!-- Free Shipping -->
+      <div class="shipping-option">
+        <input type="radio" name="shipping_method" id="free-shipping" checked>
+        <label for="free-shipping">
+          <div class="shipping-info">
+            <span class="shipping-name">Free - Regular shipment</span>
+            <span class="shipping-date">17 Oct, 2023</span>
+          </div>
+        </label>
+      </div>
+
+      <!-- Standard Shipping -->
+      <div class="shipping-option">
+        <input type="radio" name="shipping_method" id="standard-shipping">
+        <label for="standard-shipping">
+          <div class="shipping-info">
+            <span class="shipping-name">$8.50 - Get your delivery as soon as possible</span>
+            <span class="shipping-date">4 Oct, 2023</span>
+          </div>
+        </label>
+      </div>
+
+      <!-- Scheduled Shipping -->
+      <div class="shipping-option">
+        <input type="radio" name="shipping_method" id="scheduled-shipping">
+        <label for="scheduled-shipping">
+          <div class="shipping-info">
+            <span class="shipping-name">Schedule - Pick a date when you want to get your delivery</span>
+            <span class="shipping-date">Select Date ▼</span>
+          </div>
+        </label>
+      </div>
+    </div>
+
+    <div class="checkout-actions">
+      <button class="btn-back">Back</button>
+      <button class="btn-next">Next</button>
+    </div>
+  </div>
+
+  <footer class="checkout-footer">
+    <!-- Same footer as Step 1 -->
+  </footer>
+</div>

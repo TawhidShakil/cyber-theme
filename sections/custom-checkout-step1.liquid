@@ -1,0 +1,86 @@
+<!-- sections/custom-checkout-step1.liquid -->
+<div class="checkout-container step-1" data-step="1">
+  <div class="checkout-header">
+    <div class="logo">
+      <h1>cyber</h1>
+    </div>
+    <div class="checkout-steps">
+      <div class="step active">
+        <span class="step-number">1</span>
+        <span class="step-label">Bag / Address</span>
+      </div>
+      <div class="step">
+        <span class="step-number">2</span>
+        <span class="step-label">Shipping</span>
+      </div>
+      <div class="step">
+        <span class="step-number">3</span>
+        <span class="step-label">Payment</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="checkout-content">
+    <h2 class="section-title">Select Address</h2>
+    
+    <div class="address-list">
+      <!-- Address Option 1 -->
+      <div class="address-card">
+        <input type="radio" name="shipping_address" id="address-1" checked>
+        <label for="address-1">
+          <div class="address-header">
+            <span class="address-name">2118 Thornridge</span>
+            <span class="badge">Home</span>
+          </div>
+          <div class="address-details">
+            <p>2118 Thornridge Cir. Syracuse, Connecticut 35624</p>
+            <p class="phone">(209) 555-0104</p>
+          </div>
+          <div class="address-actions">
+            <button class="btn-icon edit">
+              <svg><!-- Edit Icon --></svg>
+            </button>
+            <button class="btn-icon delete">
+              <svg><!-- Delete Icon --></svg>
+            </button>
+          </div>
+        </label>
+      </div>
+
+      <!-- Address Option 2 -->
+      <div class="address-card">
+        <input type="radio" name="shipping_address" id="address-2">
+        <label for="address-2">
+          <div class="address-header">
+            <span class="address-name">HeadOffice</span>
+            <span class="badge">Work</span>
+          </div>
+          <div class="address-details">
+            <p>1719 San Dr. San Jose, South Dakota 83475</p>
+            <p class="phone">(704) 555-0127</p>
+          </div>
+          <div class="address-actions">
+            <button class="btn-icon edit">
+              <svg><!-- Edit Icon --></svg>
+            </button>
+            <button class="btn-icon delete">
+              <svg><!-- Delete Icon --></svg>
+            </button>
+          </div>
+        </label>
+      </div>
+    </div>
+
+    <button class="btn-add-address">
+      <span class="plus-icon">+</span>
+      Add new address
+    </button>
+
+    <div class="checkout-actions">
+      <button class="btn-back">Back</button>
+      <button class="btn-next">Next</button>
+    </div>
+  </div>
+
+  
+</div>
