@@ -1,8 +1,9 @@
-<div class="w-full h-[420px] flex text-black" style="background-color: {{ section.settings.background_color }};">
-    <div class="flex w-full h-full">
+<div class="w-full relative group-slider text-black" style="background-color: {{ section.settings.background_color }};">
+    <!-- Slider Container -->
+    <div class="flex w-full h-[420px] overflow-x-auto snap-x snap-mandatory scroll-smooth no-scrollbar md:flex md:w-full md:overflow-visible md:items-stretch" id="slider-{{ section.id }}">
 
         {% for collection in section.settings.collections %}
-        <div class="w-1/3 h-full flex flex-col items-start text-left px-6 gap-1.5 hover:bg-[#2C2C2C] transition group">
+        <div class="min-w-full w-full h-full flex-shrink-0 snap-center flex flex-col items-center justify-center text-center px-6 gap-1.5 hover:bg-[#2C2C2C] transition group md:min-w-0 md:flex-1 md:items-start md:text-left md:basis-0">
 
             <!-- IMAGE -->
             <div class="h-1/2 w-full flex items-center justify-center">
@@ -10,26 +11,26 @@
                     <img 
                         src="{{ collection.featured_image | image_url: width: 500 }}" 
                         alt="{{ collection.title }}"
-                        class="max-h-full object-cover"
+                        class="max-h-full object-contain"
                     >   
                 {% endif %}
             </div>
 
             <!-- TITLE -->
-            <h2 class="text-4xl mt-4 group-hover:text-white transition">
+            <h2 class="text-4xl mt-4 group-hover:text-white transition" style="font-family: {{ section.settings.heading_font }}; font-size: {{ section.settings.heading_font_size }}px;">
                 {{ collection.title }}
             </h2>
 
             <!-- DESCRIPTION -->
             {% if collection.description != blank %}
-                <p class="mt-2 text-lg opacity-60 group-hover:text-white transition">
+                <p class="mt-2 text-lg opacity-60 group-hover:text-white transition" style="font-family: {{ section.settings.body_font }}; font-size: {{ section.settings.body_font_size }}px;">
                     {{ collection.description | strip_html | truncate: 100 }}
                 </p>
             {% endif %}
 
             <!-- BUTTON -->
             <a href="{{ collection.url }}" 
-               class="mt-4 inline-block border border-black px-12 py-2 group-hover:border-white group-hover:text-white transition">
+               class="mt-4 inline-block border border-black px-12 py-2 text-black bg-transparent group-hover:border-white group-hover:text-white hover:!bg-white hover:!text-black hover:!border-white transition">
                 Shop Now
             </a>
 
@@ -37,6 +38,89 @@
         {% endfor %}
 
     </div>
+
+    <!-- Mobile Pagination Dots -->
+    <div class="flex justify-center gap-2 pb-6 md:hidden">
+        {% for collection in section.settings.collections %}
+            <button 
+                class="w-2.5 h-2.5 rounded-full bg-gray-300 transition-all duration-300 slider-dot-{{ section.id }} {% if forloop.first %}bg-black scale-125{% endif %}" 
+                aria-label="Go to slide {{ forloop.index }}"
+                onclick="document.getElementById('slider-{{ section.id }}').scrollTo({left: this.closest('.group-slider').offsetWidth * {{ forloop.index0 }}, behavior: 'smooth'})"
+            ></button>
+        {% endfor %}
+    </div>
+
+    <style>
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const slider = document.getElementById('slider-{{ section.id }}');
+            const dots = document.querySelectorAll('.slider-dot-{{ section.id }}');
+            let slideInterval;
+            
+            if (!slider || dots.length === 0) return;
+
+            // Updates active dot based on scroll position
+            const updateDots = () => {
+                const scrollLeft = slider.scrollLeft;
+                const width = slider.offsetWidth;
+                const index = Math.round(scrollLeft / width);
+
+                dots.forEach((dot, i) => {
+                    if (i === index) {
+                        dot.classList.remove('bg-gray-300');
+                        dot.classList.add('bg-black', 'scale-125');
+                    } else {
+                        dot.classList.add('bg-gray-300');
+                        dot.classList.remove('bg-black', 'scale-125');
+                    }
+                });
+            };
+
+            slider.addEventListener('scroll', updateDots);
+
+            // Auto-slide function (Mobile only)
+            const startAutoSlide = () => {
+                // Clear any existing interval to prevent duplicates
+                if (slideInterval) clearInterval(slideInterval);
+                
+                slideInterval = setInterval(() => {
+                    // Start only if we are in mobile view range (check if overflow is active or width matches)
+                    // Simple check: if content width > client width, it's scrolling
+                    if (slider.scrollWidth <= slider.clientWidth) return;
+
+                    const width = slider.offsetWidth;
+                    const maxScroll = slider.scrollWidth - width;
+                    let nextScroll = slider.scrollLeft + width;
+
+                    // If reached the end, loop back to start
+                    if (nextScroll > maxScroll + 10) { // +10 buffer
+                        nextScroll = 0;
+                    }
+
+                    slider.scrollTo({
+                        left: nextScroll,
+                        behavior: 'smooth'
+                    });
+                }, 5000);
+            };
+
+            // Start auto-slide
+            startAutoSlide();
+
+            // Optional: Pause on touch/interaction could be added here
+            // Restart on resize to handle orientation changes
+            window.addEventListener('resize', startAutoSlide);
+        });
+    </script>
 </div>
 
 
@@ -55,11 +139,45 @@
       "id": "collections",
       "label": "Select Collections",
       "limit": 5
+    },
+    {
+      "type": "font_picker",
+      "id": "heading_font",
+      "label": "Heading Font",
+      "default": "assistant_n4"
+    },
+    {
+      "type": "range",
+      "id": "heading_font_size",
+      "min": 12,
+      "max": 30,
+      "step": 1,
+      "default": 16,
+      "unit": "px",
+      "label": "Heading Font Size"
+    },
+    {
+      "type": "font_picker",
+      "id": "body_font",
+      "label": "Body Font",
+      "default": "assistant_n4"
+    },
+    {
+      "type": "range",
+      "id": "body_font_size",
+      "min": 12,
+      "max": 30,
+      "step": 1,
+      "default": 16,
+      "unit": "px",
+      "label": "Body Font Size"
     }
+    
   ],
   "presets": [
     {
-      "name": "Collections Banner"
+      "name": "Collections Banner",
+      "category": "Content"
     }
   ]
 }
