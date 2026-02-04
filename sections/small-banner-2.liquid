@@ -1,0 +1,215 @@
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  .font-inter { font-family: 'Inter', sans-serif; }
+  
+  /* Robust Desktop/Mobile Toggle */
+  .desktop-layout { display: none; }
+  .mobile-layout { display: flex; flex-direction: column; }
+
+  @media (min-width: 768px) {
+    .desktop-layout { display: flex !important; }
+    .mobile-layout { display: none !important; }
+  }
+
+  /* Entrance Animations */
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  /* Fallback: ensure content is visible if JS is disabled or doesn't fire */
+  .reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .delay-200 { transition-delay: 200ms; }
+  .delay-400 { transition-delay: 400ms; }
+
+  /* Hover Effects */
+  .group:hover .hover-zoom {
+    transform: scale(1.05);
+  }
+  
+  .shop-btn {
+    transition: all 0.3s ease;
+    display: inline-block;
+  }
+  .shop-btn:hover {
+    background-color: black;
+    color: white;
+  }
+</style>
+
+<section class="w-full max-w-[1440px] mx-auto overflow-hidden font-inter">
+  <div class="desktop-layout flex-row">
+    <div class="flex flex-col flex-1">
+      <div class="relative flex flex-row items-center justify-end px-12 min-h-[360px] bg-white group overflow-hidden">
+        {% if section.settings.ps5_image != blank %}
+          <img src="{{ section.settings.ps5_image | image_url: width: 800 }}" 
+               class="absolute left-0 top-0 h-full w-1/2 object-contain hover-zoom transition-transform duration-700 reveal">
+        {% endif %}
+        
+        <div class="relative z-10 flex flex-col items-start text-left max-w-[340px] gap-2 reveal delay-200">
+          <h2 class="text-5xl font-medium text-black">{{ section.settings.ps5_title }}</h2>
+          <p class="text-sm font-medium text-[#909090] leading-relaxed">{{ section.settings.ps5_text }}</p>
+        </div>
+      </div>
+
+      <div class="flex flex-row">
+        <div class="relative flex-1 flex flex-col items-center justify-center px-6 bg-[#EDEDED] group overflow-hidden min-h-[360px]">
+          {% if section.settings.airpods_image != blank %}
+             <img src="{{ section.settings.airpods_image | image_url: width: 500 }}" 
+                  class="absolute -left-10 top-1/2 -translate-y-1/2 w-3/4 h-full object-contain hover-zoom transition-transform duration-500 reveal">
+          {% endif %}
+          <div class="relative z-10 flex flex-col items-start ml-auto max-w-[160px] text-left reveal delay-400">
+            <h3 class="text-3xl font-light text-black leading-tight">Apple AirPods <span class="font-bold">Max</span></h3>
+            <p class="text-sm font-medium text-[#919191] mt-2">{{ section.settings.airpods_text }}</p>
+          </div>
+        </div>
+
+        <div class="relative flex-1 flex flex-col items-center justify-center px-6 bg-[#353535] group overflow-hidden min-h-[360px]">
+          {% if section.settings.vision_image != blank %}
+             <img src="{{ section.settings.vision_image | image_url: width: 600 }}" 
+                  class="absolute -left-20 top-1/2 -translate-y-1/2 w-[85%] h-full object-contain hover-zoom transition-transform duration-700 reveal">
+          {% endif %}
+          <div class="relative z-10 flex flex-col items-start ml-auto max-w-[180px] text-left reveal delay-400">
+            <h3 class="text-3xl text-white leading-tight font-light">Apple Vision <span class="font-bold">Pro</span></h3>
+            <p class="text-sm font-medium text-[#919191] mt-2">{{ section.settings.vision_text }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex-1 relative flex flex-col items-center justify-center bg-[#EDEDED] py-16 px-12 min-h-[720px] group overflow-hidden">
+      {% if section.settings.mac_image != blank %}
+        <img src="{{ section.settings.mac_image | image_url: width: 1000 }}" 
+             class="absolute -right-20 top-1/2 -translate-y-1/2 w-[80%] object-contain hover-zoom transition-transform duration-1000 reveal">
+      {% endif %}
+
+      <div class="relative z-20 flex flex-col items-start text-left gap-4 max-w-[350px] mr-auto reveal delay-200">
+        <h2 class="text-6xl text-black leading-tight">
+          <span class="font-light block">Macbook</span>
+          <span class="font-bold">Air</span>
+        </h2>
+        <p class="text-sm font-medium text-[#919191] max-w-[300px]">
+          {{ section.settings.mac_text }}
+        </p>
+        <a href="{{ section.settings.mac_link }}" class="shop-btn mt-4 px-12 py-3 border border-black rounded-md text-base font-medium">
+          Shop Now
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="mobile-layout">
+    <div class="relative flex flex-col items-center justify-center py-12 px-6 bg-[#EDEDED] overflow-hidden min-h-[400px]">
+      {% if section.settings.airpods_image != blank %}
+        <img src="{{ section.settings.airpods_image_mobile | default: section.settings.airpods_image | image_url: width: 400 }}" 
+             class="w-full max-w-[220px] object-contain mb-6 hover-zoom transition-transform duration-500 reveal">
+      {% endif %}
+      <div class="flex flex-col items-center text-center max-w-[280px] reveal delay-200">
+        <h3 class="text-3xl font-light text-black leading-tight">Apple AirPods <span class="font-bold">Max</span></h3>
+        <p class="text-sm font-medium text-[#919191] mt-2">{{ section.settings.airpods_text }}</p>
+      </div>
+    </div>
+
+    <div class="relative flex flex-col items-center justify-center py-12 px-6 bg-[#353535] overflow-hidden min-h-[400px]">
+      {% if section.settings.vision_image != blank %}
+        <img src="{{ section.settings.vision_image_mobile | default: section.settings.vision_image | image_url: width: 500 }}" 
+             class="w-full max-w-[280px] object-contain mb-6 hover-zoom transition-transform duration-700 reveal">
+      {% endif %}
+      <div class="flex flex-col items-center text-center max-w-[280px] reveal delay-200">
+        <h3 class="text-3xl text-white leading-tight font-light">Apple Vision <span class="font-bold">Pro</span></h3>
+        <p class="text-sm font-medium text-[#919191] mt-2">{{ section.settings.vision_text }}</p>
+      </div>
+    </div>
+
+    <div class="relative flex flex-col items-center justify-center px-6 py-12 bg-white overflow-hidden min-h-[400px]">
+      {% if section.settings.ps5_image != blank %}
+        <img src="{{ section.settings.ps5_image_mobile | default: section.settings.ps5_image | image_url: width: 600 }}" 
+             class="w-full max-w-[280px] object-contain mb-8 hover-zoom transition-transform duration-700 reveal">
+      {% endif %}
+      
+      <div class="flex flex-col items-center text-center max-w-[320px] gap-2 reveal delay-200">
+        <h2 class="text-4xl font-medium text-black">{{ section.settings.ps5_title }}</h2>
+        <p class="text-sm font-medium text-[#909090] leading-relaxed">{{ section.settings.ps5_text }}</p>
+      </div>
+    </div>
+
+    <div class="relative flex flex-col items-center justify-center bg-[#EDEDED] py-16 px-6 overflow-hidden min-h-[500px]">
+      {% if section.settings.mac_image != blank %}
+        <img src="{{ section.settings.mac_image_mobile | default: section.settings.mac_image | image_url: width: 800 }}" 
+             class="w-full max-w-[420px] mb-10 hover-zoom transition-transform duration-1000 reveal">
+      {% endif %}
+
+      <div class="flex flex-col items-center text-center gap-4 max-w-[320px] reveal delay-200">
+        <h2 class="text-5xl text-black leading-tight">
+          <span class="font-light block">Macbook</span>
+          <span class="font-bold">Air</span>
+        </h2>
+        <p class="text-sm font-medium text-[#919191] max-w-[300px]">
+          {{ section.settings.mac_text }}
+        </p>
+        <a href="{{ section.settings.mac_link }}" class="shop-btn mt-4 px-12 py-3 border border-black rounded-md text-base font-medium">
+          Shop Now
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Execute after DOM is fully loaded
+  document.addEventListener('DOMContentLoaded', () => {
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: "0px 0px -50px 0px"
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Full Responsive Banner",
+  "settings": [
+    { "type": "header", "content": "PlayStation 5" },
+    { "type": "image_picker", "id": "ps5_image", "label": "PS5 Desktop Image" },
+    { "type": "image_picker", "id": "ps5_image_mobile", "label": "PS5 Mobile Image" },
+    { "type": "text", "id": "ps5_title", "label": "Title", "default": "Playstation 5" },
+    { "type": "textarea", "id": "ps5_text", "label": "Description", "default": "Incredibly powerful CPUs, GPUs, and an SSD with integrated I/O will redefine your PlayStation experience." },
+    
+    { "type": "header", "content": "AirPods Max" },
+    { "type": "image_picker", "id": "airpods_image", "label": "AirPods Desktop Image" },
+    { "type": "image_picker", "id": "airpods_image_mobile", "label": "AirPods Mobile Image" },
+    { "type": "textarea", "id": "airpods_text", "label": "Description", "default": "Computational audio. Listen, it's powerful" },
+    
+    { "type": "header", "content": "Vision Pro" },
+    { "type": "image_picker", "id": "vision_image", "label": "Vision Pro Desktop Image" },
+    { "type": "image_picker", "id": "vision_image_mobile", "label": "Vision Pro Mobile Image" },
+    { "type": "textarea", "id": "vision_text", "label": "Description", "default": "An immersive way to experience entertainment" },
+    
+    { "type": "header", "content": "MacBook Air" },
+    { "type": "image_picker", "id": "mac_image", "label": "MacBook Desktop Image" },
+    { "type": "image_picker", "id": "mac_image_mobile", "label": "MacBook Mobile Image" },
+    { "type": "textarea", "id": "mac_text", "label": "Description", "default": "The new 15-inch MacBook Air makes room for more of what you love with a spacious Liquid Retina display." },
+    { "type": "url", "id": "mac_link", "label": "Button Link" }
+  ],
+  "presets": [{ "name": "Full Responsive Banner" }]
+}
+{% endschema %}
