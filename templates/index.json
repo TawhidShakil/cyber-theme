@@ -168,6 +168,17 @@
         "title": "Discounts up to -50%",
         "discount_collection": "galaxy-series"
       }
+    },
+    "promo_hero_wdKhch": {
+      "type": "promo-hero",
+      "name": "Sale Banner",
+      "settings": {
+        "bg_image": "shopify://shop_images/Banner_2_1.png",
+        "heading": "Big Summer Sale",
+        "subtext": "Commodo fames vitae vitae leo mauris in. Eu consequat.",
+        "button_text": "Shop Now",
+        "button_link": ""
+      }
     }
   },
   "order": [
@@ -177,6 +188,7 @@
     "small_banner_2_VbqRB8",
     "browse_by_category_84YHDk",
     "product_by_na_bs_fp_8RJwCT",
-    "discount_up_to_rykxzy"
+    "discount_up_to_rykxzy",
+    "promo_hero_wdKhch"
   ]
 }
