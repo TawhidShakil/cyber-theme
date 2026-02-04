@@ -72,107 +72,236 @@
     >
   {%- endif -%}
 
-  {% assign variant_images = product.images | where: 'attached_to_variant?', true | map: 'src' %}
-  {% assign product_form_id = 'product-form-' | append: section.id %}
-
-<div class="page-width py-10 bg-red-400 flex justify-center h-[700px]">
-  <div class="custom-product grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
-
-    <!-- ================= LEFT: IMAGES ================= -->
-    <div class="flex gap-4 pt-36">
+  <section class="pt-[112px] pb-[112px] px-[160px]">
+  <div class="max-w-7xl mx-auto">
+    <div class="grid grid-cols-[80px_1fr_1fr] gap-[20px] items-start">
 
       <!-- Thumbnails -->
-      <div class="flex flex-col gap-3 w-[100px] h-[400px]">
+      <div class="flex flex-col gap-4 justify-center">
         {% for media in product.media %}
-          <img
-            src="{{ media.preview_image | image_url: width: 120 }}"
-            class="w-100 h-100 object-cover border rounded-lg cursor-pointer hover:ring-2 hover:ring-black transition"
-            onclick="document.getElementById('MainImage').src='{{ media.preview_image | image_url: width: 800 }}'"
-          >
+          {% if media.preview_image %}
+            {% assign image = media.preview_image %}
+            <button
+              type="button"
+              class="w-40 h-30 overflow-hidden cursor-pointer product-thumbnail"
+              data-media-id="{{ media.id }}"
+            >
+              {{ image | image_url: width: 100 | image_tag }}
+            </button>
+          {% endif %}
         {% endfor %}
       </div>
 
       <!-- Main Image -->
-      <div class="flex h-[450px] w-[450px]">
-        <img
-          id="MainImage"
-          src="{{ product.featured_image | image_url: width: 800 }}"
-          class="w-full rounded-xl shadow-lg transition duration-300"
-        >
-      </div>
-
-    </div>
-
-    <!-- ================= RIGHT: PRODUCT INFO ================= -->
-    <div class="space-y-6 bg-amber-400 h-[550px] w-[500px] p-12">
-
-      <!-- Title -->
-      <h1 class="text-6xl font-bold">
-        {{ product.title }}
-      </h1>
-
-      <!-- Price -->
-      <div class="flex items-center gap-3">
-        <span class="text-2xl md:text-3xl font-semibold">
-          {{ product.selected_or_first_available_variant.price | money }}
-        </span>
-
-        {% if product.selected_or_first_available_variant.compare_at_price > product.selected_or_first_available_variant.price %}
-          <span class="text-gray-400 line-through text-lg">
-            {{ product.selected_or_first_available_variant.compare_at_price | money }}
-          </span>
+      <div class="flex justify-center">
+        {% assign main_image = product.featured_image | default: product.images.first %}
+        {% if main_image %}
+          {{ main_image | image_url: width: 640 | image_tag:
+            id: 'ProductMainImage',
+            class: 'max-h-[560px] object-contain'
+          }}
         {% endif %}
       </div>
 
-      <!-- Variants -->
-      
-      {% if product.variants.size > 1 %}
-      {% form 'product', product %}
-        <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+      <!-- Product Info -->
+      <div class="flex flex-col justify-start">
+        <h1 class="font-inter text-[40px] leading-[40px] font-bold text-black mb-4">
+          {{ product.title }}
+        </h1>
 
-
-        <div class="product-option">
-          {% for option in product.options_with_values %}
-            <fieldset class="flex items-center gap-2">
-              <legend>Select {{ option.name }}</legend>
-              {% for value in option.values %}
-                <div>
-                  <input type="radio" name="option-{{ option.position }}" value="{{ value }}" id="{{ option.name |  handleize }} - {{ value | handleize }}">
-                  <label for="{{ option.name |  handleize }} - {{ value | handleize }}">{{ value }}</label>
-                </div>
-              {% endfor %}
-            </fieldset>
-          {% endfor %}
+        {% assign variant = product.selected_or_first_available_variant %}
+        <div id="price-{{ section.id }}" class="flex items-baseline gap-4 whitespace-nowrap">
+          {% if variant.compare_at_price > variant.price %}
+            <span class="text-[32px] font-medium text-black leading-none">
+              {{ variant.price | money }}
+            </span>
+            <span class="text-[24px] text-gray-400 line-through leading-none">
+              {{ variant.compare_at_price | money }}
+            </span>
+          {% else %}
+            <span class="text-[32px] font-medium text-black leading-none">
+              {{ variant.price | money }}
+            </span>
+          {% endif %}
         </div>
+          {% for block in section.blocks %}
+  {% case block.type %}
+    {% when 'variant_picker' %}
+      {% render 'product-variant-picker',
+        product: product,
+        block: block,
+        section: section
+      %}
+  {% endcase %}
+{% endfor %}
+{% comment %} product-features {% endcomment %}
+     {% render 'product-features', product: product %}
+     <div class="mt-10">
 
-      {% endform %}
-      {% endif %}
+  <div
+    id="product-description"
+    class="text-gray-700 text-[14px] leading-relaxed overflow-hidden
+           transition-all duration-300"
+    style="
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+    "
+  >
+    {{ product.description }}
+  </div>
+
+  <button
+    id="toggle-description"
+    class="mt-2 text-[14px] font-medium text-black underline hidden cursor-pointer"
+    type="button"
+  >
+    See more
+  </button>
+
+</div>
 
 
-      <!-- Description -->
-      <p class="text-gray-600 leading-relaxed">
-        {{ product.description | strip_html | truncate: 160 }}
-      </p>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const desc = document.getElementById("product-description");
+    const btn = document.getElementById("toggle-description");
 
-      <!-- Buttons -->
-      <div class="flex flex-col sm:flex-row gap-4 pt-4">
-        {% render 'buy-buttons',
-          product: product,
-          product_form_id: product_form_id,
-          section_id: section.id
-        %}
-      </div>
+    if (!desc || !btn) return;
 
-      <!-- Extra Info -->
-      <div class="grid grid-cols-3 gap-4 pt-6 text-sm text-center">
-        <div class="border rounded-lg p-3">🚚 Free Delivery</div>
-        <div class="border rounded-lg p-3">📦 In Stock</div>
-        <div class="border rounded-lg p-3">🛡 1 Year Warranty</div>
+    // Check if description exceeds 2 lines
+    if (desc.scrollHeight > desc.clientHeight + 5) {
+      btn.classList.remove("hidden");
+    }
+
+    let expanded = false;
+
+    btn.addEventListener("click", function () {
+      expanded = !expanded;
+
+      if (expanded) {
+        desc.style.webkitLineClamp = "unset";
+        desc.style.overflow = "visible";
+        btn.textContent = "See less";
+      } else {
+        desc.style.webkitLineClamp = "2";
+        desc.style.overflow = "hidden";
+        btn.textContent = "See more";
+      }
+    });
+  });
+</script>
+
+
+     <div class="mt-10 flex gap-4 text-[16px]">
+
+  <!-- Add to Wishlist -->
+  <button
+    type="button"
+    class="flex-1 h-[52px] rounded-xl border border-black text-black
+           font-medium  cursor-pointer"
+  >
+    Add to Wishlist
+  </button>
+
+  <!-- Add to Cart -->
+  <button
+    type="submit"
+    form="product-form-{{ section.id }}"
+    class="flex-1 h-[52px] rounded-xl bg-black text-white
+           font-medium 
+           hover:bg-gray-900 cursor-pointer"
+  >
+    Add to Cart
+  </button>
+
+</div>
+      <div class="mt-8">
+  {% render 'product-benefits', product: product %}
+</div>
       </div>
 
     </div>
   </div>
-</div>
+</section>
+
+
+
+
+
+{% stylesheet %}
+/* Thumbnail images default state */
+.product-thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  opacity: 0.45;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+/* Active / selected thumbnail */
+.product-thumbnail.is-active img {
+  opacity: 1;
+  transform: scale(1.05);
+}
+
+/* Hover effect */
+.product-thumbnail:hover img {
+  opacity: 0.75;
+}
+
+
+
+{% endstylesheet %}
+
+{% javascript %}
+  document.addEventListener('DOMContentLoaded', () => {
+    const mainImage = document.getElementById('ProductMainImage');
+    if (!mainImage) return;
+
+    const thumbnails = document.querySelectorAll('.product-thumbnail');
+    if (!thumbnails.length) return;
+
+    function updateMainImage(button) {
+      const img = button.querySelector('img');
+      if (!img) return;
+
+      const src = img.getAttribute('src');
+      const srcset = img.getAttribute('srcset');
+      const alt = img.getAttribute('alt') || '';
+
+      if (src) mainImage.setAttribute('src', src);
+      if (srcset) mainImage.setAttribute('srcset', srcset);
+      mainImage.setAttribute('alt', alt);
+
+      thumbnails.forEach((thumb) => {
+        thumb.classList.remove('product-thumbnail--active');
+        thumb.setAttribute('aria-pressed', 'false');
+      });
+
+      button.classList.add('product-thumbnail--active');
+      button.setAttribute('aria-pressed', 'true');
+    }
+
+    thumbnails.forEach((button, index) => {
+      if (index === 0) {
+        button.classList.add('product-thumbnail--active');
+        button.setAttribute('aria-pressed', 'true');
+      }
+
+      button.addEventListener('click', () => {
+        const runUpdate = () => updateMainImage(button);
+
+        if (document.startViewTransition) {
+          document.startViewTransition(runUpdate);
+        } else {
+          runUpdate();
+        }
+      });
+    });
+  });
+{% endjavascript %}
 
 
 
@@ -193,6 +322,8 @@
 
 {% schema %}
 {
+  
+
   "name": "t:sections.main-product.name",
   "tag": "section",
   "class": "section",
@@ -1718,4 +1849,4 @@
     }
   ]
 }
-{% endschema %}
+{% endschema %} 

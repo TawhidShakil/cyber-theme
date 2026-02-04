@@ -1,0 +1,174 @@
+<section class="py-24">
+  <div class="w-full max-w-[1400px] mx-auto px-8 md:px-12 lg:px-24">
+
+    {% if section.settings.details_title != blank %}
+      <h2 class="text-[24px] font-medium text-black mb-4">
+        {{ section.settings.details_title }}
+      </h2>
+    {% endif %}
+
+    {% if section.settings.details_text != blank %}
+      <div class="text-gray-600 text-[14px] font-medium leading-relaxed mb-12">
+        {{ section.settings.details_text }}
+      </div>
+    {% endif %}
+
+    {% assign current_group = false %}
+
+    {% for block in section.blocks %}
+      {% case block.type %}
+
+        {% when 'feature_group' %}
+          {% if current_group %}
+              </div>
+            </div>
+          {% endif %}
+
+          <div class="mb-12 feature-group">
+            <h3 class="text-[20px] font-medium text-black mb-4">
+              {{ block.settings.group_title }}
+            </h3>
+
+            <div class="border-t border-gray-200 feature-items">
+          {% assign current_group = true %}
+
+        {% when 'feature_item' %}
+          <div class="feature-item grid grid-cols-[1fr_auto] gap-6 py-3 border-b border-gray-100 text-[16px]">
+            <span class="text-gray-600">
+              {{ block.settings.label }}
+            </span>
+            <span class="text-black font-medium text-right whitespace-nowrap">
+              {{ block.settings.value }}
+            </span>
+          </div>
+
+      {% endcase %}
+    {% endfor %}
+
+    {% if current_group %}
+        </div>
+      </div>
+    {% endif %}
+
+  </div>
+</section>
+
+<!-- ================= SEE MORE LOGIC ================= -->
+<style>
+  .feature-group.collapsed .feature-item:nth-child(n + 5) {
+    display: none;
+  }
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const groups = document.querySelectorAll(".feature-group");
+
+    groups.forEach(group => {
+      const items = group.querySelectorAll(".feature-item");
+
+      
+      if (items.length <= 4) return;
+
+      
+      group.classList.add("collapsed");
+
+      
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className =
+        "mx-auto mt-6 flex items-center gap-2 " +
+        "px-8 py-2.5 border border-gray-300 rounded-xl " +
+        "text-[14px] font-medium text-gray-900 bg-white " +
+        "cursor-pointer transition-all duration-200 " +
+        "hover:border-gray-900";
+
+      btn.innerHTML = `
+        <span>View More</span>
+        <svg
+          class="w-3.5 h-3.5 transition-transform duration-200"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path d="M6 9l6 6 6-6" />
+        </svg>
+      `;
+
+      // Toggle logic
+      btn.addEventListener("click", () => {
+        const collapsed = group.classList.toggle("collapsed");
+
+        // Text change
+        btn.querySelector("span").textContent = collapsed
+          ? "View More"
+          : "View Less";
+
+        // Chevron rotate
+        btn.querySelector("svg").classList.toggle("rotate-180", !collapsed);
+      });
+
+      
+      group.appendChild(btn);
+    });
+  });
+</script>
+
+
+{% schema %}
+{
+  "name": "Product Details",
+  "settings": [
+    {
+      "type": "text",
+      "id": "details_title",
+      "label": "Details title",
+      "default": "Details"
+    },
+    {
+      "type": "richtext",
+      "id": "details_text",
+      "label": "Details description",
+      "default": "<p>Write product details here.</p>"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature_group",
+      "name": "Feature group",
+      "settings": [
+        {
+          "type": "text",
+          "id": "group_title",
+          "label": "Group title",
+          "default": "Screen"
+        }
+      ]
+    },
+    {
+      "type": "feature_item",
+      "name": "Feature item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Feature label",
+          "default": "Screen diagonal"
+        },
+        {
+          "type": "text",
+          "id": "value",
+          "label": "Feature value",
+          "default": "6.7\""
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Details + Features"
+    }
+  ]
+}
+{% endschema %}
