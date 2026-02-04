@@ -1,0 +1,120 @@
+<script src="https://cdn.tailwindcss.com"></script>
+
+<div class="max-w-6xl mx-auto p-6 font-sans text-[#2D2A4A]" id="payment-step-{{ section.id }}">
+  
+  <div class="flex justify-between items-center mb-12 text-sm text-gray-400 max-w-4xl mx-auto">
+    <div class="flex flex-col items-center"><span class="flex items-center justify-center w-8 h-8 rounded-full border border-gray-200 mb-1">1</span><p>Step 1</p></div>
+    <div class="h-[1px] bg-gray-200 flex-grow mx-4 mt-[-20px]"></div>
+    <div class="flex flex-col items-center"><span class="flex items-center justify-center w-8 h-8 rounded-full border border-gray-200 mb-1">2</span><p>Step 2</p></div>
+    <div class="h-[1px] bg-gray-200 flex-grow mx-4 mt-[-20px]"></div>
+    <div class="flex flex-col items-center text-black"><span class="flex items-center justify-center w-8 h-8 rounded-full bg-black text-white mb-1">3</span><p>Step 3</p><p class="font-bold">Payment</p></div>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+    
+    <div class="lg:col-span-5 border border-gray-100 rounded-2xl p-8 shadow-sm h-fit bg-white">
+      <h2 class="text-xl font-bold mb-6">Summary</h2>
+      <div class="space-y-4 mb-8">
+        {% for item in cart.items %}
+        <div class="flex items-center gap-4 bg-gray-50 p-3 rounded-xl">
+          <img src="{{ item.image | img_url: '100x' }}" class="w-16 h-16 bg-white rounded-lg border p-1 object-contain">
+          <div class="flex-grow"><p class="font-medium text-sm">{{ item.product.title }}</p></div>
+          <p class="font-bold">{{ item.final_line_price | money }}</p>
+        </div>
+        {% endfor %}
+      </div>
+      <div class="space-y-3 text-sm pt-4 border-t border-gray-100">
+        <div class="flex justify-between"><span>Subtotal</span><span class="font-bold">{{ cart.total_price | money }}</span></div>
+        <div class="flex justify-between text-lg font-bold pt-4 border-t border-gray-100"><span>Total</span><span>{{ cart.total_price | money }}</span></div>
+      </div>
+    </div>
+
+    <div class="lg:col-span-7">
+      <h2 class="text-xl font-bold mb-6">Payment</h2>
+      
+      <div class="flex gap-8 border-b border-gray-100 mb-8">
+        <button class="pb-2 border-b-2 border-black font-bold text-sm">Credit Card</button>
+        <button class="pb-2 text-gray-400 text-sm">PayPal</button>
+      </div>
+
+      <div class="relative w-full max-w-md aspect-[1.6/1] bg-black rounded-2xl p-8 text-white shadow-2xl mb-10 overflow-hidden transform transition-transform hover:scale-105">
+        <div class="absolute inset-0 bg-gradient-to-br from-gray-800 to-black opacity-50"></div>
+        <div class="relative z-10 h-full flex flex-col justify-between">
+          <div class="flex justify-between items-start">
+            <div class="w-12 h-9 bg-gradient-to-r from-yellow-200 to-yellow-500 rounded-md shadow-inner"></div>
+            <div class="text-xs font-bold opacity-70 italic">PREMIUM</div>
+          </div>
+          
+          <div id="card-display-number" class="text-2xl tracking-[0.2em] font-mono shadow-sm">••••  ••••  ••••  ••••</div>
+          
+          <div class="flex justify-between items-end">
+            <div>
+              <p class="text-[10px] uppercase opacity-50 mb-1">Cardholder</p>
+              <p id="card-display-name" class="text-sm tracking-widest uppercase">YOUR NAME</p>
+            </div>
+            <div class="flex -space-x-3">
+              <div class="w-8 h-8 bg-red-600 rounded-full"></div>
+              <div class="w-8 h-8 bg-yellow-500 rounded-full opacity-80"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <form id="payment-form" class="space-y-4">
+        <input type="text" id="input-name" placeholder="Cardholder Name" class="w-full p-4 border border-gray-200 rounded-xl focus:ring-2 focus:ring-black outline-none transition-all" maxlength="20">
+        
+        <input type="text" id="input-number" placeholder="Card Number" class="w-full p-4 border border-gray-200 rounded-xl focus:ring-2 focus:ring-black outline-none transition-all" maxlength="19">
+        
+        <div class="grid grid-cols-2 gap-4">
+          <input type="text" placeholder="Exp. Date (MM/YY)" class="p-4 border border-gray-200 rounded-xl focus:ring-2 focus:ring-black outline-none">
+          <input type="text" placeholder="CVV" class="p-4 border border-gray-200 rounded-xl focus:ring-2 focus:ring-black outline-none">
+        </div>
+
+        <button type="submit" class="w-full py-4 bg-black text-white rounded-xl font-bold hover:bg-gray-900 transition-all mt-6 shadow-lg active:scale-[0.98]">
+          Pay Now
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const inputName = document.getElementById('input-name');
+  const inputNumber = document.getElementById('input-number');
+  const displayName = document.getElementById('card-display-name');
+  const displayNumber = document.getElementById('card-display-number');
+
+  // Update Name
+  inputName.addEventListener('input', (e) => {
+    displayName.textContent = e.target.value.toUpperCase() || 'YOUR NAME';
+  });
+
+  // Update & Format Number (4-4-4-4)
+  inputNumber.addEventListener('input', (e) => {
+    let val = e.target.value.replace(/\D/g, ''); // Remove non-digits
+    let formatted = val.match(/.{1,4}/g)?.join('  ') || '';
+    e.target.value = formatted;
+    displayNumber.textContent = formatted || '••••  ••••  ••••  ••••';
+  });
+
+  // Handle Submit
+  document.getElementById('payment-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    alert('Processing Payment for ' + inputName.value);
+  });
+});
+</script>
+
+
+{% schema %}
+{
+  "name": "Checkout Payment Step",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Checkout Payment Step"
+    }
+  ]
+}
+{% endschema %}
