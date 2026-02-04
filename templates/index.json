@@ -84,6 +84,7 @@
     },
     "small_banner_2_VbqRB8": {
       "type": "small-banner-2",
+      "disabled": true,
       "name": "Full Responsive Banner",
       "settings": {
         "ps5_image": "shopify://shop_images/PlayStation_e84b5cb9-9c6b-4722-a0fa-55781a7aae2e.png",
