@@ -92,23 +92,11 @@
             "value": "6.7\""
           }
         },
-        "feature_group_EJMFPM": {
-          "type": "feature_group",
-          "settings": {
-            "group_title": "CPU"
-          }
-        },
         "feature_item_mzCcfp": {
           "type": "feature_item",
           "settings": {
             "label": "Battery Core",
             "value": "5"
-          }
-        },
-        "feature_group_BxjDet": {
-          "type": "feature_group",
-          "settings": {
-            "group_title": "Screen"
           }
         },
         "feature_item_Kxq3Hm": {
@@ -169,9 +157,7 @@
       },
       "block_order": [
         "feature_item_wKfiDM",
-        "feature_group_EJMFPM",
         "feature_item_mzCcfp",
-        "feature_group_BxjDet",
         "feature_item_Kxq3Hm",
         "feature_group_MV3nki",
         "feature_item_3yPtpe",
