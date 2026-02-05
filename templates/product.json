@@ -84,6 +84,33 @@
     },
     "product_details_features_iHrjKh": {
       "type": "product-details-features",
+      "blocks": {
+        "feature_group_MV3nki": {
+          "type": "feature_group",
+          "settings": {
+            "group_title": "Screen"
+          }
+        },
+        "feature_item_3yPtpe": {
+          "type": "feature_item",
+          "settings": {
+            "label": "Screen diagonal",
+            "value": "6.7\""
+          }
+        },
+        "feature_item_Kxq3Hm": {
+          "type": "feature_item",
+          "settings": {
+            "label": "Screen diagonal",
+            "value": "6.7\""
+          }
+        }
+      },
+      "block_order": [
+        "feature_group_MV3nki",
+        "feature_item_3yPtpe",
+        "feature_item_Kxq3Hm"
+      ],
       "name": "Product Details + Features",
       "settings": {
         "details_title": "Details",
