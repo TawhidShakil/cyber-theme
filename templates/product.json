@@ -85,6 +85,39 @@
     "product_details_features_iHrjKh": {
       "type": "product-details-features",
       "blocks": {
+        "feature_item_wKfiDM": {
+          "type": "feature_item",
+          "settings": {
+            "label": "Screen diagonal",
+            "value": "6.7\""
+          }
+        },
+        "feature_group_EJMFPM": {
+          "type": "feature_group",
+          "settings": {
+            "group_title": "CPU"
+          }
+        },
+        "feature_item_mzCcfp": {
+          "type": "feature_item",
+          "settings": {
+            "label": "Battery Core",
+            "value": "5"
+          }
+        },
+        "feature_group_BxjDet": {
+          "type": "feature_group",
+          "settings": {
+            "group_title": "Screen"
+          }
+        },
+        "feature_item_Kxq3Hm": {
+          "type": "feature_item",
+          "settings": {
+            "label": "Screen diagonal",
+            "value": "6.7\""
+          }
+        },
         "feature_group_MV3nki": {
           "type": "feature_group",
           "settings": {
@@ -98,7 +131,35 @@
             "value": "6.7\""
           }
         },
-        "feature_item_Kxq3Hm": {
+        "feature_item_QrgaBU": {
+          "type": "feature_item",
+          "settings": {
+            "label": "Screen diagonal",
+            "value": "6.7\""
+          }
+        },
+        "feature_item_8yMmKH": {
+          "type": "feature_item",
+          "settings": {
+            "label": "Screen diagonal",
+            "value": "6.7\""
+          }
+        },
+        "feature_item_9eCidW": {
+          "type": "feature_item",
+          "settings": {
+            "label": "Screen diagonal",
+            "value": "6.7\""
+          }
+        },
+        "feature_item_r9fUr9": {
+          "type": "feature_item",
+          "settings": {
+            "label": "Screen diagonal",
+            "value": "6.7\""
+          }
+        },
+        "feature_item_mHidwc": {
           "type": "feature_item",
           "settings": {
             "label": "Screen diagonal",
@@ -107,9 +168,18 @@
         }
       },
       "block_order": [
+        "feature_item_wKfiDM",
+        "feature_group_EJMFPM",
+        "feature_item_mzCcfp",
+        "feature_group_BxjDet",
+        "feature_item_Kxq3Hm",
         "feature_group_MV3nki",
         "feature_item_3yPtpe",
-        "feature_item_Kxq3Hm"
+        "feature_item_QrgaBU",
+        "feature_item_8yMmKH",
+        "feature_item_9eCidW",
+        "feature_item_r9fUr9",
+        "feature_item_mHidwc"
       ],
       "name": "Product Details + Features",
       "settings": {
