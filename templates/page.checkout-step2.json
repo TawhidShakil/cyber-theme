@@ -1,0 +1,11 @@
+{
+  "sections": {
+    "main": {
+      "type": "custom-checkout-step2",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main"
+  ]
+}
