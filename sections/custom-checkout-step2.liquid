@@ -1,226 +1,182 @@
-{{ 'custom-checkout.css' | asset_url | stylesheet_tag }}
+{{ 'checkout-step1.css' | asset_url | stylesheet_tag }}
 
-<div class="custom-checkout-wrapper">
-  <!-- Progress Indicator -->
-  <div class="checkout-progress">
-    <div class="progress-step completed">
-      <div class="step-circle">✓</div>
-      <span>Address</span>
+{%- style -%}
+  /* Inherit shared styles and add Step 2 specific tweaks */
+  .shipping-card {
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    background: #fff;
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+  }
+
+  .shipping-card.selected { 
+    border-color: #000; 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
+  }
+
+  .shipping-card .radio-container { margin-right: 20px; }
+  
+  .shipping-info { flex-grow: 1; display: flex; align-items: center; justify-content: space-between; }
+  
+  .method-details { display: flex; align-items: center; gap: 15px; }
+  .method-name { font-size: 16px; font-weight: 600; color: #1a1a1a; min-width: 80px; }
+  .method-desc { font-size: 14px; color: #6b7280; }
+  .method-eta { font-size: 14px; font-weight: 500; color: #1a1a1a; }
+
+  /* Date Picker Customization */
+  .date-picker-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #9ca3af;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  
+  .date-input {
+    border: none;
+    background: transparent;
+    font-family: inherit;
+    font-size: 14px;
+    color: #1a1a1a;
+    font-weight: 500;
+    cursor: pointer;
+    outline: none;
+    text-align: right;
+  }
+
+  /* Progress Steps Overrides for Step 2 */
+  .step-1-done { opacity: 1 !important; color: #000; }
+  .step-1-done svg { fill: #000; }
+  .step-2-active { opacity: 1 !important; font-weight: 700; }
+
+  @media (max-width: 768px) {
+    .shipping-info { flex-direction: column; align-items: flex-start; gap: 10px; }
+    .method-eta { align-self: flex-end; }
+  }
+{%- endstyle -%}
+
+<div class="checkout-container">
+  <div class="checkout-steps">
+    <div class="step step-1-done">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+      </svg>
+      <div class="step-info">
+        <span class="step-label">Step 1</span>
+        <span class="step-name">Address</span>
+      </div>
     </div>
-    <div class="progress-step active">
-      <div class="step-circle">2</div>
-      <span>Shipping</span>
+    <div class="step step-2-active">
+       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="1" y="3" width="15" height="13"></rect>
+        <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+        <circle cx="5.5" cy="18.5" r="2.5"></circle>
+        <circle cx="18.5" cy="18.5" r="2.5"></circle>
+      </svg>
+      <div class="step-info">
+        <span class="step-label">Step 2</span>
+        <span class="step-name">Shipping</span>
+      </div>
     </div>
-    <div class="progress-step">
-      <div class="step-circle">3</div>
-      <span>Payment</span>
+    <div class="step">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="2" y="5" width="20" height="14" rx="2"/>
+        <line x1="2" y1="10" x2="22" y2="10"/>
+      </svg>
+      <div class="step-info">
+        <span class="step-label">Step 3</span>
+        <span class="step-name">Payment</span>
+      </div>
     </div>
   </div>
 
-  <div class="checkout-container">
-    <div class="checkout-main">
-      <div class="checkout-header">
-        <a href="/pages/checkout-step-1" class="back-link">
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-            <path d="M12.5 15L7.5 10L12.5 5" stroke="currentColor" stroke-width="2"/>
-          </svg>
-          Back to Address
-        </a>
-        <h1>Shipping Method</h1>
+  <h2 style="font-size: 20px; font-weight: 700; margin-bottom: 25px;">Shipment Method</h2>
+
+  <div class="shipping-list">
+    <div class="shipping-card selected" onclick="selectShipping(this)">
+      <div class="radio-container">
+        <input type="radio" name="shipping_method" value="free" checked>
       </div>
-
-      <!-- Delivery Address Summary -->
-      <div class="info-summary">
-        <div class="summary-header">
-          <h3>Delivery Address</h3>
-          <a href="/pages/checkout-step-1" class="edit-link">Edit</a>
+      <div class="shipping-info">
+        <div class="method-details">
+          <span class="method-name">Free</span>
+          <span class="method-desc">Regular shipment</span>
         </div>
-        <div class="summary-content" id="addressSummary">
-          <!-- Will be populated from sessionStorage -->
-        </div>
-      </div>
-
-      <!-- Shipping Methods -->
-      <div class="form-section">
-        <h2>Select Shipping Method</h2>
-        
-        <div class="shipping-methods">
-          <!-- Standard Shipping -->
-          <div class="shipping-option">
-            <input 
-              type="radio" 
-              name="shipping_method" 
-              id="standard" 
-              value="standard"
-              data-price="0"
-              checked
-            >
-            <label for="standard">
-              <div class="method-info">
-                <div class="method-name">Standard Shipping</div>
-                <div class="method-time">5-7 Business Days</div>
-              </div>
-              <div class="method-price">FREE</div>
-            </label>
-          </div>
-
-          <!-- Express Shipping -->
-          <div class="shipping-option">
-            <input 
-              type="radio" 
-              name="shipping_method" 
-              id="express" 
-              value="express"
-              data-price="15"
-            >
-            <label for="express">
-              <div class="method-info">
-                <div class="method-name">Express Shipping</div>
-                <div class="method-time">2-3 Business Days</div>
-              </div>
-              <div class="method-price">$15.00</div>
-            </label>
-          </div>
-
-          <!-- Overnight Shipping -->
-          <div class="shipping-option">
-            <input 
-              type="radio" 
-              name="shipping_method" 
-              id="overnight" 
-              value="overnight"
-              data-price="30"
-            >
-            <label for="overnight">
-              <div class="method-info">
-                <div class="method-name">Overnight Shipping</div>
-                <div class="method-time">Next Business Day</div>
-              </div>
-              <div class="method-price">$30.00</div>
-            </label>
-          </div>
-        </div>
-      </div>
-
-      <!-- Action Buttons -->
-      <div class="checkout-actions">
-        <a href="/pages/checkout-step-1" class="btn btn-secondary">Back</a>
-        <button type="button" class="btn btn-primary" id="continueToPayment">
-          Continue to Payment
-        </button>
+        <span class="method-eta">17 Oct, 2023</span>
       </div>
     </div>
 
-    <!-- Order Summary Sidebar -->
-    <div class="checkout-sidebar">
-      <div class="order-summary">
-        <h3>Order Summary</h3>
-        
-        <div class="cart-items">
-          {% for item in cart.items %}
-          <div class="cart-item">
-            <div class="item-image">
-              {% if item.image %}
-                {{ item.image | image_url: width: 80 | image_tag: alt: item.title }}
-              {% endif %}
-            </div>
-            <div class="item-details">
-              <div class="item-title">{{ item.product.title }}</div>
-              <div class="item-variant">{{ item.variant.title }}</div>
-              <div class="item-quantity">Qty: {{ item.quantity }}</div>
-            </div>
-            <div class="item-price">
-              {{ item.final_line_price | money }}
-            </div>
-          </div>
-          {% endfor %}
+    <div class="shipping-card" onclick="selectShipping(this)">
+      <div class="radio-container">
+        <input type="radio" name="shipping_method" value="priority">
+      </div>
+      <div class="shipping-info">
+        <div class="method-details">
+          <span class="method-name">$8.50</span>
+          <span class="method-desc">Get your delivery as soon as possible</span>
         </div>
+        <span class="method-eta">1 Oct, 2023</span>
+      </div>
+    </div>
 
-        <div class="summary-totals">
-          <div class="summary-row">
-            <span>Subtotal</span>
-            <span id="subtotal">{{ cart.total_price | money }}</span>
-          </div>
-          <div class="summary-row">
-            <span>Shipping</span>
-            <span id="shippingCost">FREE</span>
-          </div>
-          <div class="summary-row total">
-            <span>Total</span>
-            <span id="totalPrice">{{ cart.total_price | money }}</span>
-          </div>
+    <div class="shipping-card" onclick="selectShipping(this)">
+      <div class="radio-container">
+        <input type="radio" name="shipping_method" value="schedule">
+      </div>
+      <div class="shipping-info">
+        <div class="method-details">
+          <span class="method-name">Schedule</span>
+          <span class="method-desc">Pick a date when you want to get your delivery</span>
+        </div>
+        <div class="date-picker-wrapper">
+          <input type="text" class="date-input" id="deliveryDate" placeholder="Select Date" onfocus="(this.type='date')" onblur="if(!this.value)this.type='text'">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
         </div>
       </div>
     </div>
+  </div>
+
+  <div class="checkout-footer">
+    <button type="button" class="btn-back" onclick="history.back()">Back</button>
+    <button type="button" class="btn-next" onclick="handleShippingNext()">Next</button>
   </div>
 </div>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-  // Load address from sessionStorage
-  const addressData = JSON.parse(sessionStorage.getItem('checkoutAddress') || '{}');
-  const addressSummary = document.getElementById('addressSummary');
-  
-  if (addressData.email) {
-    addressSummary.innerHTML = `
-      <p><strong>${addressData.first_name || ''} ${addressData.last_name || ''}</strong></p>
-      <p>${addressData.address1 || ''}</p>
-      ${addressData.address2 ? `<p>${addressData.address2}</p>` : ''}
-      <p>${addressData.city || ''}, ${addressData.province || ''} ${addressData.zip || ''}</p>
-      <p>${addressData.country || ''}</p>
-      <p>Email: ${addressData.email}</p>
-      <p>Phone: ${addressData.phone}</p>
-    `;
+  function selectShipping(card) {
+    document.querySelectorAll('.shipping-card').forEach(c => c.classList.remove('selected'));
+    card.classList.add('selected');
+    card.querySelector('input[type="radio"]').checked = true;
+    
+    // Focus date input if schedule is selected
+    const dateInput = card.querySelector('#deliveryDate');
+    if(dateInput) {
+        dateInput.focus();
+    }
   }
 
-  // Handle shipping method selection
-  const shippingOptions = document.querySelectorAll('input[name="shipping_method"]');
-  const subtotal = {{ cart.total_price | divided_by: 100.0 }};
-  
-  shippingOptions.forEach(option => {
-    option.addEventListener('change', function() {
-      const shippingPrice = parseFloat(this.dataset.price);
-      const total = subtotal + shippingPrice;
-      
-      document.getElementById('shippingCost').textContent = 
-        shippingPrice === 0 ? 'FREE' : `$${shippingPrice.toFixed(2)}`;
-      document.getElementById('totalPrice').textContent = `$${total.toFixed(2)}`;
-    });
-  });
+  function handleShippingNext() {
+    const selectedMethod = document.querySelector('input[name="shipping_method"]:checked').value;
+    const scheduleDate = document.getElementById('deliveryDate').value;
 
-  // Continue to payment
-  document.getElementById('continueToPayment').addEventListener('click', function() {
-    const selectedShipping = document.querySelector('input[name="shipping_method"]:checked');
-    
-    if (!selectedShipping) {
-      alert('Please select a shipping method');
+    if (selectedMethod === 'schedule' && !scheduleDate) {
+      alert("Please select a delivery date");
       return;
     }
 
-    // Save shipping method
-    const shippingData = {
-      method: selectedShipping.value,
-      price: selectedShipping.dataset.price,
-      label: selectedShipping.nextElementSibling.querySelector('.method-name').textContent
-    };
-    sessionStorage.setItem('checkoutShipping', JSON.stringify(shippingData));
-    
-    // Redirect to step 3
-    window.location.href = '/pages/checkout-step-3';
-  });
-});
-</script>
+    // Save to session storage
+    sessionStorage.setItem('selected_shipping', JSON.stringify({
+      method: selectedMethod,
+      date: scheduleDate || 'standard'
+    }));
 
-{% schema %}
-{
-  "name": "Checkout Step 2",
-  "settings": [
-    {
-      "type": "text",
-      "id": "heading",
-      "label": "Heading",
-      "default": "Shipping Method"
-    }
-  ]
-}
-{% endschema %}
+    // Redirect to Step 3 (Payment)
+    window.location.href = '/pages/checkout-step-3';
+  }
+</script>

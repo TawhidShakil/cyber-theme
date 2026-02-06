@@ -1,274 +1,790 @@
-{{ 'custom-checkout.css' | asset_url | stylesheet_tag }}
+{{ 'checkout-step1.css' | asset_url | stylesheet_tag }}
 
-<div class="custom-checkout-wrapper">
-  <!-- Progress Indicator -->
-  <div class="checkout-progress">
-    <div class="progress-step active">
-      <div class="step-circle">1</div>
-      <span>Address</span>
+{%- style -%}
+  /* Layout & Container */
+  .checkout-container { 
+    max-width: 900px; 
+    margin: 60px auto; 
+    padding: 0 20px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+
+  /* Progress Steps */
+  .checkout-steps { 
+    display: flex; 
+    justify-content: space-between; 
+    margin-bottom: 80px; 
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .step { 
+    opacity: 0.3; 
+    display: flex; 
+    align-items: center; 
+    gap: 15px; 
+    color: #000; 
+  }
+  .step.active { opacity: 1; }
+  .step-info { display: flex; flex-direction: column; }
+  .step-label { font-size: 12px; font-weight: 400; color: #666; }
+  .step-name { font-size: 18px; font-weight: 600; }
+
+  /* Address List Styles */
+  .address-card {
+    border: 1px solid transparent;
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: flex-start;
+    background: #f8f9fa;
+    transition: all 0.2s ease-in-out;
+    position: relative;
+    cursor: pointer;
+  }
+  .address-card.selected { 
+    background: #fff; 
+    border-color: #000; 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
+  }
+  
+  .radio-container { margin-right: 20px; padding-top: 5px; }
+  .radio-container input[type="radio"] { 
+    width: 22px; 
+    height: 22px; 
+    accent-color: #000; 
+    cursor: pointer; 
+  }
+
+  .address-info { flex-grow: 1; }
+  .address-header { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+  .address-title { font-size: 18px; font-weight: 600; color: #1a1a1a; margin: 0; }
+  .address-badge { 
+    background: #000; 
+    color: #fff; 
+    padding: 3px 10px; 
+    border-radius: 4px; 
+    font-size: 10px; 
+    font-weight: 700;
+    text-transform: uppercase; 
+    letter-spacing: 0.5px;
+  }
+  .address-details { color: #4b5563; font-size: 15px; line-height: 1.6; margin: 0; }
+  
+  .address-actions { display: flex; gap: 20px; align-items: center; margin-left: 20px; }
+  .action-icon { 
+    cursor: pointer; 
+    opacity: 0.4; 
+    transition: 0.2s; 
+    font-size: 18px; 
+    text-decoration: none; 
+    color: #000; 
+    border: none;
+    background: none;
+    padding: 0;
+  }
+  .action-icon:hover { opacity: 1; }
+
+  /* Add New Address Divider */
+  .add-new-address-wrapper {
+    text-align: center;
+    border-top: 1.5px dotted #d1d5db;
+    margin: 60px 0 15px 0;
+    position: relative;
+    height: 1px;
+  }
+  .add-btn-circle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #000;
+    color: #fff;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: 300;
+    padding-bottom: 3px;
+    transition: all 0.2s ease;
+  }
+  .add-btn-circle:hover {
+    background: #333;
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+  .add-text { 
+    font-size: 14px; 
+    font-weight: 500; 
+    color: #1a1a1a; 
+    margin-top: 25px; 
+    text-align: center; 
+  }
+
+  /* Modal Styles */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    animation: fadeIn 0.2s ease;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .modal-content {
+    background: #fff;
+    border-radius: 16px;
+    max-width: 600px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    animation: slideUp 0.3s ease;
+  }
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .modal-header {
+    padding: 25px 30px;
+    border-bottom: 1px solid #e5e7eb;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .modal-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 0;
+  }
+
+  .modal-close {
+    background: none;
+    border: none;
+    font-size: 28px;
+    color: #6b7280;
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+    padding: 0;
+    line-height: 1;
+  }
+
+  .modal-close:hover {
+    background: #f3f4f6;
+    color: #000;
+  }
+
+  .modal-body {
+    padding: 30px;
+  }
+
+  /* Form Styling */
+  .address-form-grid { 
+    display: grid; 
+    grid-template-columns: 1fr 1fr; 
+    gap: 15px; 
+  }
+  
+  .full-width { 
+    grid-column: span 2; 
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .form-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 8px;
+  }
+
+  .modal-body input[type="text"],
+  .modal-body input[type="tel"],
+  .modal-body select {
+    padding: 12px 15px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: all 0.2s ease;
+    outline: none;
+  }
+
+  .modal-body input:focus,
+  .modal-body select:focus {
+    border-color: #000;
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
+  }
+
+  /* Label Selection */
+  .label-selector {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .label-option {
+    flex: 1;
+  }
+
+  .label-option input[type="radio"] {
+    display: none;
+  }
+
+  .label-option label {
+    display: block;
+    padding: 10px;
+    border: 2px solid #d1d5db;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: #fff;
+  }
+
+  .label-option input[type="radio"]:checked + label {
+    border-color: #000;
+    background: #f9fafb;
+  }
+
+  .label-option label:hover {
+    border-color: #9ca3af;
+  }
+
+  .modal-footer {
+    padding: 20px 30px;
+    border-top: 1px solid #e5e7eb;
+    display: flex;
+    gap: 15px;
+    justify-content: flex-end;
+  }
+
+  /* Footer Buttons */
+  .checkout-footer { 
+    display: flex; 
+    justify-content: flex-end; 
+    gap: 15px; 
+    margin-top: 50px; 
+  }
+  
+  .btn-back { 
+    padding: 14px 60px; 
+    border: 1px solid #e5e7eb; 
+    background: #fff; 
+    color: #000; 
+    border-radius: 8px; 
+    text-decoration: none; 
+    font-weight: 500; 
+    transition: 0.2s;
+    cursor: pointer;
+  }
+  
+  .btn-back:hover {
+    border-color: #9ca3af;
+    background: #f9fafb;
+  }
+  
+  .btn-next { 
+    padding: 14px 60px; 
+    border: none; 
+    background: #000; 
+    color: #fff; 
+    border-radius: 8px; 
+    cursor: pointer; 
+    font-weight: 500; 
+    transition: 0.2s;
+  }
+  
+  .btn-next:hover { 
+    background: #333; 
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .checkout-container {
+      margin: 30px auto;
+      padding: 0 15px;
+    }
+
+    .checkout-steps {
+      margin-bottom: 40px;
+      gap: 10px;
+    }
+
+    .step {
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      text-align: center;
+    }
+
+    .step-name {
+      font-size: 14px;
+    }
+
+    .address-card {
+      padding: 20px;
+      flex-direction: column;
+    }
+
+    .radio-container {
+      margin-right: 0;
+      margin-bottom: 15px;
+    }
+
+    .address-actions {
+      margin-left: 0;
+      margin-top: 15px;
+      justify-content: flex-end;
+      width: 100%;
+    }
+
+    .address-form-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .full-width {
+      grid-column: span 1;
+    }
+
+    .modal-content {
+      margin: 10px;
+    }
+
+    .modal-header,
+    .modal-body,
+    .modal-footer {
+      padding: 20px;
+    }
+
+    .checkout-footer {
+      flex-direction: column;
+    }
+
+    .btn-back,
+    .btn-next {
+      width: 100%;
+      padding: 14px 30px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="checkout-container">
+  <div class="checkout-steps">
+    <div class="step active">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+      </svg>
+      <div class="step-info">
+        <span class="step-label">Step 1</span>
+        <span class="step-name">Address</span>
+      </div>
     </div>
-    <div class="progress-step">
-      <div class="step-circle">2</div>
-      <span>Shipping</span>
+    <div class="step">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="9" cy="21" r="1"/>
+        <circle cx="20" cy="21" r="1"/>
+        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+      </svg>
+      <div class="step-info">
+        <span class="step-label">Step 2</span>
+        <span class="step-name">Shipping</span>
+      </div>
     </div>
-    <div class="progress-step">
-      <div class="step-circle">3</div>
-      <span>Payment</span>
+    <div class="step">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="2" y="5" width="20" height="14" rx="2"/>
+        <line x1="2" y1="10" x2="22" y2="10"/>
+      </svg>
+      <div class="step-info">
+        <span class="step-label">Step 3</span>
+        <span class="step-name">Payment</span>
+      </div>
     </div>
   </div>
 
-  <div class="checkout-container">
-    <!-- Left Column - Address Form -->
-    <div class="checkout-main">
-      <div class="checkout-header">
-        <a href="{{ routes.cart_url }}" class="back-link">
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-            <path d="M12.5 15L7.5 10L12.5 5" stroke="currentColor" stroke-width="2"/>
-          </svg>
-          Back to Cart
-        </a>
-        <h1>Delivery Address</h1>
-      </div>
+  <h2 style="font-size: 22px; font-weight: 700; margin-bottom: 30px;">Select Address</h2>
 
-      <!-- Contact Information -->
-      <div class="form-section">
-        <h2>Contact Information</h2>
-        <div class="form-group">
-          <label for="email">Email Address</label>
-          <input 
-            type="email" 
-            id="email" 
-            name="email" 
-            placeholder="your.email@example.com"
-            required
-            class="form-input"
-          >
-        </div>
-        <div class="form-group">
-          <label for="phone">Phone Number</label>
-          <input 
-            type="tel" 
-            id="phone" 
-            name="phone" 
-            placeholder="+1 (555) 000-0000"
-            required
-            class="form-input"
-          >
-        </div>
-      </div>
-
-      <!-- Shipping Address -->
-      <div class="form-section">
-        <div class="section-header">
-          <h2>Shipping Address</h2>
-          <button type="button" class="add-address-btn" id="addAddressBtn">
-            + Add New Address
-          </button>
-        </div>
-
-        <!-- Saved Addresses (if customer is logged in) -->
-        {% if customer %}
-        <div class="saved-addresses">
-          {% for address in customer.addresses %}
-          <div class="address-card" data-address-id="{{ address.id }}">
-            <input 
-              type="radio" 
-              name="selected_address" 
-              id="address-{{ address.id }}"
-              value="{{ address.id }}"
-              {% if forloop.first %}checked{% endif %}
-            >
-            <label for="address-{{ address.id }}">
-              <div class="address-content">
-                <div class="address-name">{{ address.first_name }} {{ address.last_name }}</div>
-                <div class="address-details">
-                  {{ address.address1 }}<br>
-                  {% if address.address2 != blank %}{{ address.address2 }}<br>{% endif %}
-                  {{ address.city }}, {{ address.province_code }} {{ address.zip }}<br>
-                  {{ address.country }}
-                </div>
-                <div class="address-phone">{{ address.phone }}</div>
-              </div>
-              <div class="address-actions">
-                <button type="button" class="edit-btn">
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                    <path d="M11.5 2L14 4.5L5 13.5H2.5V11L11.5 2Z" stroke="currentColor" stroke-width="1.5"/>
-                  </svg>
-                </button>
-              </div>
-            </label>
+  <div class="address-list" id="addressList">
+    {% if customer.addresses.size > 0 %}
+      {% for address in customer.addresses %}
+        <div class="address-card {% if forloop.first %}selected{% endif %}" onclick="selectAddress(this)">
+          <div class="radio-container">
+            <input type="radio" name="checkout_address" value="{{ address.id }}" {% if forloop.first %}checked{% endif %}>
           </div>
-          {% endfor %}
-        </div>
-        {% endif %}
-
-        <!-- New Address Form (Hidden by default) -->
-        <div class="new-address-form" id="newAddressForm" style="display: none;">
-          <div class="form-row">
-            <div class="form-group">
-              <label for="first_name">First Name</label>
-              <input type="text" id="first_name" name="first_name" required class="form-input">
-            </div>
-            <div class="form-group">
-              <label for="last_name">Last Name</label>
-              <input type="text" id="last_name" name="last_name" required class="form-input">
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="address1">Address Line 1</label>
-            <input type="text" id="address1" name="address1" placeholder="Street address" required class="form-input">
-          </div>
-
-          <div class="form-group">
-            <label for="address2">Address Line 2 (Optional)</label>
-            <input type="text" id="address2" name="address2" placeholder="Apartment, suite, etc." class="form-input">
-          </div>
-
-          <div class="form-row">
-            <div class="form-group">
-              <label for="city">City</label>
-              <input type="text" id="city" name="city" required class="form-input">
-            </div>
-            <div class="form-group">
-              <label for="province">State/Province</label>
-              <select id="province" name="province" required class="form-input">
-                <option value="">Select State</option>
-                <option value="AL">Alabama</option>
-                <option value="AK">Alaska</option>
-                <!-- Add more states -->
-              </select>
-            </div>
-          </div>
-
-          <div class="form-row">
-            <div class="form-group">
-              <label for="zip">ZIP/Postal Code</label>
-              <input type="text" id="zip" name="zip" required class="form-input">
-            </div>
-            <div class="form-group">
-              <label for="country">Country</label>
-              <select id="country" name="country" required class="form-input">
-                <option value="US">United States</option>
-                <option value="CA">Canada</option>
-                <!-- Add more countries -->
-              </select>
-            </div>
-          </div>
-
-          {% if customer %}
-          <div class="form-group checkbox-group">
-            <input type="checkbox" id="save_address" name="save_address">
-            <label for="save_address">Save this address for future orders</label>
-          </div>
-          {% endif %}
-        </div>
-      </div>
-
-      <!-- Action Buttons -->
-      <div class="checkout-actions">
-        <a href="{{ routes.cart_url }}" class="btn btn-secondary">Back to Cart</a>
-        <button type="button" class="btn btn-primary" id="continueToShipping">
-          Continue to Shipping
-        </button>
-      </div>
-    </div>
-
-    <!-- Right Column - Order Summary -->
-    <div class="checkout-sidebar">
-      <div class="order-summary">
-        <h3>Order Summary</h3>
-        
-        <div class="cart-items">
-          {% for item in cart.items %}
-          <div class="cart-item">
-            <div class="item-image">
-              {% if item.image %}
-                {{ item.image | image_url: width: 80 | image_tag: alt: item.title }}
+          <div class="address-info">
+            <div class="address-header">
+              <p class="address-title">{{ address.company | default: address.address1 }}</p>
+              {% if address == customer.default_address %}
+                <span class="address-badge">HOME</span>
+              {% elsif address.company contains 'office' or address.company contains 'Office' %}
+                <span class="address-badge">OFFICE</span>
               {% endif %}
             </div>
-            <div class="item-details">
-              <div class="item-title">{{ item.product.title }}</div>
-              <div class="item-variant">{{ item.variant.title }}</div>
-              <div class="item-quantity">Qty: {{ item.quantity }}</div>
-            </div>
-            <div class="item-price">
-              {{ item.final_line_price | money }}
-            </div>
+            <p class="address-details">
+              {{ address.address1 }}{% if address.address2 %}, {{ address.address2 }}{% endif %}<br>
+              {{ address.city }}, {{ address.province_code }} {{ address.zip }}<br>
+              {{ address.phone }}
+            </p>
           </div>
-          {% endfor %}
+          <div class="address-actions">
+            <button type="button" class="action-icon" onclick="event.stopPropagation(); editAddress('{{ address.id }}', '{{ address.company }}', '{{ address.first_name }}', '{{ address.last_name }}', '{{ address.address1 }}', '{{ address.address2 }}', '{{ address.city }}', '{{ address.province }}', '{{ address.zip }}', '{{ address.phone }}')">✎</button>
+            <form action="/account/addresses/{{ address.id }}" method="post" style="display:inline;" onsubmit="event.stopPropagation();">
+              <input type="hidden" name="_method" value="delete">
+              <button type="submit" class="action-icon" onclick="return confirm('Delete this address?')">✕</button>
+            </form>
+          </div>
         </div>
+      {% endfor %}
+    {% else %}
+      <div class="address-card" style="justify-content: center; border: 1px dashed #ccc; background: #fff;">
+        <p class="address-details">No addresses found. Click below to add one.</p>
+      </div>
+    {% endif %}
+  </div>
 
-        <div class="summary-totals">
-          <div class="summary-row">
-            <span>Subtotal</span>
-            <span>{{ cart.total_price | money }}</span>
-          </div>
-          <div class="summary-row">
-            <span>Shipping</span>
-            <span>Calculated at next step</span>
-          </div>
-          <div class="summary-row total">
-            <span>Total</span>
-            <span>{{ cart.total_price | money }}</span>
-          </div>
+  <div class="add-new-address-wrapper">
+    <button type="button" class="add-btn-circle" onclick="openAddressModal()">+</button>
+  </div>
+  <p class="add-text">Add New Address</p>
+
+  <div class="checkout-footer">
+    <a href="{{ routes.cart_url }}" class="btn-back">Back</a>
+    <button type="button" class="btn-next" onclick="handleCheckoutNext()">Next</button>
+  </div>
+</div>
+
+<!-- Add/Edit Address Modal -->
+<div id="addressModal" class="modal-overlay">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3 class="modal-title" id="modalTitle">Add New Address</h3>
+      <button type="button" class="modal-close" onclick="closeAddressModal()">×</button>
+    </div>
+
+    <div class="modal-body">
+      <!-- Address Label Selection -->
+      <div class="label-selector">
+        <div class="label-option">
+          <input type="radio" name="address_label" id="label_home" value="HOME" checked>
+          <label for="label_home">HOME</label>
+        </div>
+        <div class="label-option">
+          <input type="radio" name="address_label" id="label_office" value="OFFICE">
+          <label for="label_office">OFFICE</label>
+        </div>
+        <div class="label-option">
+          <input type="radio" name="address_label" id="label_other" value="OTHER">
+          <label for="label_other">OTHER</label>
         </div>
       </div>
+
+      <form id="addressForm" class="address-form-grid">
+        <div class="form-group">
+          <label class="form-label">First Name *</label>
+          <input type="text" id="firstName" name="first_name" required>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Last Name *</label>
+          <input type="text" id="lastName" name="last_name" required>
+        </div>
+
+        <div class="form-group full-width">
+          <label class="form-label">Street Address *</label>
+          <input type="text" id="address1" name="address1" required>
+        </div>
+
+        <div class="form-group full-width">
+          <label class="form-label">Apartment, Suite, etc. (Optional)</label>
+          <input type="text" id="address2" name="address2">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">City *</label>
+          <input type="text" id="city" name="city" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">State/Province *</label>
+          <input type="text" id="province" name="province" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">ZIP/Postal Code *</label>
+          <input type="text" id="zip" name="zip" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Phone Number</label>
+          <input type="tel" id="phone" name="phone">
+        </div>
+      </form>
+    </div>
+
+    <div class="modal-footer">
+      <button type="button" class="btn-back" onclick="closeAddressModal()">Cancel</button>
+      <button type="button" class="btn-next" onclick="saveAddress()">Save Address</button>
     </div>
   </div>
 </div>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-  const addAddressBtn = document.getElementById('addAddressBtn');
-  const newAddressForm = document.getElementById('newAddressForm');
-  const continueBtn = document.getElementById('continueToShipping');
+  let editingAddressId = null;
 
-  // Toggle new address form
-  addAddressBtn.addEventListener('click', function() {
-    if (newAddressForm.style.display === 'none') {
-      newAddressForm.style.display = 'block';
-      addAddressBtn.textContent = '- Cancel';
-    } else {
-      newAddressForm.style.display = 'none';
-      addAddressBtn.textContent = '+ Add New Address';
-    }
-  });
+  // Select address card
+  function selectAddress(card) {
+    document.querySelectorAll('.address-card').forEach(c => c.classList.remove('selected'));
+    card.classList.add('selected');
+    card.querySelector('input[type="radio"]').checked = true;
+  }
 
-  // Continue to shipping
-  continueBtn.addEventListener('click', function() {
-    // Validate form
-    const email = document.getElementById('email').value;
-    const phone = document.getElementById('phone').value;
+  // Open modal for new address
+  function openAddressModal() {
+    editingAddressId = null;
+    document.getElementById('modalTitle').textContent = 'Add New Address';
+    document.getElementById('addressForm').reset();
+    document.getElementById('label_home').checked = true;
+    document.getElementById('addressModal').style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  }
+
+  // Open modal for editing address
+  function editAddress(id, company, firstName, lastName, address1, address2, city, province, zip, phone) {
+    editingAddressId = id;
+    document.getElementById('modalTitle').textContent = 'Edit Address';
     
-    if (!email || !phone) {
-      alert('Please fill in all required fields');
+    // Set label
+    const label = company ? company.toUpperCase() : 'HOME';
+    if (label === 'OFFICE') {
+      document.getElementById('label_office').checked = true;
+    } else if (label === 'OTHER') {
+      document.getElementById('label_other').checked = true;
+    } else {
+      document.getElementById('label_home').checked = true;
+    }
+
+    // Fill form
+    document.getElementById('firstName').value = firstName || '';
+    document.getElementById('lastName').value = lastName || '';
+    document.getElementById('address1').value = address1 || '';
+    document.getElementById('address2').value = address2 || '';
+    document.getElementById('city').value = city || '';
+    document.getElementById('province').value = province || '';
+    document.getElementById('zip').value = zip || '';
+    document.getElementById('phone').value = phone || '';
+
+    document.getElementById('addressModal').style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  }
+
+  // Close modal
+  function closeAddressModal() {
+    document.getElementById('addressModal').style.display = 'none';
+    document.body.style.overflow = 'auto';
+    editingAddressId = null;
+  }
+
+  // Save address
+  function saveAddress() {
+    const form = document.getElementById('addressForm');
+    
+    if (!form.checkValidity()) {
+      form.reportValidity();
       return;
     }
 
-    // Save data to sessionStorage
+    const selectedLabel = document.querySelector('input[name="address_label"]:checked').value;
     const addressData = {
-      email: email,
-      phone: phone,
-      // Collect address fields
+      label: selectedLabel,
+      first_name: document.getElementById('firstName').value,
+      last_name: document.getElementById('lastName').value,
+      address1: document.getElementById('address1').value,
+      address2: document.getElementById('address2').value,
+      city: document.getElementById('city').value,
+      province: document.getElementById('province').value,
+      zip: document.getElementById('zip').value,
+      phone: document.getElementById('phone').value
     };
-    sessionStorage.setItem('checkoutAddress', JSON.stringify(addressData));
+
+    // Save to sessionStorage
+    const addresses = JSON.parse(sessionStorage.getItem('checkout_addresses') || '[]');
     
-    // Redirect to step 2
+    if (editingAddressId) {
+      // Update existing
+      const index = addresses.findIndex(a => a.id === editingAddressId);
+      if (index !== -1) {
+        addresses[index] = { ...addressData, id: editingAddressId };
+      }
+    } else {
+      // Add new
+      addressData.id = 'temp_' + Date.now();
+      addresses.push(addressData);
+    }
+
+    sessionStorage.setItem('checkout_addresses', JSON.stringify(addresses));
+
+    // Add to UI
+    addAddressToList(addressData);
+    
+    closeAddressModal();
+    
+    // Show success message
+    alert(editingAddressId ? 'Address updated successfully!' : 'Address added successfully!');
+  }
+
+  // Add address to the list
+  function addAddressToList(addressData) {
+    const addressList = document.getElementById('addressList');
+    
+    // Remove "no addresses" message if exists
+    const noAddressMsg = addressList.querySelector('[style*="dashed"]');
+    if (noAddressMsg) {
+      noAddressMsg.remove();
+    }
+
+    // Deselect all
+    document.querySelectorAll('.address-card').forEach(c => c.classList.remove('selected'));
+
+    const addressCard = document.createElement('div');
+    addressCard.className = 'address-card selected';
+    addressCard.onclick = function() { selectAddress(this); };
+    
+    addressCard.innerHTML = `
+      <div class="radio-container">
+        <input type="radio" name="checkout_address" value="${addressData.id}" checked>
+      </div>
+      <div class="address-info">
+        <div class="address-header">
+          <p class="address-title">${addressData.address1}</p>
+          <span class="address-badge">${addressData.label}</span>
+        </div>
+        <p class="address-details">
+          ${addressData.address1}${addressData.address2 ? ', ' + addressData.address2 : ''}<br>
+          ${addressData.city}, ${addressData.province} ${addressData.zip}<br>
+          ${addressData.phone || ''}
+        </p>
+      </div>
+      <div class="address-actions">
+        <button type="button" class="action-icon" onclick="event.stopPropagation(); editAddress('${addressData.id}', '${addressData.label}', '${addressData.first_name}', '${addressData.last_name}', '${addressData.address1}', '${addressData.address2 || ''}', '${addressData.city}', '${addressData.province}', '${addressData.zip}', '${addressData.phone || ''}')">✎</button>
+        <button type="button" class="action-icon" onclick="event.stopPropagation(); deleteTemporaryAddress('${addressData.id}')">✕</button>
+      </div>
+    `;
+
+    if (!editingAddressId) {
+      addressList.appendChild(addressCard);
+    }
+  }
+
+  // Delete temporary address
+  function deleteTemporaryAddress(id) {
+    if (!confirm('Delete this address?')) return;
+
+    const addresses = JSON.parse(sessionStorage.getItem('checkout_addresses') || '[]');
+    const filtered = addresses.filter(a => a.id !== id);
+    sessionStorage.setItem('checkout_addresses', JSON.stringify(filtered));
+
+    // Remove from UI
+    const cards = document.querySelectorAll('.address-card');
+    cards.forEach(card => {
+      const radio = card.querySelector('input[type="radio"]');
+      if (radio && radio.value === id) {
+        card.remove();
+      }
+    });
+  }
+
+  // Proceed to next step
+  function handleCheckoutNext() {
+    const selected = document.querySelector('input[name="checkout_address"]:checked');
+
+    if (!selected) {
+      alert("Please select an address");
+      return;
+    }
+
+    // Save selected address to sessionStorage
+    sessionStorage.setItem('selected_checkout_address', selected.value);
+
+    // Redirect to Step 2
     window.location.href = '/pages/checkout-step-2';
+  }
+
+  // Close modal on ESC key
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      closeAddressModal();
+    }
   });
-});
+
+  // Close modal on backdrop click
+  document.getElementById('addressModal').addEventListener('click', function(e) {
+    if (e.target === this) {
+      closeAddressModal();
+    }
+  });
+
+  // Phone number formatting
+  document.getElementById('phone')?.addEventListener('input', function(e) {
+    let value = e.target.value.replace(/\D/g, '');
+    if (value.length > 0) {
+      if (value.length <= 3) {
+        value = `(${value}`;
+      } else if (value.length <= 6) {
+        value = `(${value.slice(0, 3)}) ${value.slice(3)}`;
+      } else {
+        value = `(${value.slice(0, 3)}) ${value.slice(3, 6)}-${value.slice(6, 10)}`;
+      }
+    }
+    e.target.value = value;
+  });
 </script>
 
 {% schema %}
 {
-  "name": "Checkout Step 1",
+  "name": "Checkout Step 1 - Address",
   "settings": [
     {
       "type": "text",
       "id": "heading",
-      "label": "Heading",
-      "default": "Delivery Address"
+      "label": "Section Heading",
+      "default": "Select Address"
     }
   ],
   "presets": [
