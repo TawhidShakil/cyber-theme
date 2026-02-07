@@ -1,4 +1,4 @@
-<section class="py-24">
+<section class="py-24 product-details-wrapper">
   <div class="w-full max-w-[1400px] mx-auto px-8 md:px-12 lg:px-24">
 
     {% if section.settings.details_title != blank %}
@@ -54,66 +54,72 @@
 </section>
 
 <!-- ================= SEE MORE LOGIC ================= -->
-<style>
-  .feature-group.collapsed .feature-item:nth-child(n + 5) {
-    display: none;
-  }
-</style>
-
 <script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const groups = document.querySelectorAll(".feature-group");
+function initFeatureToggle() {
 
-    groups.forEach(group => {
-      const items = group.querySelectorAll(".feature-item");
+  const wrapper = document.querySelector(".product-details-wrapper");
+  if (!wrapper) return;
 
-      
-      if (items.length <= 4) return;
+  const allItems = wrapper.querySelectorAll(".feature-item");
+  const groups = wrapper.querySelectorAll(".feature-group");
 
-      
-      group.classList.add("collapsed");
+  let limit = 4;
 
-      
-      const btn = document.createElement("button");
-      btn.type = "button";
-      btn.className =
-        "mx-auto mt-6 flex items-center gap-2 " +
-        "px-8 py-2.5 border border-gray-300 rounded-xl " +
-        "text-[14px] font-medium text-gray-900 bg-white " +
-        "cursor-pointer transition-all duration-200 " +
-        "hover:border-gray-900";
+  if (allItems.length <= limit) return;
 
-      btn.innerHTML = `
-        <span>View More</span>
-        <svg
-          class="w-3.5 h-3.5 transition-transform duration-200"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-        >
-          <path d="M6 9l6 6 6-6" />
-        </svg>
-      `;
+  
+  if (wrapper.querySelector(".view-more-btn")) return;
 
-      // Toggle logic
-      btn.addEventListener("click", () => {
-        const collapsed = group.classList.toggle("collapsed");
-
-        // Text change
-        btn.querySelector("span").textContent = collapsed
-          ? "View More"
-          : "View Less";
-
-        // Chevron rotate
-        btn.querySelector("svg").classList.toggle("rotate-180", !collapsed);
-      });
-
-      
-      group.appendChild(btn);
-    });
+  
+  allItems.forEach((item, index) => {
+    if (index >= limit) {
+      item.style.display = "none";
+    }
   });
+
+  // Button create
+  const btn = document.createElement("button");
+  btn.type = "button";
+  btn.className =
+    "view-more-btn mx-auto mt-8 flex items-center gap-2 " +
+    "px-8 py-2.5 border border-gray-300 rounded-xl " +
+    "text-[14px] font-medium text-gray-900 bg-white cursor-pointer hover:border-gray-900 transition-all duration-200";
+
+  btn.innerHTML = `
+    <span>View More</span>
+    <svg class="w-3.5 h-3.5 transition-transform duration-200"
+      viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M6 9l6 6 6-6" />
+    </svg>
+  `;
+
+  let expanded = false;
+
+  btn.addEventListener("click", () => {
+
+    expanded = !expanded;
+
+    allItems.forEach((item, index) => {
+      if (index >= limit) {
+        item.style.display = expanded ? "grid" : "none";
+      }
+    });
+
+    btn.querySelector("span").textContent =
+      expanded ? "View Less" : "View More";
+
+    btn.querySelector("svg").classList.toggle("rotate-180", expanded);
+  });
+  groups[groups.length - 1].appendChild(btn);
+}
+
+
+document.addEventListener("DOMContentLoaded", initFeatureToggle);
+document.addEventListener("shopify:section:load", initFeatureToggle);
 </script>
+
+
+
 
 
 {% schema %}
