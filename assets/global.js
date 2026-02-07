@@ -1330,3 +1330,58 @@ class CartPerformance {
     );
   }
 }
+
+
+function updateCartBadge() {
+  fetch("/cart.js")
+    .then((res) => res.json())
+    .then((cart) => {
+      const badge = document.getElementById("cart-count-badge");
+
+      if (!badge) return;
+
+      if (cart.item_count > 0) {
+        badge.style.display = "flex";
+        badge.textContent = cart.item_count;
+      } else {
+        badge.style.display = "none";
+      }
+    });
+}
+
+// Load badge initially
+document.addEventListener("DOMContentLoaded", updateCartBadge);
+
+// AJAX Add to Cart (Prevents redirect)
+document.addEventListener("submit", async function (event) {
+  if (!event.target.matches('form[action="/cart/add"]')) return;
+
+  event.preventDefault(); 
+
+  const formData = new FormData(event.target);
+
+  await fetch("/cart/add.js", {
+    method: "POST",
+    body: formData,
+  });
+
+  updateCartBadge(); 
+  showCartToast();
+});
+
+function showCartToast() {
+  const toast = document.getElementById("cart-toast");
+  if (!toast) return;
+
+  toast.classList.remove("opacity-0", "pointer-events-none");
+  toast.classList.add("opacity-100");
+
+  // Hide after 2.5 sec
+  setTimeout(() => {
+    toast.classList.remove("opacity-100");
+    toast.classList.add("opacity-0", "pointer-events-none");
+  }, 2500);
+}
+
+
+
