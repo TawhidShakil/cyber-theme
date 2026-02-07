@@ -1,26 +1,30 @@
 <section>
-    <div class="px-4 md:px-64 flex flex-col md:flex-row justify-between h-auto md:max-h-[610px] text-white" style="background-color: {{ section.settings.banner_background_color }};">
+<div class=" max-w-[1440px] mx-auto px-4 sm:px-6 md:px-10 lg:px-20 xl:px-[160px]" style="background-color: {{ section.settings.banner_background_color }};">
+     <div class="flex flex-col md:flex-row justify-between pt-24 sm:pt-0 max-h-770px sm:max-h-[610px] items-center">
 
     <!-- LEFT CONTENT -->
-    <div class="w-full md:w-[60%] flex flex-col justify-center font-[var(--font-heading)]">
-        <div class="flex flex-col items-center md:items-start gap-5 pt-16 md:pt-0">
-            <p class="text-2xl opacity-60 font-semibold pt-4 md:pt-0">{{ section.settings.banner_text }}</p>
+    <div class="flex flex-col justify-center
+    w-[343px] h-[345px]
+    md:w-[702px] md:h-[256px]
+    font-[var(--font-heading)]">
+        <div class="flex flex-col items-center md:items-start gap-5">
+            <p class="text-[25px] opacity-60 font-semibold pt-4 md:pt-0 text-white">{{ section.settings.banner_text }}</p>
 
-            <h1 class="text-7xl md:text-8xl font-extralight text-white pt-4 md:pt-0
-max-w-[200px] md:max-w-none
+            <h1 class="text-[72px] md:text-[96px] font-extralight text-white pt-4 md:pt-0
+max-w-[300px] md:max-w-none
 text-center md:text-start">
                 {{ section.settings.banner_title }}
                 <span class="text-white font-bold"> {{ section.settings.banner_title2 }}</span>
             </h1>
  
-            <p class="text-base md:text-xl text-center  opacity-60 font-medium py-4 md:py-0 max-w-[200px] md:w-full">{{ section.settings.banner_description }}</p>
+            <p class="text-[19px] md:text-[18px] opacity-60 font-medium py-4 md:py-0 w-full text-white">{{ section.settings.banner_description }}</p>
 
             {% if section.settings.banner_button_link != blank %}
-                <a href="{{ section.settings.banner_button_link }}" class="text-xs font-bold text-white border border-white py-4 px-12 inline-block">
+                <a href="{{ section.settings.banner_button_link }}" class="text-xs font-bold border border-white py-4 px-12 inline-block text-white">
                     {{ section.settings.banner_button_text }}
                 </a>
             {% else %}
-                <button class="text-sm font-bold text-white border rounded-[var(--radius-sm)] border-white py-4 px-14">
+                <button class="text-[16px] font-bold text-white border rounded-[var(--radius-sm)] border-white py-4 px-14">
                     {{ section.settings.banner_button_text }}
                 </button>
             {% endif %}
@@ -28,23 +32,13 @@ text-center md:text-start">
     </div>
 
     <!-- RIGHT IMAGE -->
-    <div class="w-full h-full sm:w-full h-full md:max-h-[632px] md:max-w-[40%] flex items-center justify-center ">
+    <div class="flex items-center justify-center w-[343px] h-[289px] md:w-[406px] md:h-[610px] pt-16">
         {% if section.settings.banner_image != blank %}
-          <img 
-  src="{{ section.settings.banner_image | image_url: width: 800 }}" 
-  alt="Banner Image"
-  class="
-    w-full max-w-[220px]
-    sm:max-w-[290px]
-    md:max-w-[380px]
-    lg:max-w-[480px]
-    h-auto object-contain
-  "
-/>
-
+        <img src="{{ section.settings.banner_image | image_url: width: 800 }}" alt="Banner Image" class="w-full h-full "/>
         {% endif %}
     </div>
 
+</div>
 </div>
 </section>
 

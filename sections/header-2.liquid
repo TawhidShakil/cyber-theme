@@ -1,16 +1,16 @@
 <style>
-#res-control {
-  display: none;
-}
-
-@media (min-width: 768px) {
   #res-control {
-    display: flex;
+    display: none;
   }
-}
+
+  @media (min-width: 640px) {
+    #res-control {
+      display: flex;
+    }
+  }
 </style>
-<header class="px-12 md:px-64 max-w-[1440px] bg-white border-b border-gray-100 shadow-sm sticky top-0 z-50 group">
-  <div class="mx-auto px-4 lg:px-4 flex items-center justify-between py-4">
+<header class="bg-white border-b border-gray-100 shadow-sm sticky top-0 z-50 group">
+  <div class="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-10 lg:px-20 xl:px-[160px] flex items-center justify-between py-4 gap:2">
 
     <!--  LOGO -->
     <div class="shrink-0">
@@ -33,7 +33,10 @@
     </div>
 
     <!--  SEARCH BAR -->
-    <div class="w-auto md:min-w-[150px] lg:min-w-[300px]" id="res-control">
+    <div class="sm:w-[230px]
+                md:w-[270px]
+                lg:w-[310px]
+                xl:w-[372px]" id="res-control">
       <form action="{{ routes.search_url }}" method="get" role="search" class="w-full">
         <div class="relative group">
           <span class="absolute inset-y-0 left-4 flex items-center text-gray-400 group-focus-within:text-gray-600">
@@ -54,7 +57,7 @@
 
     <!-- NAVIGATION MENU -->
     <nav class="font-var[(--font-body)]" id="res-control">
-      <ul class="flex sm:gap-4 lg:gap-8 text-base font-medium text-gray-400">
+      <ul class="flex gap-4 lg:gap-8 text-base font-medium text-gray-400">
         {% for link in section.settings.navigation.links %}
            {% unless link.title == 'Header' %}
             <li class="relative group">
@@ -100,7 +103,7 @@
     </div>
 
     <!-- MOBILE MENU BUTTON -->
-    <button class="md:hidden">
+    <button class="sm:hidden">
       <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
         <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
       </svg>
