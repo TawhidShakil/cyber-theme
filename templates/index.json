@@ -192,6 +192,7 @@
       "name": "Sale Banner",
       "settings": {
         "bg_image": "shopify://shop_images/Banner_2_1.png",
+        "bg_image_mobile": "shopify://shop_images/Gemini_Generated_Image_8fj1yz8fj1yz8fj1.png",
         "heading": "Big Summer Sale",
         "subtext": "Commodo fames vitae vitae leo mauris in. Eu consequat.",
         "button_text": "Shop Now",
