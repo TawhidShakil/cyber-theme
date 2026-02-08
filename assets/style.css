@@ -3,12 +3,10 @@
   --color-white: #ffffff;
   --color-black: #000000;
   --color-charcoal: #2e2e2e;
- 
 
   --gray-100: #f5f5f5;
   --gray-300: #e5e5e5;
   --gray-500: #8c8c8c;
-  --gray-600: #656565
 
   /* Typography */
   --font-body: 'Inter', sans-serif;
@@ -18,7 +16,7 @@
   --container-max-width: 1440px;
   --container-padding-desktop: 160px;
   --container-padding-tablet: 48px;
-  --container-padding-mobile: 8px;
+  --container-padding-mobile: 16px;
 
   --space-xs: 4px;
   --space-sm: 8px;

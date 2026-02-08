@@ -1,6 +1,16 @@
+<style>
+#res-control {
+  display: none;
+}
 
-<header class="w-full bg-white border-b border-gray-100 shadow-sm sticky top-0 z-50 group p-8">
-  <div class="w-[90%] mx-auto px-4 lg:px-8 h-20 flex items-center justify-between gap-4">
+@media (min-width: 768px) {
+  #res-control {
+    display: flex;
+  }
+}
+</style>
+<header class="px-12 md:px-64 max-w-[1440px] bg-white border-b border-gray-100 shadow-sm sticky top-0 z-50 group">
+  <div class="mx-auto px-4 lg:px-4 flex items-center justify-between py-4">
 
     <!--  LOGO -->
     <div class="shrink-0">
@@ -23,7 +33,7 @@
     </div>
 
     <!--  SEARCH BAR -->
-    <div class="flex flex-1 max-w-2xl px-2 md:px-6">
+    <div class="w-auto md:min-w-[150px] lg:min-w-[300px]" id="res-control">
       <form action="{{ routes.search_url }}" method="get" role="search" class="w-full">
         <div class="relative group">
           <span class="absolute inset-y-0 left-4 flex items-center text-gray-400 group-focus-within:text-gray-600">
@@ -36,67 +46,61 @@
             name="q"
             placeholder="Search"
             value="{{ search.terms | escape }}"
-            class="w-full h-12 border-none rounded-lg placeholder-gray-400 pl-12 pr-4 focus:ring-1 focus:ring-gray-200 focus:bg-white transition-all duration-300"
+            class="w-full h-12 bg-gray-50 border-none rounded-lg placeholder-gray-400 pl-12 pr-4 focus:ring-1 focus:ring-gray-200 focus:bg-white text-sm"
           >
         </div>
       </form>
     </div>
 
     <!-- NAVIGATION MENU -->
-    <nav class="lg:flex items-center gap-12 lg:gap-6">
-  <ul class="flex items-center gap-4 lg:gap-6 text-[12px] lg:text-[14px] font-medium text-gray-600">
-    {% assign main_menu = section.settings.navigation | default: linklists.main-menu %}
-
-    {% for link in main_menu.links %}
-      {% unless link.title == 'Header' %}
-        <li class="relative group">
-          <a href="{{ link.url }}" class="hover:text-black transition whitespace-nowrap">
-            {{ link.title }}
-          </a>
-        </li>
-      {% endunless %}
-    {% endfor %}
-    </ul>
+    <nav class="font-var[(--font-body)]" id="res-control">
+      <ul class="flex sm:gap-4 lg:gap-8 text-base font-medium text-gray-400">
+        {% for link in section.settings.navigation.links %}
+           {% unless link.title == 'Header' %}
+            <li class="relative group">
+                <a href="{{ link.url }}" class="font-medium hover:font-bold hover:text-[var(--color-charcoal)] transition-all whitespace-nowrap
+">
+                {{ link.title }}
+                </a>
+            </li>
+          {% endunless %}
+        {% endfor %}
+      </ul>
     </nav>
 
     <!-- ICONS (Wishlist, Cart, Account) -->
-    <div class="flex items-center gap-3 md:gap-4">
+    <div class="flex sm:gap-4 lg:gap-8" id="res-control">
 
-  <a href="#" class="text-gray-700 hover:text-black transition">
-    <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
-      <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
-    </svg>
-  </a>
-
-  <a href="{{ routes.cart_url }}" class="relative text-gray-700 hover:text-black transition group" id="cart-icon-link">
-    <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
-      <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
-    </svg>
-    <span id="cart-count-badge" class="absolute -top-1 -right-1 bg-black text-white text-[11px] font-bold w-5 h-5 flex items-center justify-center rounded-full border-2 border-white shadow-sm" style="display: none;">
-      {{ cart.item_count }}
-    </span>
-  </a>
-
-  {% if shop.customer_accounts_enabled %}
-    {% if customer %}
-      <a href="{{ routes.account_url }}" class="text-gray-700 hover:text-black transition" title="Account">
+      <!-- Wishlist -->
+      <a href="#" class="text-gray-700 hover:text-black transition">
         <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
         </svg>
       </a>
-    {% else %}
-      <a href="{{ routes.account_login_url }}" class="text-gray-700 hover:text-black transition" title="Login">
-        <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
-        </svg>
-      </a>
-    {% endif %}
-  {% endif %}
 
-</div>
+      <!-- Cart -->
+      <a href="{{ routes.cart_url }}" class="relative text-gray-700 hover:text-black transition group" id="cart-icon-link">
+        <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+        </svg>
+        <span id="cart-count-badge" class="absolute -top-1 -right-1 bg-black text-white text-[11px] font-bold w-5 h-5 flex items-center justify-center rounded-full border-2 border-white shadow-sm" style="display: none;">
+          0
+        </span>
+      </a>
+
+      <!-- Account -->
+      {% if shop.customer_accounts_enabled %}
+        <a href="{{ routes.account_url }}" class="text-gray-700 hover:text-black transition">
+          <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+          </svg>
+        </a>
+      {% endif %}
+
+    </div>
 
     <!-- MOBILE MENU BUTTON -->
-    <button class="md:hidden p-2 -ml-2 text-gray-700 hover:text-black">
+    <button class="md:hidden">
       <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
         <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
       </svg>
@@ -129,8 +133,6 @@
       </div>
     </div>
   </div>
-
-
 
 </header>
 

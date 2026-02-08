@@ -16,7 +16,7 @@
           "type": "heading",
           "settings": {
             "heading": "Browse our latest products",
-            "heading_size": "h0"
+            "heading_size": "h1"
           }
         },
         "button": {
@@ -38,15 +38,15 @@
       "disabled": true,
       "settings": {
         "image_overlay_opacity": 40,
-        "image_height": "large",
+        "image_height": "small",
         "image_behavior": "none",
         "desktop_content_position": "bottom-center",
         "desktop_content_alignment": "center",
         "show_text_box": false,
         "color_scheme": "scheme-3",
-        "stack_images_on_mobile": false,
+        "stack_images_on_mobile": true,
         "mobile_content_alignment": "center",
-        "show_text_below": false
+        "show_text_below": true
       }
     },
     "banner_frgizt": {
@@ -54,7 +54,7 @@
       "name": "Hero Content",
       "settings": {
         "banner_image": "shopify://shop_images/Iphone_Image.png",
-        "banner_background_color": "#211C24",
+        "banner_background_color": "#211c24",
         "banner_text": "Pro.Beyond",
         "banner_title": "IPhone 14",
         "banner_title2": "Pro",
@@ -73,12 +73,32 @@
         "airpods_image": "shopify://shop_images/hero__gnfk5g59t0qe_xlarge_2x_1.png",
         "airpods_title": "Apple AirPods Max",
         "airpods_text": "Computational audio. Listen, it's powerful",
-        "vision_image": "shopify://shop_images/image_36.png",
+        "vision_image": "shopify://shop_images/image_36_2.png",
         "vision_title": "Apple Vision Pro",
         "vision_text": "An immersive way to experience entertainment",
         "mac_image": "shopify://shop_images/MacBook_Pro_14.png",
         "mac_title": "Macbook Air",
         "mac_text": "The new 15‑inch MacBook Air makes room for more of what you love.",
+        "mac_link": ""
+      }
+    },
+    "small_banner_2_VbqRB8": {
+      "type": "small-banner-2",
+      "name": "Full Responsive Banner",
+      "settings": {
+        "ps5_image": "shopify://shop_images/PlayStation_e84b5cb9-9c6b-4722-a0fa-55781a7aae2e.png",
+        "ps5_image_mobile": "shopify://shop_images/PlayStation_1.png",
+        "ps5_title": "Playstation 5",
+        "ps5_text": "Incredibly powerful CPUs, GPUs, and an SSD with integrated I/O will redefine your PlayStation experience.",
+        "airpods_image": "shopify://shop_images/apple1.png",
+        "airpods_image_mobile": "shopify://shop_images/hero__gnfk5g59t0qe_xlarge_2x_1_1.png",
+        "airpods_text": "Computational audio. Listen, it's powerful",
+        "vision_image": "shopify://shop_images/image_36_9b8653e7-bd24-4f9a-ada2-facbe634be2c.png",
+        "vision_image_mobile": "shopify://shop_images/image_36_2_d2bed750-5fb1-442a-b9ff-5dbb4ce4f22d.png",
+        "vision_text": "An immersive way to experience entertainment",
+        "mac_image": "shopify://shop_images/Cover.png",
+        "mac_image_mobile": "shopify://shop_images/MacBook_Pro_14_1.png",
+        "mac_text": "The new 15-inch MacBook Air makes room for more of what you love with a spacious Liquid Retina display.",
         "mac_link": ""
       }
     },
@@ -88,8 +108,8 @@
         "category_bMRiMr": {
           "type": "category",
           "settings": {
-            "collection": "",
-            "title": "",
+            "collection": "apple",
+            "title": "Phones",
             "icon_svg": ""
           }
         },
@@ -154,6 +174,7 @@
     "image_banner",
     "banner_frgizt",
     "small_banner_pmjixk",
+    "small_banner_2_VbqRB8",
     "browse_by_category_84YHDk",
     "product_by_na_bs_fp_8RJwCT",
     "discount_up_to_rykxzy"
