@@ -168,10 +168,10 @@
       "settings": {
         "background_color": "#ffffff",
         "collections": [
-          "bestseller",
-          "galaxy-series",
-          "apple",
-          "galaxy-watch"
+          "popular-products-1",
+          "popular-products",
+          "samsung-galaxy",
+          "macbook-pro"
         ],
         "heading_font": "inter_n4",
         "heading_font_size": 16,

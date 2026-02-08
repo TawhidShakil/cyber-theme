@@ -1,44 +1,65 @@
-{% comment %} <section class="container w-full h-[448px] bg-[var(--color-charcoal)] flex flex-col items-center justify-center">
-
-    <div class="flex flex-col items-center font-[var(--font-heading)] gap-3 ">
-        <p class="text-7xl font-thin text-white">Big Summer <span class="font-bold">Sale</span></p>
-        <p class="text-lg font-thin text-[var(--gray-500)]">Commodo fames vitae vitae leo mauris in. Eu consequat.</p>
-        <button class="btn btn-primary w-[119px] h-[36px] border border-[var(--gray-100)] rounded-[var(--radius-md)] text-white">
-            Shop Now
-        </button>
-    </div>
-
-</section> {% endcomment %}
-<section
-  class="container max-w-[1440px] h-[448px] flex flex-col items-center justify-center"
-  style="
-    background-color: var(--color-charcoal);
-    background-image: url({{ section.settings.bg_image | image_url }});
+{%- style -%}
+  /* Default Mobile Styles */
+  .sale-banner-{{ section.id }} {
+    {% if section.settings.bg_image_mobile != blank %}
+      background-image: url({{ section.settings.bg_image_mobile | image_url: width: 800 }});
+    {% else %}
+      background-color: #111; /* Fallback if no image */
+    {% endif %}
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-  "
->
+    min-height: 448px;
+  }
 
+  /* Desktop Styles (768px and up) */
+  @media screen and (min-width: 768px) {
+    .sale-banner-{{ section.id }} {
+      {% if section.settings.bg_image != blank %}
+        background-image: url({{ section.settings.bg_image | image_url: width: 2000 }});
+      {% endif %}
+    }
+  }
 
-  <div class="flex flex-col items-center font-[var(--font-heading)] gap-3">
-    <p class="text-7xl font-thin text-white">
-  {{ section.settings.heading }}
-</p>
+  /* Specific handling for the "Sale" bolding if using one text field */
+  .sale-banner-{{ section.id }} .highlight-bold strong, 
+  .sale-banner-{{ section.id }} .highlight-bold b {
+    font-weight: 700;
+  }
+{%- endstyle -%}
 
-<p class="text-lg font-thin text-[var(--gray-500)]">
-  {{ section.settings.subtext }}
-</p>
+<section class="sale-banner-{{ section.id }} container-fluid w-full flex flex-col items-center justify-center">
+  
+  <div class="flex flex-col items-center text-center px-6 gap-4">
+    
+    {%- if section.settings.heading != blank -%}
+      <h2 class="text-5xl md:text-7xl font-light text-white leading-tight tracking-tight">
+        {%- comment -%} 
+          This replace filter allows the user to wrap "Sale" in <strong> tags 
+          in the editor to make it bold like the screenshot.
+        {%- endcomment -%}
+        {{ section.settings.heading | replace: 'Sale', '<span class="font-bold">Sale</span>' }}
+      </h2>
+    {%- endif -%}
 
-<a href="{{ section.settings.button_link }}">
-  <button class="btn btn-primary w-[119px] h-[36px] border border-[var(--gray-100)] rounded-[var(--radius-md)] text-white">
-    {{ section.settings.button_text }}
-  </button>
-</a>
+    {%- if section.settings.subtext != blank -%}
+      <p class="text-base md:text-lg font-light text-gray-400 max-w-[340px] md:max-w-[500px]">
+        {{ section.settings.subtext }}
+      </p>
+    {%- endif -%}
+
+    {%- if section.settings.button_link != blank -%}
+      <a href="{{ section.settings.button_link }}" class="mt-2">
+        <button class="btn border border-white text-white px-8 py-2 rounded-md hover:bg-white hover:text-black transition-all duration-300">
+          {{ section.settings.button_text }}
+        </button>
+      </a>
+    {%- endif -%}
 
   </div>
 
 </section>
+
 {% schema %}
 {
   "name": "Sale Banner",
@@ -46,7 +67,14 @@
     {
       "type": "image_picker",
       "id": "bg_image",
-      "label": "Background image"
+      "label": "Desktop Background Image",
+      "info": "Recommended size: 1920x450px"
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_image_mobile",
+      "label": "Mobile Background Image",
+      "info": "Recommended size: 800x600px"
     },
     {
       "type": "text",

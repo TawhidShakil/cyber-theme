@@ -458,6 +458,9 @@
   .h-1 {
     height: calc(var(--spacing) * 1);
   }
+  .h-1\.5 {
+    height: calc(var(--spacing) * 1.5);
+  }
   .h-1\/2 {
     height: calc(1/2 * 100%);
   }
@@ -539,6 +542,9 @@
   .h-\[128px\] {
     height: 128px;
   }
+  .h-\[220px\] {
+    height: 220px;
+  }
   .h-\[272px\] {
     height: 272px;
   }
@@ -616,6 +622,9 @@
   }
   .min-h-screen {
     min-height: 100vh;
+  }
+  .w-1\.5 {
+    width: calc(var(--spacing) * 1.5);
   }
   .w-2 {
     width: calc(var(--spacing) * 2);
@@ -1065,6 +1074,9 @@
   .rounded-md {
     border-radius: var(--radius-md);
   }
+  .rounded-sm {
+    border-radius: var(--radius-sm);
+  }
   .rounded-xl {
     border-radius: var(--radius-xl);
   }
@@ -1159,6 +1171,9 @@
   }
   .bg-gray-300 {
     background-color: var(--color-gray-300);
+  }
+  .bg-gray-400 {
+    background-color: var(--color-gray-400);
   }
   .bg-green-400 {
     background-color: var(--color-green-400);
@@ -1965,6 +1980,13 @@
       }
     }
   }
+  .hover\:bg-white {
+    &:hover {
+      @media (hover: hover) {
+        background-color: var(--color-white);
+      }
+    }
+  }
   .hover\:font-bold {
     &:hover {
       @media (hover: hover) {
@@ -2189,6 +2211,11 @@
       height: 256px;
     }
   }
+  .md\:h-\[260px\] {
+    @media (width >= 48rem) {
+      height: 260px;
+    }
+  }
   .md\:h-\[432px\] {
     @media (width >= 48rem) {
       height: 432px;
@@ -2227,6 +2254,11 @@
   .md\:max-h-\[4332px\] {
     @media (width >= 48rem) {
       max-height: 4332px;
+    }
+  }
+  .md\:min-h-\[550px\] {
+    @media (width >= 48rem) {
+      min-height: 550px;
     }
   }
   .md\:min-h-\[600px\] {
@@ -2302,6 +2334,11 @@
   .md\:max-w-\[268px\] {
     @media (width >= 48rem) {
       max-width: 268px;
+    }
+  }
+  .md\:max-w-\[500px\] {
+    @media (width >= 48rem) {
+      max-width: 500px;
     }
   }
   .md\:max-w-\[1440px\] {
@@ -2384,6 +2421,11 @@
       padding: calc(var(--spacing) * 6);
     }
   }
+  .md\:p-12 {
+    @media (width >= 48rem) {
+      padding: calc(var(--spacing) * 12);
+    }
+  }
   .md\:px-10 {
     @media (width >= 48rem) {
       padding-inline: calc(var(--spacing) * 10);
@@ -2432,6 +2474,18 @@
   .md\:text-start {
     @media (width >= 48rem) {
       text-align: start;
+    }
+  }
+  .md\:text-7xl {
+    @media (width >= 48rem) {
+      font-size: var(--text-7xl);
+      line-height: var(--tw-leading, var(--text-7xl--line-height));
+    }
+  }
+  .md\:text-lg {
+    @media (width >= 48rem) {
+      font-size: var(--text-lg);
+      line-height: var(--tw-leading, var(--text-lg--line-height));
     }
   }
   .md\:text-\[18px\] {
