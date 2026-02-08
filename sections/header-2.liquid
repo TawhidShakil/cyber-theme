@@ -89,7 +89,7 @@
   <!-- Cart Icon -->
   <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
           <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
-        </svg>
+  </svg>
 
   <!-- Dawn Compatible Bubble -->
   <span
@@ -115,8 +115,8 @@
 
     </div>
 
-    {% comment %} <!-- drawer component Demo -->
-      <div id="drawer-navigation" class="bg-white fixed top-0 left-0 z-40 h-screen p-4 overflow-y-auto transition-transform -translate-x-full bg-neutral-primary-soft w-80 border-e border-default" tabindex="-1" aria-labelledby="drawer-navigation-label">
+    <!-- drawer component Demo -->
+      <div id="drawer-navigation" class="bg-white fixed top-24 left-0 z-40 h-screen p-4 overflow-y-auto transition-transform -translate-x-full bg-neutral-primary-soft w-80 border-e border-default" tabindex="-1" aria-labelledby="drawer-navigation-label">
         <div class="border-b border-default pb-4 flex items-center">
             
             <button id="menu-close" type="button"
@@ -126,18 +126,30 @@
             </button>
         </div>
         <div class="py-5 overflow-y-auto">
-            <ul class="flex flex-col gap-4 font-medium">
-              <li>HOME</li>
-              <li>SHOP</li>
-              <li>ABOUT</li>
-              <li>CONTACT</li>
-            </ul>
+          
+          {%  render 'search-drawer' %}
+          {%  render 'button-icons' %} 
+          <ul class="flex flex-col gap-4 font-base">
+            {% for link in section.settings.navigation.links %}
+              {% unless link.title == 'Header' %}
+                <li>
+                  <a
+                    href="{{ link.url }}"
+                    class="block text-[16px] font-medium text-gray-700 hover:text-[var(--color-charcoal)] transition-colors"
+                  >
+                    {{ link.title }}
+                  </a>
+                </li>
+              {% endunless %}
+            {% endfor %}
+          </ul>
+
         </div>
         
-      </div> {% endcomment %}
+      </div> 
 
     <!-- MOBILE MENU BUTTON -->
-    <button class="sm:hidden" id="drawer-navigation">
+    <button class="sm:hidden" id="menu-open">
       <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
         <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
       </svg>
@@ -178,8 +190,42 @@
   >
     Added to cart!
   </div>
-</header>
+<script>
+      document.addEventListener('DOMContentLoaded', function () {
+        const drawer = document.getElementById('drawer-navigation');
+        const openBtn = document.getElementById('menu-open');
+        const closeBtn = document.getElementById('menu-close');
 
+        // OPEN drawer
+        openBtn.addEventListener('click', function () {
+          drawer.classList.remove('-translate-x-full');
+          drawer.classList.add('translate-x-0');
+          document.body.classList.add('overflow-hidden');
+        });
+
+        // CLOSE drawer
+        closeBtn.addEventListener('click', function () {
+          drawer.classList.remove('translate-x-0');
+          drawer.classList.add('-translate-x-full');
+          document.body.classList.remove('overflow-hidden');
+        });
+
+        // Close drawer when clicking outside (optional)
+        document.addEventListener('click', function (e) {
+          if (
+            drawer.classList.contains('translate-x-0') &&
+            !drawer.contains(e.target) &&
+            !openBtn.contains(e.target)
+          ) {
+            drawer.classList.remove('translate-x-0');
+            drawer.classList.add('-translate-x-full');
+            document.body.classList.remove('overflow-hidden');
+          }
+        });
+      });
+    </script>
+</header>
+ 
 {% schema %}
   {
   "name": "Header",
