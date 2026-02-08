@@ -15,7 +15,7 @@
   form="{{ product_form_id }}"
   class="swatch-input__input{% if visually_disabled %} visually-disabled{% endif %}"
   {% if checked %}checked{% endif %}
-  {% if disabled %}disabled{% endif %}
+  {% if visually_disabled %}disabled{% endif %}
   {% if additional_props %}{{ additional_props }}{% endif %}
 >
 
@@ -35,3 +35,11 @@
 >
   {{ help_text }}
 </label>
+
+<style>
+  .swatch-input__input:disabled + label {
+  opacity: 0.3;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+</style>

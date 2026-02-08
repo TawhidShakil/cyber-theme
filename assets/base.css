@@ -15,14 +15,18 @@
 
 .feature-item {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 12px;
 
-  padding: 16px 20px;
-  border: 1px solid #e6e6e6;
-  border-radius: 10px;
-  background: #f7f7f7;
+  padding: 14px 0;
+  border-bottom: 1px solid #e6e6e6;
+  background: transparent;
+  border-radius: 0;
+  border-left: none;
+  border-right: none;
+  border-top: none;
 }
+
 
 .feature-icon {
   font-size: 20px;
@@ -36,15 +40,17 @@
 }
 
 .feature-label {
-  font-size: 13px;
-  color: #9b9b9b;
+  font-size: 15px;
+  color: #666;
 }
 
 .feature-value {
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 500;
   color: #111;
+  text-align: right;
 }
+
 
 /* Tablet */
 @media (max-width: 900px) {

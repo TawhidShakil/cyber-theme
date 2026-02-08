@@ -1,0 +1,47 @@
+<nav
+  class="flex items-center gap-3 py-6 text-[15px] font-medium text-gray-400"
+  aria-label="Breadcrumb"
+>
+  <!-- Home -->
+  <a href="{{ routes.root_url }}" class="hover:text-black transition">
+    Home
+  </a>
+
+  <span>›</span>
+
+  <!-- Catalog -->
+  <a href="{{ routes.collections_url }}" class="hover:text-black transition">
+    Catalog
+  </a>
+
+  {%- if template contains 'collection' and collection -%}
+
+    <span>›</span>
+    <span class="text-black font-semibold">
+      {{ collection.title }}
+    </span>
+
+  {%- elsif template contains 'product' and product -%}
+
+    {%- assign crumb_collection = collection -%}
+
+    {%- if crumb_collection == blank and product.collections.size > 0 -%}
+      {%- assign crumb_collection = product.collections.first -%}
+    {%- endif -%}
+
+    {%- if crumb_collection -%}
+      <span>›</span>
+
+      <a href="{{ crumb_collection.url }}" class="hover:text-black transition">
+        {{ crumb_collection.title }}
+      </a>
+    {%- endif -%}
+
+    <span>›</span>
+
+    <span class="text-black font-semibold">
+      {{ product.title }}
+    </span>
+
+  {%- endif -%}
+</nav>

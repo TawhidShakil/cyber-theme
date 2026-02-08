@@ -71,40 +71,47 @@
       onload="this.media='all'"
     >
   {%- endif -%}
-
-  <section class="pt-[112px] pb-[112px] px-[160px]">
-  <div class="max-w-7xl mx-auto">
-    <div class="grid grid-cols-[80px_1fr_1fr] gap-[20px] items-start">
+<div class="max-w-[1200px] mx-auto px-2">
+  {% render 'breadcrumb' %}
+</div>
+  <section class="pt-24 pb-24 px-24">
+  <div class="max-w-[1200px] mx-auto">
+    <div class="grid grid-cols-[90px_520px_1fr] gap-12 items-start">
 
       <!-- Thumbnails -->
-      <div class="flex flex-col gap-4 justify-center">
+      <div class="flex flex-col gap-4 pt-2">
         {% for media in product.media %}
           {% if media.preview_image %}
-            {% assign image = media.preview_image %}
             <button
-              type="button"
-              class="w-40 h-30 overflow-hidden cursor-pointer product-thumbnail"
-              data-media-id="{{ media.id }}"
-            >
-              {{ image | image_url: width: 100 | image_tag }}
-            </button>
+  type="button"
+  class="product-thumbnail w-[70px] h-[70px] rounded-xl overflow-hidden border border-gray-200"
+  data-full="{{ media.preview_image | image_url: width: 900 }}"
+>
+  {{ media.preview_image
+    | image_url: width: 120
+    | image_tag: class: "w-full h-full object-cover block" }}
+</button>
           {% endif %}
         {% endfor %}
       </div>
 
+
       <!-- Main Image -->
       <div class="flex justify-center">
-        {% assign main_image = product.featured_image | default: product.images.first %}
-        {% if main_image %}
-          {{ main_image | image_url: width: 640 | image_tag:
-            id: 'ProductMainImage',
-            class: 'max-h-[560px] object-contain'
-          }}
-        {% endif %}
-      </div>
+  {% assign main_image = product.featured_image %}
+  {% if main_image %}
+    <img
+        id="ProductMainImage"
+        src="{{ main_image | image_url: width: 900 }}"
+        alt="{{ main_image.alt | escape }}"
+        class="max-w-[440px] w-full object-contain block"
+      >
+  {% endif %}
+</div>
+
 
       <!-- Product Info -->
-      <div class="flex flex-col justify-start">
+      <div class="flex flex-col justify-start w-full max-w-[420px] pt-2 space-y-5">
         <h1 class="font-inter text-[40px] leading-[40px] font-bold text-black mb-4">
           {{ product.title }}
         </h1>
@@ -196,24 +203,42 @@
      <div class="mt-10 flex gap-4 text-[16px]">
 
   <!-- Add to Wishlist -->
+  <div class="flex gap-4 w-full">
+
+  <!-- Wishlist -->
   <button
     type="button"
-    class="flex-1 h-[52px] rounded-xl border border-black text-black
-           font-medium  cursor-pointer"
+    class="flex-1 h-[52px] rounded-xl border border-black text-black font-medium"
   >
     Add to Wishlist
   </button>
 
   <!-- Add to Cart -->
-  <button
-    type="submit"
-    form="product-form-{{ section.id }}"
-    class="flex-1 h-[52px] rounded-xl bg-black text-white
-           font-medium 
-           hover:bg-gray-900 cursor-pointer"
+  <form
+    id="product-form-{{ section.id }}"
+    action="/cart/add"
+    method="post"
+    class="flex-1"
   >
-    Add to Cart
-  </button>
+    <input
+      type="hidden"
+      name="id"
+      value="{{ product.selected_or_first_available_variant.id }}"
+    >
+
+    <input type="hidden" name="quantity" value="1">
+
+    <button
+      type="submit"
+      class="w-full h-[52px] rounded-xl bg-black text-white font-medium hover:bg-gray-900"
+    >
+      Add to Cart
+    </button>
+  </form>
+
+</div>
+
+
 
 </div>
       <div class="mt-8">
@@ -236,8 +261,6 @@
   height: 100%;
   object-fit: cover;
   display: block;
-  opacity: 0.45;
-  transition: opacity 0.25s ease, transform 0.25s ease;
 }
 
 /* Active / selected thumbnail */
@@ -256,51 +279,36 @@
 {% endstylesheet %}
 
 {% javascript %}
-  document.addEventListener('DOMContentLoaded', () => {
-    const mainImage = document.getElementById('ProductMainImage');
-    if (!mainImage) return;
+  document.addEventListener("DOMContentLoaded", () => {
+  const mainImage = document.getElementById("ProductMainImage");
+  const thumbnails = document.querySelectorAll(".product-thumbnail");
 
-    const thumbnails = document.querySelectorAll('.product-thumbnail');
-    if (!thumbnails.length) return;
+  if (!mainImage || !thumbnails.length) return;
 
-    function updateMainImage(button) {
-      const img = button.querySelector('img');
-      if (!img) return;
+  function updateMainImage(button) {
+    const src = button.dataset.full;
+    if (!src) return;
 
-      const src = img.getAttribute('src');
-      const srcset = img.getAttribute('srcset');
-      const alt = img.getAttribute('alt') || '';
+    mainImage.src = src;
 
-      if (src) mainImage.setAttribute('src', src);
-      if (srcset) mainImage.setAttribute('srcset', srcset);
-      mainImage.setAttribute('alt', alt);
+    thumbnails.forEach((thumb) => {
+      thumb.classList.remove("is-active");
+    });
 
-      thumbnails.forEach((thumb) => {
-        thumb.classList.remove('product-thumbnail--active');
-        thumb.setAttribute('aria-pressed', 'false');
-      });
+    button.classList.add("is-active");
+  }
 
-      button.classList.add('product-thumbnail--active');
-      button.setAttribute('aria-pressed', 'true');
+  thumbnails.forEach((button, index) => {
+    if (index === 0) {
+      button.classList.add("is-active");
     }
 
-    thumbnails.forEach((button, index) => {
-      if (index === 0) {
-        button.classList.add('product-thumbnail--active');
-        button.setAttribute('aria-pressed', 'true');
-      }
-
-      button.addEventListener('click', () => {
-        const runUpdate = () => updateMainImage(button);
-
-        if (document.startViewTransition) {
-          document.startViewTransition(runUpdate);
-        } else {
-          runUpdate();
-        }
-      });
+    button.addEventListener("click", () => {
+      updateMainImage(button);
     });
   });
+});
+
 {% endjavascript %}
 
 
