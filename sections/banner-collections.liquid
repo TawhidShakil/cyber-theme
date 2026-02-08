@@ -32,7 +32,10 @@
                 {% endif %}
             </div>
 
-            <div class="w-full">
+            <div class="w-full
+                flex flex-col
+                items-center justify-center
+                md:items-start md:justify-start">
                 <h2 class="mb-4 leading-tight font-light tracking-tight" 
                     style="color: {{ text_color }}; font-family: {{ section.settings.heading_font.family }}, {{ section.settings.heading_font.fallback_families }}; font-size: {{ section.settings.heading_font_size }}px;">
                     {{ collection.title }}
@@ -136,7 +139,7 @@
       "min": 15,
       "max": 60,
       "step": 1,
-      "default": 32,
+      "default": 48,
       "unit": "px",
       "label": "Heading Font Size"
     },

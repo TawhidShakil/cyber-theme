@@ -623,6 +623,9 @@
   .min-h-screen {
     min-height: 100vh;
   }
+  .w-1 {
+    width: calc(var(--spacing) * 1);
+  }
   .w-1\.5 {
     width: calc(var(--spacing) * 1.5);
   }
@@ -1496,6 +1499,9 @@
   .text-\[40px\] {
     font-size: 40px;
   }
+  .text-\[49px\] {
+    font-size: 49px;
+  }
   .text-\[72px\] {
     font-size: 72px;
   }
@@ -2184,6 +2190,11 @@
     @media (width >= 40rem) {
       font-size: var(--text-2xl);
       line-height: var(--tw-leading, var(--text-2xl--line-height));
+    }
+  }
+  .sm\:text-\[33px\] {
+    @media (width >= 40rem) {
+      font-size: 33px;
     }
   }
   .md\:mt-0 {

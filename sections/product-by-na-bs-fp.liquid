@@ -126,7 +126,7 @@
           id="tab-{{ i }}" 
           class="tab-content {% if i == 1 %}active{% endif %} grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5 place-items-center gap-4"
         >
-          {% for product in col.products limit: 8 %}
+          {% for product in col.products limit: 10 %}
             {% render 'product-card-item', card_product: product %}
           {% else %}
             {%- comment -%} Empty state {%- endcomment -%}
