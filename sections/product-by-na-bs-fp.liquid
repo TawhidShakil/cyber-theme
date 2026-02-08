@@ -55,30 +55,30 @@
     }
   }
 
-  /* Responsive Padding */
-  @media (max-width: 1280px) {
-    .section-container {
-      padding-left: 80px;
-      padding-right: 80px;
-    }
+ .section-container {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+/* Tablet */
+@media (min-width: 769px) {
+  .section-container {
+    padding-left: 40px;
+    padding-right: 40px;
   }
-  
-  @media (max-width: 1024px) {
-    .section-container {
-      padding-left: 40px;
-      padding-right: 40px;
-    }
+}
+
+/* Desktop */
+@media (min-width: 1280px) {
+  .section-container {
+    padding-left: 160px;
+    padding-right: 160px;
   }
-  
-  @media (max-width: 768px) {
-    .section-container {
-      padding-left: 20px;
-      padding-right: 20px;
-    }
-  }
+}
+
 </style>
 
-<section class="section-container max-w-[1440px] mx-auto pt-20 pb-20 px-[160px] font-inter bg-white">
+<div class="section-container max-w-[1440px] mx-auto pt-20 pb-20 font-inter">
 
   {%- comment -%} Tab Navigation {%- endcomment -%}
   <div class="flex gap-8 border-b border-gray-200 mb-10 overflow-x-auto">
@@ -108,7 +108,7 @@
       {% if col != blank %}
         <div 
           id="tab-{{ i }}" 
-          class="tab-content {% if i == 1 %}active{% endif %} grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+          class="tab-content {% if i == 1 %}active{% endif %} grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5 place-items-center gap-4"
         >
           {% for product in col.products limit: 8 %}
             {% render 'product-card-item', card_product: product %}
@@ -122,7 +122,7 @@
       {% endif %}
     {% endfor %}
   </div>
-</section>
+</div>
 
 <script>
   function openTab(evt, tabId) {

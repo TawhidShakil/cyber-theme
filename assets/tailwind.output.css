@@ -548,6 +548,12 @@
   .h-\[345px\] {
     height: 345px;
   }
+  .h-\[350px\] {
+    height: 350px;
+  }
+  .h-\[352px\] {
+    height: 352px;
+  }
   .h-\[420px\] {
     height: 420px;
   }
@@ -581,8 +587,17 @@
   .max-h-\[340px\] {
     max-height: 340px;
   }
+  .max-h-\[350px\] {
+    max-height: 350px;
+  }
+  .max-h-\[352px\] {
+    max-height: 352px;
+  }
   .max-h-\[632px\] {
     max-height: 632px;
+  }
+  .max-h-\[px\] {
+    max-height: px;
   }
   .max-h-full {
     max-height: 100%;
@@ -665,8 +680,17 @@
   .w-\[119px\] {
     width: 119px;
   }
+  .w-\[130px\] {
+    width: 130px;
+  }
   .w-\[150px\] {
     width: 150px;
+  }
+  .w-\[160px\] {
+    width: 160px;
+  }
+  .w-\[163px\] {
+    width: 163px;
   }
   .w-\[300px\] {
     width: 300px;
@@ -706,6 +730,9 @@
   }
   .max-w-\[160px\] {
     max-width: 160px;
+  }
+  .max-w-\[163px\] {
+    max-width: 163px;
   }
   .max-w-\[180px\] {
     max-width: 180px;
@@ -865,6 +892,12 @@
   }
   .flex-wrap {
     flex-wrap: wrap;
+  }
+  .place-items-center {
+    place-items: center;
+  }
+  .place-items-start {
+    place-items: start;
   }
   .items-baseline {
     align-items: baseline;
@@ -1234,6 +1267,9 @@
   }
   .px-14 {
     padding-inline: calc(var(--spacing) * 14);
+  }
+  .px-20 {
+    padding-inline: calc(var(--spacing) * 20);
   }
   .px-24 {
     padding-inline: calc(var(--spacing) * 24);
@@ -2077,6 +2113,11 @@
       grid-template-columns: repeat(3, minmax(0, 1fr));
     }
   }
+  .sm\:grid-cols-4 {
+    @media (width >= 40rem) {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
   .sm\:grid-cols-6 {
     @media (width >= 40rem) {
       grid-template-columns: repeat(6, minmax(0, 1fr));
@@ -2148,6 +2189,11 @@
       height: 256px;
     }
   }
+  .md\:h-\[432px\] {
+    @media (width >= 48rem) {
+      height: 432px;
+    }
+  }
   .md\:h-\[610px\] {
     @media (width >= 48rem) {
       height: 610px;
@@ -2163,9 +2209,24 @@
       max-height: 400px;
     }
   }
+  .md\:max-h-\[430px\] {
+    @media (width >= 48rem) {
+      max-height: 430px;
+    }
+  }
+  .md\:max-h-\[432px\] {
+    @media (width >= 48rem) {
+      max-height: 432px;
+    }
+  }
   .md\:max-h-\[720px\] {
     @media (width >= 48rem) {
       max-height: 720px;
+    }
+  }
+  .md\:max-h-\[4332px\] {
+    @media (width >= 48rem) {
+      max-height: 4332px;
     }
   }
   .md\:min-h-\[600px\] {
@@ -2186,6 +2247,16 @@
   .md\:w-\[130px\] {
     @media (width >= 48rem) {
       width: 130px;
+    }
+  }
+  .md\:w-\[260px\] {
+    @media (width >= 48rem) {
+      width: 260px;
+    }
+  }
+  .md\:w-\[268px\] {
+    @media (width >= 48rem) {
+      width: 268px;
     }
   }
   .md\:w-\[270px\] {
@@ -2223,6 +2294,16 @@
       max-width: 230px;
     }
   }
+  .md\:max-w-\[260px\] {
+    @media (width >= 48rem) {
+      max-width: 260px;
+    }
+  }
+  .md\:max-w-\[268px\] {
+    @media (width >= 48rem) {
+      max-width: 268px;
+    }
+  }
   .md\:max-w-\[1440px\] {
     @media (width >= 48rem) {
       max-width: 1440px;
@@ -2251,6 +2332,11 @@
   .md\:grid-cols-2 {
     @media (width >= 48rem) {
       grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  .md\:grid-cols-3 {
+    @media (width >= 48rem) {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
     }
   }
   .md\:grid-cols-4 {
@@ -2398,6 +2484,16 @@
       grid-template-columns: repeat(3, minmax(0, 1fr));
     }
   }
+  .lg\:grid-cols-4 {
+    @media (width >= 64rem) {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+  .lg\:grid-cols-5 {
+    @media (width >= 64rem) {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+  }
   .lg\:grid-cols-6 {
     @media (width >= 64rem) {
       grid-template-columns: repeat(6, minmax(0, 1fr));
@@ -2443,6 +2539,11 @@
       padding-inline: calc(var(--spacing) * 24);
     }
   }
+  .lg\:px-\[160px\] {
+    @media (width >= 64rem) {
+      padding-inline: 160px;
+    }
+  }
   .lg\:text-2xl {
     @media (width >= 64rem) {
       font-size: var(--text-2xl);
@@ -2472,6 +2573,11 @@
   .xl\:grid-cols-4 {
     @media (width >= 80rem) {
       grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+  .xl\:grid-cols-5 {
+    @media (width >= 80rem) {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
     }
   }
   .xl\:px-\[160px\] {
