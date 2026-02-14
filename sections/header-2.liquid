@@ -64,7 +64,7 @@
               <a 
   href="{{ link.url }}" 
   class="font-medium transition-all whitespace-nowrap
-    {% if link.active %}
+    {% if request.path == link.url %}
       text-black 
     {% else %}
       text-gray-400
