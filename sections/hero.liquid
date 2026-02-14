@@ -1,18 +1,3 @@
-{% comment %} <section class="bg-[var(--color-charcoal)] h-[450px]">
-    <div class="container flex">
-        <div class="left-div w-[60%] text-white flex flex-col justify-center">
-            <p>Pro Beyond</p>
-            <h1 class="text-[var(--gray-100)]">iPhone 14 Pro</h1>
-            <p>Created to change everything for the better. For everyone</p>
-            <button class="btn btn-primary w-[119px] h-[56px] bg-yellow-400">Shop Now</button>
-        </div>
-
-        <div class="right-div w-[40%] h-[450px] bg-yellow-500">
-            <img src="/#" alt="Image">    
-        </div>
-    </div>
-</section> {% endcomment %}
-
 <section class="bg-[var(--color-charcoal)] max-w-[1440px] h-max-[600px]">
   <div class="container flex flex-col items-center sm:flex-row">
 
@@ -20,26 +5,26 @@
     <div class="w-[60%] text-white flex flex-col items-center sm:items-start justify-start sm:justify-center gap-4 py-26 sm:pt-0">
 
       {% if section.settings.eyebrow_text != blank %}
-        <p class="font-[var(--font-heading)] font-thin text-2xl">
+        <p class="font-[var(--font-heading)] text-2xl font-medium">
           {{ section.settings.eyebrow_text }}
         </p>
       {% endif %}
 
       {% if section.settings.heading != blank %}
-        <h1 class="text-[var(--gray-100)] font-[var(--font-heading)] text-8xl text-center">
+        <h1 class="text-[var(--gray-100)] font-[var(--font-heading)] text-8xl text-center font-thin">
           {{ section.settings.heading }}
         </h1>
       {% endif %}
 
       {% if section.settings.description != blank %}
-        <p class="font-[var(--font-heading)] font-extralight text-lg">
+        <p class="font-[var(--font-heading)] text-lg font-medium">
           {{ section.settings.description }}
         </p>
       {% endif %}
 
       {% if section.settings.button_text != blank %}
         <a href="{{ section.settings.button_link }}">
-          <button class="btn btn-primary w-[119px] h-[46px] border border-[var(--gray-100)] rounded-[var(--radius-md)]">
+          <button class="btn btn-primary text-base font-medium w-[191px] h-[56px] border border-[var(--gray-100)] rounded-[var(--radius-md)]">
             {{ section.settings.button_text }}
           </button>
         </a>
