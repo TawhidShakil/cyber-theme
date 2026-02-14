@@ -53,11 +53,20 @@
   .cart-item-meta h3 { margin: 0; font-size: 1.6rem; }
   .cart-item-sku { color: rgba(var(--color-foreground), 0.5); font-size: 1.3rem; margin-top: 0.5rem; }
 
+ .cart-item-pricing-area {
+  display: flex;
+  flex-direction: column; /* mobile */
+  gap: 1rem;
+}
+
+@media screen and (min-width: 750px) {
   .cart-item-pricing-area {
-    display: flex;
+    flex-direction: row; /* tablet + desktop */
     align-items: center;
     gap: 3rem;
   }
+}
+
 
   .custom-qty {
     display: flex;
