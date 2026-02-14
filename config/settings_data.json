@@ -155,7 +155,7 @@
           "category_iiDt76"
         ],
         "settings": {
-          "navigation": "main-menu",
+          "navigation": "header",
           "logo": "shopify://shop_images/Color_Black.png",
           "logo_width": 80
         }
