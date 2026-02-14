@@ -40,6 +40,18 @@
   .tab-content.active {
     display: grid;
   }
+  /* Hidden on mobile */
+#one {
+  display: none;
+}
+
+/* Show from 640px (sm) and above */
+@media screen and (min-width: 640px) {
+  #one {
+    display: flex;
+  }
+}
+
 </style>
 
 
@@ -56,9 +68,27 @@
     </nav>
 
     {%- paginate collection.products by section.settings.products_per_page -%}
-      <div class="flex flex-col md:flex-row gap-10">
+    <div class="flex flex-col md:flex-row gap-10">
         
-        <aside class="w-full md:w-[280px] flex-shrink-0">
+    <div class="pt-6 sm:hidden">
+        <button class="flex items-center justify-between w-[164px] h-[36px] bg-white text-black border border-gray-300 rounded-lg px-4 font-inter"  id="filterBtn">
+          
+          <span>Filter</span>
+
+          <!-- Filter SVG -->
+          <svg xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              class="w-5 h-5">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M3 4h18M6 12h12M10 20h4"/>
+          </svg>
+
+        </button>
+    </div>
+
+        <aside class="w-full md:w-[280px] flex-shrink-0" id="one">
           <form id="FacetFiltersForm" class="sticky top-10">
             {%- for filter in collection.filters -%}
               <div class="border-b border-gray-100 py-6 first:pt-0">
@@ -67,23 +97,23 @@
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"></path></svg>
                 </div>
 
-                <div class="filter-content">
+                <div class="filter-content" id="filter">
                   {% if filter.label == 'Brand' %}
                     <div class="relative mb-4 mt-2">
-  <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-    <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-    </svg>
-  </div>
+                      <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                        <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                      </div>
   
-  <input 
-    type="text" 
-    id="BrandSearch" 
-    onkeyup="filterBrands()" 
-    placeholder="Search" 
-    class="w-full bg-[#F5F5F5] border-none rounded-[8px] py-3 pl-10 pr-4 text-[14px] placeholder-gray-400 focus:ring-1 focus:ring-black outline-none transition-all"
-  >
-</div>
+                      <input 
+                        type="text" 
+                        id="BrandSearch" 
+                        onkeyup="filterBrands()" 
+                        placeholder="Search" 
+                        class="w-full bg-[#F5F5F5] border-none rounded-[8px] py-3 pl-10 pr-4 text-[14px] placeholder-gray-400 focus:ring-1 focus:ring-black outline-none transition-all"
+                      >
+                    </div>
                   {% endif %}
 
                   <div id="BrandList" class="space-y-3 max-h-[300px] overflow-y-auto custom-scrollbar pr-2">
@@ -103,29 +133,30 @@
           </form>
         </aside>
 
-        <div class="flex-grow">
+        <div class="flex-grow" id="three">
           <div class="flex justify-between items-center mb-8">
             <div class="text-[16px] text-[#A4A4A4]">
               Selected Products: <span class="font-medium text-[20px] text-black">{{ collection.products_count }}</span>
-            </div>
+        </div>
             
-   <div class="flex items-center gap-4">
-  <div class="relative flex items-center">
-    <select onchange="location = this.value;" class="bg-white border border-gray-200 rounded-[8px] py-2 pl-4 pr-10 text-[15px] font-medium focus:ring-1 focus:ring-black appearance-none cursor-pointer w-full">
-      {%- for option in collection.sort_options -%}
-        <option value="{{ collection.url }}?sort_by={{ option.value }}" {% if option.value == collection.sort_by %}selected{% endif %}>
-          {{ option.name }}
-        </option>
-      {%- endfor -%}
-    </select>
-    <span class="absolute right-4 pointer-events-none text-[#000000]">
-      <svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-    </span>
-  </div>
+    <div class="flex items-center gap-4">
+      <div class="relative flex items-center">
+        <select onchange="location = this.value;" class="bg-white border border-gray-200 rounded-[8px] py-2 pl-4 pr-10 text-[15px] font-medium focus:ring-1 focus:ring-black appearance-none cursor-pointer w-full">
+          {%- for option in collection.sort_options -%}
+            <option value="{{ collection.url }}?sort_by={{ option.value }}" {% if option.value == collection.sort_by %}selected{% endif %}>
+              {{ option.name }}
+            </option>
+          {%- endfor -%}
+        </select>
+        <span class="absolute right-4 pointer-events-none text-[#000000]">
+          <svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+      </div>
+
 </div>
-          </div>
+</div>
 
           <ul id="product-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-6">
             {%- for product in collection.products -%}
@@ -144,6 +175,17 @@
     {%- endpaginate -%}
   </div>
 </div>
+<script>
+  document.getElementById("filterBtn").addEventListener("click", function() {
+    const sidebar = document.getElementById("one");
+
+    if (sidebar.style.display === "block") {
+      sidebar.style.display = "none";
+    } else {
+      sidebar.style.display = "block";
+    }
+  });
+</script>
 
 <script>
   function filterBrands() {
