@@ -28,18 +28,25 @@
   </div>
 
   <div class="flex gap-4 overflow-x-auto no-scrollbar snap-x snap-mandatory">
-    {% assign discount_collection = collections[section.settings.discount_collection] %}
-    
-    {% if discount_collection != blank and discount_collection.products_count > 0 %}
-      {% for product in discount_collection.products %}
+  {% assign discount_collection = collections[section.settings.discount_collection] %}
+  
+  {% if discount_collection != blank and discount_collection.products_count > 0 %}
+    {% for product in discount_collection.products %}
+      {% comment %} 
+        w-[calc(50%-8px)] = 2 columns on mobile 
+        lg:w-[calc(25%-12px)] = 4 columns on desktop 
+      {% endcomment %}
+      <div class="flex-none w-[calc(50%-8px)] lg:w-[calc(25%-12px)] snap-start">
         {% render 'product-card-item', card_product: product %}
-      {% endfor %}
-    {% else %}
-      {% for i in (1..4) %}
-        <div class="flex-none w-[calc(50%-8px)] lg:w-[calc(25%-12px)] bg-[#F6F6F6] rounded-[10px] p-6 animate-pulse h-[450px]"></div>
-      {% endfor %}
-    {% endif %}
-  </div>
+      </div>
+    {% endfor %}
+  {% else %}
+    {% comment %} Skeleton Loader matches the same responsive widths {% endcomment %}
+    {% for i in (1..4) %}
+      <div class="flex-none w-[calc(50%-8px)] lg:w-[calc(25%-12px)] bg-[#F6F6F6] rounded-[10px] p-6 animate-pulse h-[450px]"></div>
+    {% endfor %}
+  {% endif %}
+</div>
 </section>
 <style>
  
