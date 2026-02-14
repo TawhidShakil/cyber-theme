@@ -57,19 +57,29 @@
 
     <!-- NAVIGATION MENU -->
     <nav class="font-var[(--font-body)]" id="res-control">
-      <ul class="flex gap-4 lg:gap-8 text-[14px] font-medium text-gray-400">
+      <ul class="flex gap-4 lg:gap-8 text-[16px] font-medium">
         {% for link in section.settings.navigation.links %}
-           {% unless link.title == 'Header' %}
+          {% unless link.title == 'Header' %}
             <li class="relative group">
-                <a href="{{ link.url }}" class="font-medium hover:font-bold hover:text-[var(--color-charcoal)] transition-all whitespace-nowrap
-">
-                {{ link.title }}
-                </a>
-            </li>
-          {% endunless %}
+              <a 
+                href="{{ link.url }}" 
+                class="
+                  font-medium transition-all whitespace-nowrap
+              {% if link.active %}
+                text-black 
+              {% else %}
+                text-gray-400
+              {% endif %}
+            "
+          >
+            {{ link.title }}
+          </a>
+        </li>
+        {% endunless %}
         {% endfor %}
       </ul>
     </nav>
+
 
     <!-- ICONS (Wishlist, Cart, Account) -->
     <div class="flex sm:gap-4 lg:gap-8" id="res-control">
