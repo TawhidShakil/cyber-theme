@@ -3,19 +3,10 @@
 
 <style>
   .font-inter { font-family: 'Inter', sans-serif; }
-</style>
-
-<script src="https://cdn.tailwindcss.com"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-
-<style>
-  .font-inter { font-family: 'Inter', sans-serif; }
-  /* Hides scrollbar for Chrome, Safari and Opera */
   .no-scrollbar::-webkit-scrollbar { display: none; }
-  /* Hides scrollbar for IE, Edge and Firefox */
   .no-scrollbar {
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
 </style>
 
@@ -27,35 +18,28 @@
     </h2>
   </div>
 
-  <div class="mb-8 flex justify-between items-center">
-    <h2 class="text-[24px] font-medium tracking-tight text-black">
-      {{ section.settings.title | default: 'Discounts up to -50%' }}
-    </h2>
-  </div>
-
-  <div class="flex gap-4 overflow-x-auto no-scrollbar snap-x snap-mandatory">
-    {% assign discount_collection = collections[section.settings.discount_collection] %}
+  <div class="flex gap-4 overflow-x-auto no-scrollbar snap-x snap-mandatory pb-4">
+    {%- assign selected_collection = section.settings.discount_collection -%}
     
-    {% if discount_collection != blank and discount_collection.products_count > 0 %}
-      {% for product in discount_collection.products %}
+    {% if selected_collection != blank and selected_collection.products_count > 0 %}
+      {% for product in selected_collection.products limit: 8 %}
         {% render 'product-card-item', product: product %}
       {% endfor %}
     {% else %}
-      {% comment %} Skeleton / Placeholder loader {% endcomment %}
+      {% comment %} 
+        Show empty state (placeholders) if no collection is selected 
+        or if the collection is empty.
+      {% endcomment %}
       {% for i in (1..4) %}
-        <div class="flex-none w-[calc(50%-8px)] lg:w-[calc(25%-12px)] bg-[#F6F6F6] rounded-[10px] p-6 animate-pulse h-[450px]"></div>
+        <div class="flex-none w-[calc(50%-8px)] lg:w-[calc(25%-12px)] bg-[#F6F6F6] rounded-[10px] p-6 animate-pulse h-[400px]">
+           <div class="w-full aspect-square bg-gray-200 rounded-md mb-4"></div>
+           <div class="h-4 bg-gray-200 w-3/4 mb-2"></div>
+           <div class="h-6 bg-gray-200 w-1/2"></div>
+        </div>
       {% endfor %}
     {% endif %}
   </div>
-
-  
 </section>
-
-<style>
- 
-  .scrollbar-hide::-webkit-scrollbar { display: none; }
-  .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
-</style>
 
 {% schema %}
 {
